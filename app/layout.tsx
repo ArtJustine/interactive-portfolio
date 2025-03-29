@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   title: "Interactive Portfolio",
   description:
     "A creative portfolio showcasing video editing, front-end development, UI/UX design, and digital marketing skills",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -33,6 +32,3 @@ export default function RootLayout({
   )
 }
 
-
-
-import './globals.css'

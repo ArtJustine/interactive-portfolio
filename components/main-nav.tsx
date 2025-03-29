@@ -59,7 +59,7 @@ export default function MainNav() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
         <Link href="/" className="text-xl font-bold z-50">
-          YOUR NAME
+          ART GONZALES
         </Link>
         <Button
           variant="ghost"
@@ -83,7 +83,6 @@ export default function MainNav() {
           >
             <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center h-full">
               <motion.nav className="flex flex-col space-y-8 py-8 md:py-0" variants={itemVariants}>
-                <h2 className="text-xl text-gray-400 font-medium mb-4">Navigation</h2>
                 <ul className="space-y-6">
                   {navItems.map((item) => (
                     <motion.li key={item.name} variants={itemVariants}>
