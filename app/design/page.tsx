@@ -22,6 +22,7 @@ export default function DesignPage() {
       description: "Complete user interface design for a fitness tracking mobile application",
       image: "/images/design-project.jpg",
       category: "UI Design",
+      externalUrl: "https://dribbble.com/shots/example1",
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function DesignPage() {
       description: "Modern redesign of an e-commerce platform focusing on user experience",
       image: "/images/design-project2.jpg",
       category: "UX Design",
+      externalUrl: "https://dribbble.com/shots/example2",
     },
     {
       id: 3,
@@ -36,6 +38,7 @@ export default function DesignPage() {
       description: "Comprehensive brand identity including logo, color palette, and guidelines",
       image: "/images/design-project3.jpg",
       category: "Branding",
+      externalUrl: "https://dribbble.com/shots/example3",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ export default function DesignPage() {
       description: "Data visualization dashboard with intuitive controls and clear information hierarchy",
       image: "/images/design-project4.jpg",
       category: "UI Design",
+      externalUrl: "https://dribbble.com/shots/example4",
     },
     {
       id: 5,
@@ -50,6 +54,7 @@ export default function DesignPage() {
       description: "In-depth UX research and user journey mapping for a financial service",
       image: "/images/design-project5.jpg",
       category: "UX Research",
+      externalUrl: "https://dribbble.com/shots/example5",
     },
     {
       id: 6,
@@ -57,6 +62,7 @@ export default function DesignPage() {
       description: "Scalable design system with component library and documentation",
       image: "/images/design-project6.jpg",
       category: "Design Systems",
+      externalUrl: "https://dribbble.com/shots/example6",
     },
   ]
 
