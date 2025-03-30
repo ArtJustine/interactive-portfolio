@@ -22,6 +22,7 @@ export default function MarketingPage() {
       description: "Integrated social media strategy that increased engagement by 200%",
       image: "/images/marketing-project.jpg",
       category: "Social Media",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/1",
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function MarketingPage() {
       description: "Automated email sequence with 45% open rate and 12% conversion",
       image: "/images/marketing-project2.jpg",
       category: "Email Marketing",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/2",
     },
     {
       id: 3,
@@ -36,6 +38,7 @@ export default function MarketingPage() {
       description: "Comprehensive content plan that doubled organic traffic in 6 months",
       image: "/images/marketing-project3.jpg",
       category: "Content Marketing",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/3",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ export default function MarketingPage() {
       description: "Google Ads campaign with 320% ROI and reduced cost per acquisition",
       image: "/images/marketing-project4.jpg",
       category: "Paid Advertising",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/4",
     },
     {
       id: 5,
@@ -50,6 +54,7 @@ export default function MarketingPage() {
       description: "Technical and content SEO that achieved 5 featured snippets and top rankings",
       image: "/images/marketing-project5.jpg",
       category: "SEO",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/5",
     },
     {
       id: 6,
@@ -57,6 +62,7 @@ export default function MarketingPage() {
       description: "Custom reporting solution that unified data from multiple marketing channels",
       image: "/images/marketing-project6.jpg",
       category: "Analytics",
+      externalUrl: "https://linkedin.com/in/yourusername/detail/project/6",
     },
   ]
 
