@@ -22,6 +22,7 @@ export default function FrontendPage() {
       description: "Fully responsive online store with cart functionality and payment integration",
       image: "/images/web-project.jpg",
       category: "React & Next.js",
+      externalUrl: "https://github.com/yourusername/ecommerce-platform",
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function FrontendPage() {
       description: "Interactive admin dashboard with data visualization and real-time updates",
       image: "/images/web-project2.jpg",
       category: "React & TypeScript",
+      externalUrl: "https://github.com/yourusername/saas-dashboard",
     },
     {
       id: 3,
@@ -36,6 +38,7 @@ export default function FrontendPage() {
       description: "Creative portfolio with advanced animations and interactive elements",
       image: "/images/web-project3.jpg",
       category: "Next.js & Framer Motion",
+      externalUrl: "https://github.com/yourusername/portfolio-website",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ export default function FrontendPage() {
       description: "Progressive web app with offline capabilities and native-like experience",
       image: "/images/web-project4.jpg",
       category: "PWA",
+      externalUrl: "https://github.com/yourusername/mobile-web-app",
     },
     {
       id: 5,
@@ -50,6 +54,7 @@ export default function FrontendPage() {
       description: "High-conversion landing page with engaging animations and micro-interactions",
       image: "/images/web-project5.jpg",
       category: "HTML, CSS & JavaScript",
+      externalUrl: "https://github.com/yourusername/interactive-landing",
     },
     {
       id: 6,
@@ -57,6 +62,7 @@ export default function FrontendPage() {
       description: "Interactive 3D product visualization tool with customization options",
       image: "/images/web-project6.jpg",
       category: "Three.js & React",
+      externalUrl: "https://github.com/yourusername/3d-product-configurator",
     },
   ]
 
