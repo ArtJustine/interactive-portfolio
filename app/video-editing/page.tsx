@@ -22,6 +22,7 @@ export default function VideoEditingPage() {
       description: "Emotional storytelling through cinematic visuals for a luxury brand",
       image: "/images/video-project.jpg",
       category: "Commercial",
+      externalUrl: "https://youtube.com/watch?v=example1",
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function VideoEditingPage() {
       description: "Creative direction and editing for an indie artist's music video",
       image: "/images/video-project2.jpg",
       category: "Music Video",
+      externalUrl: "https://youtube.com/watch?v=example2",
     },
     {
       id: 3,
@@ -36,6 +38,7 @@ export default function VideoEditingPage() {
       description: "Compelling visual narrative exploring environmental conservation",
       image: "/images/video-project3.jpg",
       category: "Documentary",
+      externalUrl: "https://youtube.com/watch?v=example3",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ export default function VideoEditingPage() {
       description: "Dynamic product showcase with motion graphics and visual effects",
       image: "/images/video-project4.jpg",
       category: "Commercial",
+      externalUrl: "https://youtube.com/watch?v=example4",
     },
     {
       id: 5,
@@ -50,6 +54,7 @@ export default function VideoEditingPage() {
       description: "Fast-paced editing capturing the energy of a major corporate event",
       image: "/images/video-project5.jpg",
       category: "Event",
+      externalUrl: "https://youtube.com/watch?v=example5",
     },
     {
       id: 6,
@@ -57,6 +62,7 @@ export default function VideoEditingPage() {
       description: "Series of short-form videos optimized for social media engagement",
       image: "/images/video-project6.jpg",
       category: "Social Media",
+      externalUrl: "https://youtube.com/watch?v=example6",
     },
   ]
 
