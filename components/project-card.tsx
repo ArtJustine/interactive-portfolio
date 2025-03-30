@@ -1,10 +1,10 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef } from "react"
 import Image from "next/image"
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { ExternalLink } from "lucide-react"
 
 interface ProjectCardProps {
   title: string
@@ -12,9 +12,10 @@ interface ProjectCardProps {
   image: string
   category: string
   index: number
+  externalUrl: string
 }
 
-export default function ProjectCard({ title, description, image, category, index }: ProjectCardProps) {
+export default function ProjectCard({ title, description, image, category, index, externalUrl }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -52,6 +53,12 @@ export default function ProjectCard({ title, description, image, category, index
     setIsHovered(false)
   }
 
+  const handleClick = () => {
+    if (externalUrl) {
+      window.open(externalUrl, "_blank", "noopener,noreferrer")
+    }
+  }
+
   return (
     <motion.div
       ref={cardRef}
@@ -63,6 +70,7 @@ export default function ProjectCard({ title, description, image, category, index
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       style={{
         rotateX,
         rotateY,
@@ -104,11 +112,12 @@ export default function ProjectCard({ title, description, image, category, index
             {category}
           </motion.span>
           <motion.h3
-            className="text-xl font-bold mb-1"
+            className="text-xl font-bold mb-1 flex items-center gap-2"
             animate={{ y: isHovered ? -5 : 0 }}
             transition={{ duration: 0.3 }}
           >
             {title}
+            {isHovered && <ExternalLink className="h-4 w-4" />}
           </motion.h3>
           <motion.p
             className="text-sm text-gray-300"
