@@ -9,6 +9,7 @@ export interface Project {
   description: string
   image: string
   category: string
+  externalUrl: string
 }
 
 interface ProjectsGridProps {
@@ -33,6 +34,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
               image={project.image}
               category={project.category}
               index={index}
+              externalUrl={project.externalUrl}
             />
           ))}
         </motion.div>
