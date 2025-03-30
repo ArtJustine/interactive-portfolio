@@ -147,12 +147,12 @@ export default function Home() {
                 <p className="flex items-center">
                   <span className="w-24 text-gray-400">Email:</span>
                   <a href="mailto:your.email@example.com" className="hover:text-white transition-colors">
-                    your.email@example.com
+                    artjustine.gonzales@gmail.com
                   </a>
                 </p>
                 <p className="flex items-center">
                   <span className="w-24 text-gray-400">Location:</span>
-                  <span>Your City, Country</span>
+                  <span>Pampanga, Philippines</span>
                 </p>
               </div>
             </div>
