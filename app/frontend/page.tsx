@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import PageHeader from "@/components/page-header"
 import ProjectsGrid from "@/components/projects-grid"
 import type { Project } from "@/components/projects-grid"
+import { FaReact, FaHtml5, FaCss3Alt, FaJs, FaMobileAlt } from "react-icons/fa"
+import { SiNextdotjs } from "react-icons/si"
 
 export default function FrontendPage() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -79,7 +81,15 @@ export default function FrontendPage() {
           title="Web Development"
           subtitle="I develop dynamic, high-quality websites that adapt to any device and deliver seamless user experiences."
         />
-
+        {/* Icons Section */}
+        <div className="flex justify-center space-x-6 mt-6">
+          <FaReact className="text-4xl" title="React" />
+          <SiNextdotjs className="text-4xl" title="Next.js" />
+          <FaMobileAlt className="text-4xl" title="React Native" />
+          <FaHtml5 className="text-4xl text-orange-500" title="HTML5" />
+          <FaCss3Alt className="text-4xl text-blue-500" title="CSS3" />
+          <FaJs className="text-4xl text-yellow-500" title="JavaScript" />
+        </div>
 
         
         <ProjectsGrid projects={frontendProjects} />
