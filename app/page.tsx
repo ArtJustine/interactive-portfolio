@@ -79,7 +79,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="relative z-10 text-center px-6" style={{ y: heroTextY }}>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
             BUILDING BRANDS
             <br />
             ONE PIXEL AT A TIME
