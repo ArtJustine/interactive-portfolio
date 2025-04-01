@@ -47,7 +47,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project4.jpg",
       category: "Commercial",
       externalUrl: "https://youtube.com/watch?v=example4",
-    },
+    },/*
     {
       id: 5,
       title: "Event Highlight Reel",
@@ -63,7 +63,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project6.jpg",
       category: "Social Media",
       externalUrl: "https://youtube.com/watch?v=example6",
-    },
+    },*/
   ]
 
   return (
