@@ -47,7 +47,7 @@ export default function MarketingPage() {
       image: "/images/marketing-project4.jpg",
       category: "Paid Advertising",
       externalUrl: "https://linkedin.com/in/yourusername/detail/project/4",
-    },
+    },/*
     {
       id: 5,
       title: "SEO Optimization",
@@ -63,7 +63,7 @@ export default function MarketingPage() {
       image: "/images/marketing-project6.jpg",
       category: "Analytics",
       externalUrl: "https://linkedin.com/in/yourusername/detail/project/6",
-    },
+    },*/
   ]
 
   return (
