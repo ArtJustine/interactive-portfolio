@@ -87,12 +87,14 @@ export default function Home() {
           <p className="text-lg md:text-xl max-w-md mx-auto text-gray-300 mb-8">
             Crafting digital experiences that captivate and inspire. Elevating your brand through design and innovation.
           </p>
-          <Button
+          <a href="#skills">
+            <Button
             variant="outline"
             className="rounded-full border-white text-white hover:bg-white hover:text-black transition-all"
           >
             Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
-          </Button>
+            </Button>
+          </a>
         </motion.div>
 
         <motion.div className="absolute inset-0 z-0" style={{ scale: heroImageScale }}>
@@ -103,6 +105,7 @@ export default function Home() {
 
       {/* Skills Section */}
       <motion.section
+        id="skills"
         className="relative min-h-screen flex flex-col justify-center px-6 py-20"
         style={{
           y: skillsY,
