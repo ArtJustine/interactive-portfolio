@@ -105,4 +105,15 @@ body {
   background-size: 200% 200%;
   animation: gradientAnimation 4s ease infinite;
 }
+@keyframes gradientBorderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-border {
+  background-size: 200% 200%;
+  animation: gradientBorderAnimation 3s ease infinite;
+}
+
 
