@@ -40,7 +40,7 @@ export default function MainNav() {
   }
 
   const navItems = [
-    { name: "Art Gonzales", href: "/", 
+    { name: "Art Gonzales", href: "/" }, 
     { name: "Video Editing", href: "/video-editing" },
     { name: "Web Development", href: "/frontend" },
     { name: "UI/UX Design", href: "/design" },
