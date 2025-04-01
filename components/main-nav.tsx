@@ -58,18 +58,18 @@ export default function MainNav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold z-50 hidden md:block">
-          ART GONZALES
+        <Link href="/" className="z-50 hidden md:block">
+    <img src="/images/logo.png" alt="Art Gonzales" className="h-8" />
         </Link>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-white z-50 ml-auto"
-          onClick={toggleMenu}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+          <Button
+    variant="ghost"
+    size="icon"
+    className="text-white z-50 ml-auto"
+    onClick={toggleMenu}
+    aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+    {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
       </header>
 
       <AnimatePresence>
