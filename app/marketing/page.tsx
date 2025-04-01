@@ -77,7 +77,7 @@ export default function MarketingPage() {
       <div className="relative z-10 pt-24">
         <PageHeader
           title="Digital Marketing"
-          subtitle="Developing strategic campaigns that connect with audiences and drive measurable results."
+          subtitle="Develop marketing strategies that don’t just sell but create lasting relationships between brands and consumers."
         />
         <ProjectsGrid projects={marketingProjects} />
       </div>
