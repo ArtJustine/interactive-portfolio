@@ -64,7 +64,7 @@ export default function MainNav() {
         <Button
           variant="ghost"
           size="icon"
-          className="text-white z-50"
+          className="text-white z-50 ml-auto"
           onClick={toggleMenu}
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
