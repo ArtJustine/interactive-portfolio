@@ -75,7 +75,7 @@ export default function MainNav() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/95 backdrop-blur-md z-40 flex flex-col justify-center overflow-hidden"
+            className="fixed inset-0 bg-black/95 backdrop-blur-md z-40 flex flex-col justify-center overflow-hidden mt-16 md:mt-0"
             initial="closed"
             animate="open"
             exit="closed"
