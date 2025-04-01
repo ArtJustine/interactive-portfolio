@@ -89,17 +89,18 @@ export default function Home() {
           </p>
           <a href="#skills">
             <Button
-              variant="outline"
-              className="relative rounded-full border-2 border-white text-white transition-all overflow-hidden 
-              hover:text-white hover:bg-transparent"
-              >
-              <span className="relative z-10 flex items-center">
-                Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
-              </span>
-              <span className="absolute inset-0 border-2 border-transparent rounded-full 
+  variant="outline"
+  className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
+             transition-all transform hover:scale-105"
+>
+  <span className="relative z-10 flex items-center">
+    Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
+  </span>
+  <span className="absolute inset-0 border-2 border-transparent rounded-full 
                    bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
                    bg-clip-border animate-border opacity-0 hover:opacity-100"></span>
-            </Button>
+</Button>
+
 
           </a>
         </motion.div>
