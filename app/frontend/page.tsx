@@ -18,35 +18,35 @@ export default function FrontendPage() {
   const frontendProjects: Project[] = [
     {
       id: 1,
-      title: "E-commerce Platform",
+      title: "Tech News Website",
       description: "Fully responsive online store with cart functionality and payment integration",
       image: "/images/web-project.jpg",
       category: "React & Next.js",
-      externalUrl: "https://github.com/yourusername/ecommerce-platform",
+      externalUrl: "https://fewmacslatr-phi.vercel.app/",
     },
     {
       id: 2,
-      title: "SaaS Dashboard",
+      title: "SaaS Order POS",
       description: "Interactive admin dashboard with data visualization and real-time updates",
       image: "/images/web-project2.jpg",
       category: "React & TypeScript",
-      externalUrl: "https://github.com/yourusername/saas-dashboard",
+      externalUrl: "https://order-pos.vercel.app/",
     },
     {
       id: 3,
-      title: "Portfolio Website",
+      title: "Blog Website",
       description: "Creative portfolio with advanced animations and interactive elements",
       image: "/images/web-project3.jpg",
       category: "Next.js & Framer Motion",
-      externalUrl: "https://github.com/yourusername/portfolio-website",
+      externalUrl: "https://youtube-indol-two.vercel.app/",
     },
     {
       id: 4,
-      title: "Mobile Web App",
+      title: "Business Landing Page",
       description: "Progressive web app with offline capabilities and native-like experience",
       image: "/images/web-project4.jpg",
       category: "PWA",
-      externalUrl: "https://github.com/yourusername/mobile-web-app",
+      externalUrl: "https://smarterhomeph.vercel.app/",
     },/*
     {
       id: 5,
