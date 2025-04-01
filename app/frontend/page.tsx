@@ -76,8 +76,8 @@ export default function FrontendPage() {
 
       <div className="relative z-10 pt-24">
         <PageHeader
-          title="Front-end Development"
-          subtitle="Building responsive, interactive websites with modern frameworks and clean, efficient code."
+          title="Web Development"
+          subtitle="I develop dynamic, high-quality websites that adapt to any device and deliver seamless user experiences."
         />
         <ProjectsGrid projects={frontendProjects} />
       </div>
