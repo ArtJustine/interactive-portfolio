@@ -121,5 +121,6 @@ button:hover {
   transition: transform 0.2s ease; /* Smooth transition */
 }
 
-
-
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
