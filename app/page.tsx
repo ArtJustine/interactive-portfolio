@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -68,6 +68,17 @@ export default function Home() {
     },
   ]
 
+  const [email, setEmail] = useState(""); // State to capture the input email
+
+  const handleSendClick = () => {
+    if (email) {
+      const mailtoLink = `mailto:${email}`;
+      window.location.href = mailtoLink; // Open the email client with the user's email
+    } else {
+      alert("Please enter an email address.");
+    }
+  };
+
   return (
     <div ref={containerRef} className="relative min-h-[400vh] bg-black text-white overflow-hidden">
       {/* Background grid */}
@@ -89,20 +100,17 @@ export default function Home() {
           </p>
           <a href="#skills">
             <Button
-  variant="outline"
-  className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
-             transition-all transform hover:scale-105 group"
->
-  <span className="relative z-10 flex items-center group-hover:text-white">
-    Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
-  </span>
-  <span className="absolute inset-0 border-2 border-transparent rounded-full 
-                   bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
-                   bg-clip-border animate-border opacity-0 group-hover:opacity-100"></span>
-</Button>
-
-
-
+              variant="outline"
+              className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
+              transition-all transform hover:scale-105 group"
+            >
+              <span className="relative z-10 flex items-center group-hover:text-white">
+                Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
+              </span>
+              <span className="absolute inset-0 border-2 border-transparent rounded-full 
+                               bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+                               bg-clip-border animate-border opacity-0 group-hover:opacity-100"></span>
+            </Button>
           </a>
         </motion.div>
 
@@ -174,8 +182,10 @@ export default function Home() {
                   type="email"
                   placeholder="Got an idea for a project? Send your e-mail"
                   className="bg-transparent border-gray-700 focus:border-white rounded-r-none"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)} // Update state with the email input
                 />
-                <Button className="rounded-l-none">
+                <Button className="rounded-l-none" onClick={handleSendClick}>
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -189,4 +199,3 @@ export default function Home() {
     </div>
   )
 }
-
