@@ -96,7 +96,6 @@ export default function Home() {
             ONE <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">PIXEL</span> AT A TIME
           </h1>
           <p className="text-lg md:text-xl max-w-md mx-auto text-gray-300 mb-8">
-            (Creative Web & Media Engineer)
             From marketing campaigns to sleek web interfaces, I design, develop, and create digital experiences that make an impact.
           </p>
           <a href="#skills">
