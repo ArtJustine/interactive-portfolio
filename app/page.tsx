@@ -50,7 +50,7 @@ export default function Home() {
       icon: "🎨",
       color: "from-purple-500 to-pink-500",
       link: "/design",
-    },
+    },/*
     {
       title: "Video Editing",
       description:
@@ -65,7 +65,7 @@ export default function Home() {
       icon: "📊",
       color: "from-green-500 to-emerald-500",
       link: "/marketing",
-    },
+    },*/
   ]
 
   const [email, setEmail] = useState(""); // State to capture the input email
