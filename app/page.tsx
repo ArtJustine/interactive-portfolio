@@ -79,10 +79,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="relative z-10 text-center px-6" style={{ y: heroTextY }}>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             BUILDING BRANDS
             <br />
-            ONE PIXEL AT A TIME
+            ONE <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">PIXEL</span> AT A TIME
           </h1>
           <p className="text-lg md:text-xl max-w-md mx-auto text-gray-300 mb-8">
             From marketing campaigns to sleek web interfaces, I design, develop, and create digital experiences that make an impact.
