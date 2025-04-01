@@ -98,7 +98,7 @@ export default function Home() {
         </motion.div>
 
         <motion.div className="absolute inset-0 z-0" style={{ scale: heroImageScale }}>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
           <Image src="/images/heroimage.JPG" alt="Hero Background" fill className="object-cover opacity-40" priority />
         </motion.div>
       </section>
