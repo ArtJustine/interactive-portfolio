@@ -40,7 +40,7 @@ export default function MainNav() {
   }
 
   const navItems = [
-    { name: "Home", href: "/", className: "hidden md:block" }, // Apply hidden on small screens and block on medium and larger screens
+    { name: "Art Gonzales", href: "/", 
     { name: "Video Editing", href: "/video-editing" },
     { name: "Web Development", href: "/frontend" },
     { name: "UI/UX Design", href: "/design" },
