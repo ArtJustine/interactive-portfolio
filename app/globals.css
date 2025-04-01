@@ -116,4 +116,10 @@ body {
   animation: gradientBorderAnimation 3s ease infinite;
 }
 
+button:hover {
+  transform: scale(1.05); /* Slightly scale up the button */
+  transition: transform 0.2s ease; /* Smooth transition */
+}
+
+
 
