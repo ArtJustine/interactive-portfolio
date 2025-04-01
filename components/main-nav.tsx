@@ -58,7 +58,7 @@ export default function MainNav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
-        <Link href="/" className="z-50 hidden md:block">
+        <Link href="/" className="z-50">
     <img src="/images/logo.png" alt="Art Gonzales" className="h-12 md:h-16 transition-transform duration-300 hover:scale-110" />
         </Link>
           <Button
