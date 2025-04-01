@@ -47,7 +47,7 @@ export default function FrontendPage() {
       image: "/images/web-project4.jpg",
       category: "PWA",
       externalUrl: "https://github.com/yourusername/mobile-web-app",
-    },
+    },/*
     {
       id: 5,
       title: "Interactive Landing Page",
@@ -63,7 +63,7 @@ export default function FrontendPage() {
       image: "/images/web-project6.jpg",
       category: "Three.js & React",
       externalUrl: "https://github.com/yourusername/3d-product-configurator",
-    },
+    },*/
   ]
 
   return (
