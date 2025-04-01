@@ -161,7 +161,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <p className="text-xl mb-8">
-                Interested in working together? Let's discuss your project and bring your vision to life.
+                Have a project in mind? Let’s chat and make it happen.
               </p>
               <div className="space-y-4">
                 <p className="flex items-center">
@@ -190,7 +190,7 @@ export default function Home() {
                 </Button>
               </div>
               <p className="text-sm text-gray-400">
-                I'll get back to you as soon as possible. Let's create something amazing together.
+                I’ll reach out ASAP! Looking forward to creating something great with you.
               </p>
             </div>
           </div>
