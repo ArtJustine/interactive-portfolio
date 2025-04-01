@@ -47,7 +47,7 @@ export default function DesignPage() {
       image: "/images/design-project4.jpg",
       category: "UI Design",
       externalUrl: "https://dribbble.com/shots/example4",
-    },
+    },/*
     {
       id: 5,
       title: "User Experience Research",
@@ -63,7 +63,7 @@ export default function DesignPage() {
       image: "/images/design-project6.jpg",
       category: "Design Systems",
       externalUrl: "https://dribbble.com/shots/example6",
-    },
+    },*/
   ]
 
   return (
