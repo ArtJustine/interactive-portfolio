@@ -9,7 +9,7 @@ import MainNav from "@/components/main-nav"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Interactive Portfolio",
+  title: "Art Gonzales",
   description:
     "A creative portfolio showcasing video editing, front-end development, UI/UX design, and digital marketing skills",
 }
