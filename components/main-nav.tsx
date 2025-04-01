@@ -88,7 +88,7 @@ export default function MainNav() {
                     <motion.li key={item.name} variants={itemVariants}>
                       <Link
                         href={item.href}
-                        className={`text-3xl md:text-4xl font-bold hover:text-white transition-colors duration-300 ${item.className}`} // Add the className here
+                        className={`text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent ${item.className}`}
                         onClick={() => setIsOpen(false)}
                       >
                         {item.name}
