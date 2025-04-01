@@ -80,12 +80,12 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="relative z-10 text-center px-6" style={{ y: heroTextY }}>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            CREATIVE
+            BUILDING BRANDS
             <br />
-            PORTFOLIO
+            ONE PIXEL AT A TIME
           </h1>
           <p className="text-lg md:text-xl max-w-md mx-auto text-gray-300 mb-8">
-            Crafting digital experiences that captivate and inspire. Elevating your brand through design and innovation.
+            From marketing campaigns to sleek web interfaces, I design, develop, and create digital experiences that make an impact.
           </p>
           <a href="#skills">
             <Button
