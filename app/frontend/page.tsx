@@ -79,6 +79,17 @@ export default function FrontendPage() {
           title="Web Development"
           subtitle="I develop dynamic, high-quality websites that adapt to any device and deliver seamless user experiences."
         />
+
+                {/* Icons Section */}
+        <div className="flex justify-center space-x-6 mt-6">
+          <FaReact className="text-4xl" title="React" />
+          <SiNextdotjs className="text-4xl" title="Next.js" />
+          <FaMobileAlt className="text-4xl" title="React Native" />
+          <FaHtml5 className="text-4xl" title="HTML5" />
+          <FaCss3Alt className="text-4xl" title="CSS3" />
+          <FaJs className="text-4xl" title="JavaScript" />
+        </div>
+        
         <ProjectsGrid projects={frontendProjects} />
       </div>
     </div>
