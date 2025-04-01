@@ -49,23 +49,7 @@ export default function FrontendPage() {
       image: "/images/web-project4.jpg",
       category: "PWA",
       externalUrl: "https://smarterhomeph.vercel.app/",
-    },/*
-    {
-      id: 5,
-      title: "Interactive Landing Page",
-      description: "High-conversion landing page with engaging animations and micro-interactions",
-      image: "/images/web-project5.jpg",
-      category: "HTML, CSS & JavaScript",
-      externalUrl: "https://github.com/yourusername/interactive-landing",
     },
-    {
-      id: 6,
-      title: "3D Product Configurator",
-      description: "Interactive 3D product visualization tool with customization options",
-      image: "/images/web-project6.jpg",
-      category: "Three.js & React",
-      externalUrl: "https://github.com/yourusername/3d-product-configurator",
-    },*/
   ]
 
   return (
@@ -81,6 +65,7 @@ export default function FrontendPage() {
           title="Web Development"
           subtitle="I develop dynamic, high-quality websites that adapt to any device and deliver seamless user experiences."
         />
+        
         {/* Icons Section */}
         <div className="flex justify-center space-x-6 mt-6">
           <FaReact className="text-4xl" title="React" />
@@ -91,10 +76,8 @@ export default function FrontendPage() {
           <FaJs className="text-4xl text-yellow-500" title="JavaScript" />
         </div>
 
-        
         <ProjectsGrid projects={frontendProjects} />
       </div>
     </div>
   )
 }
-
