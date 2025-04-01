@@ -42,7 +42,7 @@ export default function MainNav() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Video Editing", href: "/video-editing" },
-    { name: "Front-end", href: "/frontend" },
+    { name: "Web Development", href: "/frontend" },
     { name: "UI/UX Design", href: "/design" },
     { name: "Digital Marketing", href: "/marketing" },
     { name: "Contact", href: "/#contact" },
