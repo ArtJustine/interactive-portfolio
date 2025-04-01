@@ -77,7 +77,7 @@ export default function DesignPage() {
       <div className="relative z-10 pt-24">
         <PageHeader
           title="UI/UX Design"
-          subtitle="Crafting intuitive user experiences and visually stunning interfaces that engage and delight."
+          subtitle="By focusing on accessibility and intuitive navigation, I create experiences that users love and trust."
         />
         <ProjectsGrid projects={designProjects} />
       </div>
