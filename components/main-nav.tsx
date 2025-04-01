@@ -49,10 +49,10 @@ export default function MainNav() {
   ]
 
   const socialLinks = [
-    { name: "YouTube", href: "https://youtube.com", icon: <Youtube className="h-5 w-5" /> },
-    { name: "Dribbble", href: "https://dribbble.com", icon: <Dribbble className="h-5 w-5" /> },
-    { name: "GitHub", href: "https://github.com", icon: <Github className="h-5 w-5" /> },
-    { name: "Instagram", href: "https://instagram.com", icon: <Instagram className="h-5 w-5" /> },
+    { name: "YouTube", href: "https://www.youtube.com/@Art_Gonzales", icon: <Youtube className="h-5 w-5" /> },
+    { name: "Dribbble", href: "https://dribbble.com/artgonzales", icon: <Dribbble className="h-5 w-5" /> },
+    { name: "GitHub", href: "https://github.com/ArtJustine", icon: <Github className="h-5 w-5" /> },
+    { name: "Instagram", href: "https://www.instagram.com/letscodewithart/", icon: <Instagram className="h-5 w-5" /> },
   ]
 
   return (
