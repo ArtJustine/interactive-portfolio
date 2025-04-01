@@ -78,7 +78,7 @@ export default function VideoEditingPage() {
       <div className="relative z-10 pt-24">
         <PageHeader
           title="Video Editing"
-          subtitle="Creating compelling visual narratives through expert editing techniques, color grading, and motion graphics."
+          subtitle="CreatingI blend visuals, sound, and motion to create compelling narratives that leave a lasting impression."
         />
         <ProjectsGrid projects={videoProjects} />
       </div>
