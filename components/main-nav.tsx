@@ -58,7 +58,7 @@ export default function MainNav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold z-50">
+        <Link href="/" className="text-xl font-bold z-50 hidden md:block">
           ART GONZALES
         </Link>
         <Button
