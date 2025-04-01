@@ -40,7 +40,7 @@ export default function MainNav() {
   }
 
   const navItems = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/", className: "hidden md:block" }, // Apply hidden on small screens and block on medium and larger screens
     { name: "Video Editing", href: "/video-editing" },
     { name: "Web Development", href: "/frontend" },
     { name: "UI/UX Design", href: "/design" },
@@ -88,7 +88,7 @@ export default function MainNav() {
                     <motion.li key={item.name} variants={itemVariants}>
                       <Link
                         href={item.href}
-                        className="text-3xl md:text-4xl font-bold hover:text-white transition-colors duration-300"
+                        className={`text-3xl md:text-4xl font-bold hover:text-white transition-colors duration-300 ${item.className}`} // Add the className here
                         onClick={() => setIsOpen(false)}
                       >
                         {item.name}
@@ -123,4 +123,3 @@ export default function MainNav() {
     </>
   )
 }
-
