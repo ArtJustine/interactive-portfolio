@@ -38,14 +38,6 @@ export default function Home() {
 
   const skills = [
     {
-      title: "Video Editing",
-      description:
-        "Creating compelling visual narratives through expert editing techniques, color grading, and motion graphics.",
-      icon: "🎬",
-      color: "from-red-500 to-orange-500",
-      link: "/video-editing",
-    },
-    {
       title: "Front-end Development",
       description: "Building responsive, interactive websites with modern frameworks and clean, efficient code.",
       icon: "💻",
@@ -58,6 +50,14 @@ export default function Home() {
       icon: "🎨",
       color: "from-purple-500 to-pink-500",
       link: "/design",
+    },
+    {
+      title: "Video Editing",
+      description:
+        "Creating compelling visual narratives through expert editing techniques, color grading, and motion graphics.",
+      icon: "🎬",
+      color: "from-red-500 to-orange-500",
+      link: "/video-editing",
     },
     {
       title: "Digital Marketing",
