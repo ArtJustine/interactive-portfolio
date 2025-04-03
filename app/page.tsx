@@ -21,31 +21,95 @@ export default function Home() {
     stiffness: 100,
   })
 
-  // Mouse tracking state
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  // Parallax effect for hero section
+  const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, -100])
+  const heroImageScale = useTransform(smoothProgress, [0, 0.2], [1, 1.1])
 
+  // Background grid opacity based on scroll
+  const gridOpacity = useTransform(smoothProgress, [0, 0.3, 0.6, 1], [0.3, 0.15, 0.1, 0.05])
+
+  // Skills section animation
+  const skillsY = useTransform(smoothProgress, [0.2, 0.4], [100, 0])
+  const skillsOpacity = useTransform(smoothProgress, [0.2, 0.3], [0, 1])
+
+  // Contact section animation
+  const contactY = useTransform(smoothProgress, [0.6, 0.8], [100, 0])
+  const contactOpacity = useTransform(smoothProgress, [0.6, 0.7], [0, 1])
+
+  const skills = [
+    {
+      title: "Front-end Development",
+      description: "Building responsive, interactive websites with modern frameworks and clean, efficient code.",
+      icon: "💻",
+      color: "from-blue-500 to-cyan-500",
+      link: "/frontend",
+    },
+    {
+      title: "UI/UX Design",
+      description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
+      icon: "🎨",
+      color: "from-purple-500 to-pink-500",
+      link: "/design",
+    },/*
+    {
+      title: "Video Editing",
+      description:
+        "Creating compelling visual narratives through expert editing techniques, color grading, and motion graphics.",
+      icon: "🎬",
+      color: "from-red-500 to-orange-500",
+      link: "/video-editing",
+    },
+    {
+      title: "Digital Marketing",
+      description: "Developing strategic campaigns that connect with audiences and drive measurable results.",
+      icon: "📊",
+      color: "from-green-500 to-emerald-500",
+      link: "/marketing",
+    },*/
+  ]
+
+  const [email, setEmail] = useState(""); // State to capture the input email
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Track mouse position
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
     };
-    window.addEventListener("mousemove", updateMousePosition);
-    return () => window.removeEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
+
+  // Mouse-based parallax effect for the hero image
+  const heroImageX = useTransform(mousePosition.x, [0, window.innerWidth], [-50, 50]);
+  const heroImageY = useTransform(mousePosition.y, [0, window.innerHeight], [-50, 50]);
+
+  const handleSendClick = () => {
+    if (email) {
+      const mailtoLink = `mailto:${email}`;
+      window.location.href = mailtoLink; // Open the email client with the user's email
+    } else {
+      alert("Please enter an email address.");
+    }
+  };
 
   return (
     <div ref={containerRef} className="relative min-h-[400vh] bg-black text-white overflow-hidden">
-      {/* Mouse hover light effect */}
-      <motion.div
-        className="fixed inset-0 pointer-events-none z-10"
-        style={{
-          background: `radial-gradient(circle 150px at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.1), transparent 70%)`,
-          transition: "background 0.1s linear",
-        }}
-      />
+      {/* Background grid */}
+      <motion.div className="fixed inset-0 w-full h-full z-0 pointer-events-none" style={{ opacity: gridOpacity }}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[length:40px_40px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(255,255,255,0.1)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[size:40px_40px]"></div>
+      </motion.div>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-opacity-90">
-        <motion.div className="relative z-20 text-center px-6">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <motion.div className="relative z-10 text-center px-6" style={{ y: heroTextY }}>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             BUILDING BRANDS
             <br />
@@ -55,18 +119,28 @@ export default function Home() {
             From marketing campaigns to sleek web interfaces, I design, develop, and create digital experiences that make an impact.
           </p>
           <a href="#skills">
-            <Button variant="outline" className="rounded-full border-2 border-white text-white hover:bg-transparent transition-all transform hover:scale-105">
-              Explore My Work
-              <ArrowDown className="ml-2 h-4 w-4" />
+            <Button
+              variant="outline"
+              className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
+              transition-all transform hover:scale-105 group"
+            >
+              <span className="relative z-10 flex items-center group-hover:text-white">
+                Explore My Work <span className="ml-2 transition-transform duration-300 transform rotate-180 group-hover:rotate-0">
+                  <ArrowDown className="h-4 w-4" />
+                </span>
+              </span>
+              <span className="absolute inset-0 border-2 border-transparent rounded-full 
+                   bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+                   bg-clip-border animate-border opacity-0 group-hover:opacity-100"></span>
             </Button>
           </a>
         </motion.div>
+
+        <motion.div className="absolute inset-0 z-0" style={{ x: heroImageX, y: heroImageY }}>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
+          <Image src="/images/heroimage.JPG" alt="Hero Background" fill className="object-cover opacity-40" priority />
+        </motion.div>
       </section>
-
-      {/* Other Sections (Skills, Contact, etc.) */}
-      {/* ... Rest of your sections remain unchanged ... */}
-      
-
 
       {/* Skills Section */}
       <motion.section
