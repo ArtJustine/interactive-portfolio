@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -20,6 +20,9 @@ export default function Home() {
     damping: 20,
     stiffness: 100,
   })
+
+  // Ensure that we only run hooks related to motion after the component is mounted
+  if (typeof window === "undefined") return null;
 
   // Parallax effect for hero section
   const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, -100])
@@ -50,45 +53,10 @@ export default function Home() {
       icon: "🎨",
       color: "from-purple-500 to-pink-500",
       link: "/design",
-    },/*
-    {
-      title: "Video Editing",
-      description:
-        "Creating compelling visual narratives through expert editing techniques, color grading, and motion graphics.",
-      icon: "🎬",
-      color: "from-red-500 to-orange-500",
-      link: "/video-editing",
     },
-    {
-      title: "Digital Marketing",
-      description: "Developing strategic campaigns that connect with audiences and drive measurable results.",
-      icon: "📊",
-      color: "from-green-500 to-emerald-500",
-      link: "/marketing",
-    },*/
   ]
 
   const [email, setEmail] = useState(""); // State to capture the input email
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Track mouse position
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  // Mouse-based parallax effect for the hero image
-  const heroImageX = useTransform(mousePosition.x, [0, window.innerWidth], [-50, 50]);
-  const heroImageY = useTransform(mousePosition.y, [0, window.innerHeight], [-50, 50]);
 
   const handleSendClick = () => {
     if (email) {
@@ -136,7 +104,7 @@ export default function Home() {
           </a>
         </motion.div>
 
-        <motion.div className="absolute inset-0 z-0" style={{ x: heroImageX, y: heroImageY }}>
+        <motion.div className="absolute inset-0 z-0" style={{ scale: heroImageScale }}>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
           <Image src="/images/heroimage.JPG" alt="Hero Background" fill className="object-cover opacity-40" priority />
         </motion.div>
