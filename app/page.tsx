@@ -109,6 +109,9 @@ export default function Home() {
                   <ArrowDown className="h-4 w-4" />
                 </span>
               </span>
+              <span className="absolute inset-0 border-2 border-transparent rounded-full 
+                   bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+                   bg-clip-border animate-border opacity-0 group-hover:opacity-100"></span>
             </Button>
           </a>
         </motion.div>
