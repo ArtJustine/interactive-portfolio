@@ -105,11 +105,10 @@ export default function Home() {
               transition-all transform hover:scale-105 group"
             >
               <span className="relative z-10 flex items-center group-hover:text-white">
-                Explore My Work <ArrowDown className="ml-2 h-4 w-4" />
+                Explore My Work <span className="ml-2 transition-transform duration-300 transform rotate-180 group-hover:rotate-0">
+                  <ArrowDown className="h-4 w-4" />
+                </span>
               </span>
-              <span className="absolute inset-0 border-2 border-transparent rounded-full 
-                               bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
-                               bg-clip-border animate-border opacity-0 group-hover:opacity-100"></span>
             </Button>
           </a>
         </motion.div>
