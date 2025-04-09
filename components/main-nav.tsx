@@ -3,8 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Youtube, Github, Instagram, Dribbble } from "lucide-react"
+import { Menu, X, Youtube, Github, Instagram, Dribbble } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import CircularTextButton from "@/components/circular-text-button"
 
 export default function MainNav() {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,11 +41,11 @@ export default function MainNav() {
   }
 
   const navItems = [
-    { name: "Home", href: "/", className: "hidden md:block" }, 
+    { name: "Home", href: "/", className: "hidden md:block" },
     { name: "UI/UX Design", href: "/design" },
-    { name: "Web Development", href: "/frontend" },/*
+    { name: "Web Development", href: "/frontend" } /*
     { name: "Video Editing", href: "/video-editing" },
-    { name: "Digital Marketing", href: "/marketing" },*/
+    { name: "Digital Marketing", href: "/marketing" },*/,
     { name: "Contact", href: "/#contact" },
   ]
 
@@ -58,18 +59,27 @@ export default function MainNav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
-        <Link href="/" className="z-50">
-    <img src="/images/logo.png" alt="Art Gonzales" className="h-12 md:h-16 transition-transform duration-300 hover:scale-110" />
-        </Link>
-          <Button
-    variant="ghost"
-    size="icon"
-    className="text-white z-50 ml-auto"
-    onClick={toggleMenu}
-    aria-label={isOpen ? "Close menu" : "Open menu"}
-          >
-    {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+        <div className="z-50">
+          <CircularTextButton
+            text="ART GONZALES  • ART GONZALES •"
+            imageSrc="/images/logo.png"
+            imageAlt="Art Gonzales"
+            href="/"
+            imageSize={80}
+            textSize="text-xs"
+            textColor="text-white"
+            textOpacity={0.8}
+          />
+        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-white z-50 ml-auto"
+          onClick={toggleMenu}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </Button>
       </header>
 
       <AnimatePresence>

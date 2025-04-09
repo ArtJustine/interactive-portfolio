@@ -43,4 +43,3 @@ export default function SkillSection({ title, description, icon, colorClass, del
     </motion.div>
   )
 }
-
