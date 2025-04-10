@@ -1,7 +1,8 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef, useEffect, useState } from "react"
+import { motion, useScroll, useTransform, useInView } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 interface TimelineItem {
   date: string
@@ -11,113 +12,80 @@ interface TimelineItem {
   color?: string
 }
 
-interface PlaygroundTimelineProps {
+interface HorizontalTimelineProps {
   items: TimelineItem[]
   className?: string
-  titleInView?: boolean // Add support for the titleInView prop
 }
 
-export default function PlaygroundTimeline({ items, className, titleInView }: PlaygroundTimelineProps) {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
+export default function HorizontalTimeline({ items, className }: HorizontalTimelineProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef, { amount: 0.2, once: true })
+  const [hasBeenVisible, setHasBeenVisible] = useState(false)
 
   useEffect(() => {
-    // Debounced resize handler
-    let resizeTimeout: NodeJS.Timeout
-    const checkMobile = () => {
-      clearTimeout(resizeTimeout)
-      resizeTimeout = setTimeout(() => {
-        if (typeof window !== "undefined") {
-          setIsMobile(window.innerWidth < 768)
-        }
-      }, 100)
+    if (isInView) {
+      setHasBeenVisible(true)
     }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => {
-      clearTimeout(resizeTimeout)
-      window.removeEventListener("resize", checkMobile)
-    }
-  }, [])
+  }, [isInView])
 
-  // Determine how many items are visible (affects scroll end point)
-  const visibleItems = isMobile ? 1 : 2
-
-  // Calculate how many items need to scroll past
-  const totalItemsToScrollPast = Math.max(0, items.length - visibleItems)
-
-  // Minimal scroll factor to reduce empty space
-  const scrollSpeedFactor = 300
-
-  // Very minimal height calculation - just enough for the animation with no extra space
-  // The 100vh ensures we have exactly one viewport height, plus a small amount per card
-  const calculatedSectionHeight = `calc(100vh + ${totalItemsToScrollPast * scrollSpeedFactor}px)`
-
-  // Track scroll progress within the section
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
+    target: containerRef,
+    offset: ["start end", "end start"]
   })
 
-  // Transform scroll progress to horizontal translation
   const translateX = useTransform(
     scrollYProgress,
-    [0, 0.95], // Complete animation slightly before the end for smoother transition
-    ["0%", `-${totalItemsToScrollPast * 100}%`],
+    [0, 1],
+    ["0%", `-${(items.length - 1) * 100}%`]
   )
 
   return (
-    <section
-      ref={sectionRef}
-      className={`relative ${className || ""}`}
-      style={{
-        height: calculatedSectionHeight,
-        willChange: "transform",
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      {/* Sticky container ensures vertical positioning */}
-      <div
-        className="sticky h-screen flex items-center overflow-hidden"
-        // Adjust top position based on whether the title is in view
-        style={{ top: titleInView ? "120px" : "0px" }}
+    <div ref={containerRef} className={cn("relative w-full py-20", className)}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: hasBeenVisible ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-4xl mx-auto px-6 mb-12"
       >
-        {/* Motion div handles the horizontal movement */}
+        <h3 className="text-2xl md:text-3xl font-bold mb-4">Career Highlights</h3>
+        <p className="text-gray-300">
+          Scroll down to explore my professional journey through the years. Each stage represents growth, learning,
+          and new challenges.
+        </p>
+      </motion.div>
+
+      <div className="relative h-[100vh] overflow-hidden">
         <motion.div
-          className="flex flex-row items-center pl-[5vw]"
-          style={{
-            x: translateX,
-            willChange: "transform",
-          }}
+          ref={trackRef}
+          className="flex h-full will-change-transform"
+          style={{ translateX }}
         >
           {items.map((item, index) => (
-            // Card wrapper controls spacing and prevents shrinking
             <div
               key={index}
-              className="w-[90vw] md:w-[45vw] lg:w-[40vw] flex-shrink-0 mr-[5vw] flex items-center justify-center"
+              className="min-w-full h-full flex items-center justify-center px-6"
             >
-              {/* Card Content */}
-              <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-6 md:p-8 rounded-lg border border-gray-800 w-full shadow-xl min-h-[300px]">
-                {/* Date Badge */}
-                <div
-                  className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-3 md:mb-4 ${
-                    item.color || "bg-purple-600 bg-opacity-30 text-purple-300"
-                  }`}
-                >
-                  {item.date}
+              <div className="max-w-3xl bg-gray-900 bg-opacity-50 backdrop-blur-sm p-6 rounded-lg border border-gray-800">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+                  <span
+                    className={`text-base md:text-xl font-bold px-4 py-2 rounded-full ${
+                      item.color || "bg-purple-500 bg-opacity-20 text-purple-300"
+                    }`}
+                  >
+                    {item.date}
+                  </span>
+                  <div>
+                    <h4 className="text-2xl font-bold">{item.title}</h4>
+                    <p className="text-gray-400">{item.company}</p>
+                  </div>
                 </div>
-                {/* Title */}
-                <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2">{item.title}</h3>
-                {/* Company */}
-                <p className="text-base md:text-lg text-gray-400 mb-3 md:mb-4">{item.company}</p>
-                {/* Description */}
-                <p className="text-sm md:text-base text-gray-300 leading-relaxed">{item.description}</p>
+                <p className="text-gray-300">{item.description}</p>
               </div>
             </div>
           ))}
         </motion.div>
       </div>
-    </section>
+    </div>
   )
 }
