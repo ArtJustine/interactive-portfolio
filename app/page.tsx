@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -10,8 +10,35 @@ import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
 
+
+
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const timelineSectionRef = useRef<HTMLDivElement>(null)
+  const timelineTitleRef = useRef<HTMLDivElement>(null)
+  const [isTitleAtTop, setIsTitleAtTop] = useState(false)
+  const [isInTimelineSection, setIsInTimelineSection] = useState(false)
+
+  // Check if the timeline title is at the top of the viewport and if we're in the timeline section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (timelineTitleRef.current && timelineSectionRef.current) {
+        const titleRect = timelineTitleRef.current.getBoundingClientRect()
+        const sectionRect = timelineSectionRef.current.getBoundingClientRect()
+
+        // Check if we're in the timeline section
+        const inSection = sectionRect.top <= 0 && sectionRect.bottom >= 0
+        setIsInTimelineSection(inSection)
+
+        // Only set title at top if we're in the section and the title has reached the top
+        setIsTitleAtTop(inSection && titleRect.top <= 0)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -122,6 +149,8 @@ export default function Home() {
     },
   ]
 
+  
+
   const [email, setEmail] = useState("") // State to capture the input email
 
   const handleSendClick = () => {
@@ -203,7 +232,7 @@ export default function Home() {
                   description={skill.description}
                   icon={skill.icon}
                   colorClass={skill.color}
-                  delay={index * 0.2}
+                  delay={index * 0.1}
                 />
               </Link>
             ))}
@@ -212,21 +241,42 @@ export default function Home() {
       </motion.section>
 
       {/* Timeline Section */}
-      <section id="timeline" className="relative z-10">
-        <div className="pt-20 pb-10 px-6">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 max-w-6xl mx-auto">MY JOURNEY</h2>
-          <p className="text-base sm:text-lg text-gray-300 max-w-6xl mx-auto mb-12">
-            From junior designer to leading creative teams, my career has been defined by a passion for creating
-            exceptional digital experiences that solve real problems.
-          </p>
+      <section id="timeline" className="relative z-10" ref={timelineSectionRef}>
+        {/* Title that will stick to the top only when in the timeline section */}
+        <div
+          ref={timelineTitleRef}
+          className={`${isTitleAtTop ? "fixed top-0 left-0 right-0" : ""} pt-6 pb-4 bg-black z-30`}
+        >
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2">MY JOURNEY</h2>
+            <p className="text-base sm:text-lg text-gray-300">
+              From junior designer to leading creative teams, my career has been defined by a passion for creating
+              exceptional digital experiences that solve real problems.
+            </p>
+          </div>
         </div>
-        <PlaygroundTimeline items={timelineItems} />
+
+        {/* Spacer to prevent content jump when title becomes fixed */}
+        {isTitleAtTop && <div className="h-[120px]"></div>}
+
+        {/* Career highlights section with horizontal scrolling cards */}
+        <div className="sticky top-[120px] pt-6 pb-4 bg-black z-20">
+          <div className="max-w-4xl mx-auto px-6">
+            <h3 className="text-2xl md:text-3xl font-bold mb-2">Career Highlights</h3>
+            <p className="text-gray-300">
+              Scroll down to explore my professional journey through the years. Each stage represents growth, learning,
+              and new challenges.
+            </p>
+          </div>
+        </div>
+
+        <PlaygroundTimeline items={timelineItems} titleInView={isTitleAtTop} />
       </section>
 
       {/* Contact Section */}
       <motion.section
         id="contact"
-        className="relative min-h-screen flex flex-col justify-center px-6 py-20 mt-[50vh]"
+        className="relative min-h-screen flex flex-col justify-center px-6 py-20 mt-[20vh]"
         style={{
           y: contactY,
           opacity: contactOpacity,

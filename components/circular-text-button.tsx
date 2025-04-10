@@ -31,25 +31,48 @@ export default function CircularTextButton({
   textOpacity = 0.8,
 }: CircularTextButtonProps) {
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
+
+    // Check if we're on mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Initial check
+    checkMobile()
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
   if (!isMounted) return null
+
+  // Adjust sizes for mobile - make even smaller (60% of original)
+  const mobileImageSize = isMobile ? Math.floor(imageSize * 0.6) : imageSize
+  const mobileTextSize = isMobile ? "text-[10px]" : textSize
+  const paddingSize = isMobile ? 20 : 30
 
   return (
     <Link href={href} className={cn("relative block hover-spin-reverse", className)}>
       <div
         className="relative flex items-center justify-center"
-        style={{ width: `${imageSize + 40}px`, height: `${imageSize + 40}px` }}
+        style={{
+          width: `${mobileImageSize + paddingSize}px`,
+          height: `${mobileImageSize + paddingSize}px`,
+        }}
       >
         {/* Rotating ring with text */}
         <div
           className={`absolute inset-0 rounded-full circular-text-container flex items-center justify-center`}
           style={{
-            width: `${imageSize + 40}px`,
-            height: `${imageSize + 40}px`,
+            width: `${mobileImageSize + paddingSize}px`,
+            height: `${mobileImageSize + paddingSize}px`,
             opacity: textOpacity,
           }}
         >
@@ -57,7 +80,7 @@ export default function CircularTextButton({
             <defs>
               <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
             </defs>
-            <text fill="white" className={`${textSize} font-medium`}>
+            <text fill="white" className={`${mobileTextSize} font-medium`}>
               <textPath xlinkHref="#circle" startOffset="0%" className="tracking-wider fill-white">
                 {text}
               </textPath>
@@ -70,8 +93,8 @@ export default function CircularTextButton({
           <Image
             src={imageSrc || "/placeholder.svg"}
             alt={imageAlt}
-            width={imageSize}
-            height={imageSize}
+            width={mobileImageSize}
+            height={mobileImageSize}
             className="rounded-full object-cover"
           />
         </div>

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Youtube, Github, Instagram, Dribbble } from 'lucide-react'
+import { Menu, X, Youtube, Github, Instagram, Dribbble } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import CircularTextButton from "@/components/circular-text-button"
 
@@ -58,10 +58,10 @@ export default function MainNav() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center">
+      <header className="fixed top-0 left-0 right-0 z-50 p-3 md:p-6 flex justify-between items-center">
         <div className="z-50">
           <CircularTextButton
-            text="ART GONZALES  • ART GONZALES •"
+            text="ART GONZALES • FREELANCER • DEVELOPER • DESIGNER • "
             imageSrc="/images/logo.png"
             imageAlt="Art Gonzales"
             href="/"
