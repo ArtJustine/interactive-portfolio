@@ -20,7 +20,7 @@ interface HorizontalTimelineProps {
 export default function HorizontalTimeline({ items, className }: HorizontalTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
   const [hasBeenVisible, setHasBeenVisible] = useState(false)
 
   useEffect(() => {
@@ -34,18 +34,17 @@ export default function HorizontalTimeline({ items, className }: HorizontalTimel
     offset: ["start end", "end start"],
   })
 
-  // Transform the vertical scroll into horizontal movement with a slower, more controlled pace
   const translateX = useTransform(
     scrollYProgress,
-    [0.1, 0.9], // Start horizontal scroll after 10% of vertical scroll, end at 90%
-    ["0%", `-${(items.length - 1) * 85}%`], // Reduced from 100% to 85% to slow down the movement
+    [0.1, 0.9],
+    ["0%", `-${(items.length - 1) * 85}%`]
   )
 
   return (
     <div ref={sectionRef} className={cn("relative", className)}>
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: isInView ? 1 : 0 }}
+        animate={{ opacity: hasBeenVisible ? 1 : 0 }}
         transition={{ duration: 0.8 }}
         className="mb-12"
       >
@@ -60,14 +59,14 @@ export default function HorizontalTimeline({ items, className }: HorizontalTimel
 
       <div ref={containerRef} className="relative h-[80vh] overflow-hidden">
         <motion.div
-          className="absolute top-0 left-0 h-full flex items-center"
+          className="absolute top-0 left-0 h-full flex items-center will-change-transform"
           style={{ translateX }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hasBeenVisible ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
         >
           {items.map((item, index) => (
-            <div key={index} className="w-screen h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24">
+            <div
+              key={index}
+              className="w-screen h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24"
+            >
               <div className="max-w-4xl mx-auto bg-gray-900 bg-opacity-50 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-lg border border-gray-800">
                 <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 mb-4 md:mb-6">
                   <div
