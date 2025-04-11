@@ -24,14 +24,17 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
   const isMobile = useIsMobile()
   const [isInView, setIsInView] = useState(false)
 
+  // Reverse the items array to show oldest first (Junior Web Designer first)
+  const orderedItems = [...items].reverse()
+
   // Determine how many items are visible
   const visibleItems = isMobile ? 1 : 2
 
   // Calculate how many items need to scroll past
-  const totalItemsToScrollPast = Math.max(0, items.length - visibleItems)
+  const totalItemsToScrollPast = Math.max(0, orderedItems.length - visibleItems)
 
   // Scroll factor to control the scroll distance - reduced to minimize empty space
-  const scrollSpeedFactor = 250
+  const scrollSpeedFactor = 200
 
   // Calculate section height - enough for the animation with no extra space
   const calculatedSectionHeight = `calc(100vh + ${totalItemsToScrollPast * scrollSpeedFactor}px)`
@@ -49,26 +52,28 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
     return Math.max(0, (value - 0.2) / 0.8)
   })
 
-  // Vertical movement: Start from bottom of screen, move to center
+  // Vertical movement: Start from a position that ensures the first card is visible on mobile
+  const initialYPosition = isMobile ? "50vh" : "100vh"
   const translateY = useTransform(
     scrollYProgress,
     [0, 0.2], // First 20% of scroll is vertical movement
-    ["100vh", "0vh"], // Start from bottom of viewport, move to center
+    [initialYPosition, "0vh"], // Adjusted starting position for mobile
   )
 
   // Calculate the exact distance needed to scroll through all cards
   // Card width + margin in vw units
-  const cardWidthWithMargin = isMobile ? 95 : 50 // 90vw + 5vw margin on mobile, 45vw + 5vw margin on desktop
+  const cardWidthWithMargin = isMobile ? 90 : 50 // 85vw + 5vw margin on mobile, 45vw + 5vw margin on desktop
 
   // Calculate the total scroll distance needed to show all cards
   // Subtract visible cards (1 or 2) and multiply by card width+margin
-  const totalScrollDistance = (items.length - visibleItems) * cardWidthWithMargin
+  // Add a small buffer to ensure the last card is fully visible
+  const totalScrollDistance = (orderedItems.length - visibleItems) * cardWidthWithMargin
 
   // Horizontal movement: Only start after cards are centered
   // Start with the first card visible, then scroll to show all cards
   const translateX = useTransform(
     delayedScrollProgress,
-    [0, 1], // Use the full delayed progress for horizontal movement
+    [0, 0.9], // Use 90% of the delayed progress for horizontal movement to reduce empty space
     ["0vw", `-${totalScrollDistance}vw`], // Start at 0, scroll exactly the distance needed
   )
 
@@ -96,7 +101,7 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
   }, [titleInView])
 
   // Calculate top position for fixed container
-  const topPosition = titleInView ? "120px" : "0px"
+  const topPosition = titleInView ? (isMobile ? "80px" : "120px") : "0px"
 
   return (
     <section
@@ -139,18 +144,18 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
               stiffness: 100,
             }}
           >
-            {/* Render items in reverse order to show oldest first */}
-            {[...items].map((item, index) => (
+            {/* Render items in chronological order (oldest first) */}
+            {orderedItems.map((item, index) => (
               <div
                 key={index}
-                className="w-[90vw] md:w-[45vw] lg:w-[40vw] flex-shrink-0 mr-[5vw] flex items-center justify-center"
+                className="w-[85vw] md:w-[45vw] lg:w-[40vw] flex-shrink-0 mr-[5vw] flex items-center justify-center"
                 style={{
                   willChange: "transform",
                   transform: "translateZ(0)", // Force GPU acceleration
                 }}
               >
                 {/* Card Content */}
-                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-6 md:p-8 rounded-lg border border-gray-800 w-full shadow-xl min-h-[300px]">
+                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-8 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[300px]">
                   {/* Date Badge */}
                   <div
                     className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-3 md:mb-4 ${
