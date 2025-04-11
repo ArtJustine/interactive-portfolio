@@ -39,7 +39,7 @@ export default function DesignPage() {
       image: "/images/schoollandingpage.png",
       category: "Branding",
       externalUrl: "https://dribbble.com/shots/25847576-Clark-Air-Base-School",
-    },
+    },/*
     {
       id: 4,
       title: "Dashboard Interface",
@@ -79,6 +79,14 @@ export default function DesignPage() {
           title="UI/UX Design"
           subtitle="By focusing on accessibility and intuitive navigation, I create experiences that users love and trust."
         />
+        {/* Icon row */}
+        <div className="flex flex-wrap items-center justify-center gap-6 py-8">
+          <img src="images/icons8-figma (2).svg" alt="Figma" className="h-10 w-10" />
+          <img src="images/icons8-photoshop.svg" alt="Adobe Photoshop" className="h-10 w-10" />
+          <img src="images/icons8-illustrator.svg" alt="Adobe Illustrator" className="h-10 w-10" />
+          <img src="images/icons8-behance.svg" alt="Dribbble" className="h-10 w-10" />
+        </div>
+
         <ProjectsGrid projects={designProjects} />
       </div>
     </div>

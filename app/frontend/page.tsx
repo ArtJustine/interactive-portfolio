@@ -44,7 +44,7 @@ export default function FrontendPage() {
       id: 4,
       title: "Business Landing Page",
       description: "Progressive web app with offline capabilities and native-like experience",
-      image: "/images/web-project4.jpg",
+      image: "/images/businesslanding.png",
       category: "PWA",
       externalUrl: "https://smarterhomeph.vercel.app/",
     },/*
@@ -79,6 +79,13 @@ export default function FrontendPage() {
           title="Web Development"
           subtitle="I develop dynamic, high-quality websites that adapt to any device and deliver seamless user experiences."
         />
+        {/* Icon row */}
+        <div className="flex flex-wrap items-center justify-center gap-6 py-8">
+          <img src="/images/icons8-nextjs.svg" alt="NextJS" className="h-10 w-10" />
+          <img src="/images/icons8-typescript.svg" alt="TypeScript" className="h-10 w-10" />
+          <img src="/images/icons8-tailwind-css.svg" alt="TailwingCSS" className="h-10 w-10" />
+          <img src="/images/icons8-javascript.svg" alt="JavaScript" className="h-10 w-10" />
+        </div>
 
 
         
