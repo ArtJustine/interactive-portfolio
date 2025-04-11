@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
-import { useIsMobile } from "@/hooks/useIsMobile" // Use the hook you provided
+import { useIsMobile } from "@/hooks/use-mobile" // Use the hook you provided
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
