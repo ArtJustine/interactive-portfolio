@@ -21,88 +21,70 @@ interface PlaygroundTimelineProps {
 export default function PlaygroundTimeline({ items, className, titleInView }: PlaygroundTimelineProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const footerSensorRef = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
   const [isInView, setIsInView] = useState(false)
-
-  // Reverse the items array to show oldest first (Junior Web Designer first)
-  const orderedItems = [...items].reverse()
-
-  // Determine how many items are visible
-  const visibleItems = isMobile ? 1 : 2
-
-  // Calculate how many items need to scroll past
-  const totalItemsToScrollPast = Math.max(0, orderedItems.length - visibleItems)
-
-  // Scroll factor to control the scroll distance - reduced to minimize empty space
-  const scrollSpeedFactor = 200
-
-  // Calculate section height - enough for the animation with no extra space
-  const calculatedSectionHeight = `calc(100vh + ${totalItemsToScrollPast * scrollSpeedFactor}px)`
-
-  // Track scroll progress within the section
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isFooterVisible, setIsFooterVisible] = useState(false)
+  
+  // Keep all items in the original order from newest to oldest
+  const timelineItems = [...items]
+  
+  // Calculate total section height based on items
+  const itemHeight = 300 // pixels per item
+  const totalHeight = itemHeight * timelineItems.length
+  
+  // Calculate how much space we need for scrolling - reduced height to minimize empty space
+  const calculatedSectionHeight = `${totalHeight + (window.innerHeight * 0.3)}px`
+  
+  // Track scroll progress
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   })
-
-  // Create a derived scroll progress that only starts after the title is in view
-  // and has a delay before starting horizontal movement
-  const delayedScrollProgress = useTransform(scrollYProgress, (value) => {
-    // Only start scrolling horizontally after the cards are centered (20% of scroll)
-    return Math.max(0, (value - 0.2) / 0.8)
-  })
-
-  // Vertical movement: Start from a position that ensures the first card is visible on mobile
-  const initialYPosition = isMobile ? "50vh" : "100vh"
-  const translateY = useTransform(
-    scrollYProgress,
-    [0, 0.2], // First 20% of scroll is vertical movement
-    [initialYPosition, "0vh"], // Adjusted starting position for mobile
-  )
-
-  // Calculate the exact distance needed to scroll through all cards
-  // Card width + margin in vw units
-  const cardWidthWithMargin = isMobile ? 90 : 50 // 85vw + 5vw margin on mobile, 45vw + 5vw margin on desktop
-
-  // Calculate the total scroll distance needed to show all cards
-  // Subtract visible cards (1 or 2) and multiply by card width+margin
-  // Add a small buffer to ensure the last card is fully visible
-  const totalScrollDistance = (orderedItems.length - visibleItems) * cardWidthWithMargin
-
-  // Horizontal movement: Only start after cards are centered
-  // Start with the first card visible, then scroll to show all cards
-  const translateX = useTransform(
-    delayedScrollProgress,
-    [0, 0.9], // Use 90% of the delayed progress for horizontal movement to reduce empty space
-    ["0vw", `-${totalScrollDistance}vw`], // Start at 0, scroll exactly the distance needed
-  )
-
-  // Track when the section is in view to apply fixed positioning
+  
+  // Calculate scroll indices for which items to show
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange(value => {
+      // Convert scroll position to an index value
+      const maxIndex = timelineItems.length - 1
+      const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
+      setScrollPosition(calculatedIndex)
+    })
+    
+    return () => unsubscribe()
+  }, [scrollYProgress, timelineItems.length])
+  
+  // Track when section is in view
   useEffect(() => {
     if (!sectionRef.current) return
-
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Only set to true if the title is already in view
-        setIsInView(entry.isIntersecting && titleInView)
+        setIsInView(entry.isIntersecting && !!titleInView)
       },
-      { threshold: 0.1 },
+      { threshold: 0.01 }
     )
-
+    
     observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [titleInView])
-
-  // Update isInView when titleInView changes
+  
+  // Track when footer is visible to fade out the last card
   useEffect(() => {
-    if (sectionRef.current && sectionRef.current.getBoundingClientRect().top < window.innerHeight) {
-      setIsInView(titleInView)
-    }
-  }, [titleInView])
-
-  // Calculate top position for fixed container
-  const topPosition = titleInView ? (isMobile ? "80px" : "120px") : "0px"
-
+    if (!footerSensorRef.current) return
+    
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+    
+    footerObserver.observe(footerSensorRef.current)
+    return () => footerObserver.disconnect()
+  }, [])
+  
   return (
     <section
       ref={sectionRef}
@@ -111,71 +93,119 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
         height: calculatedSectionHeight,
         margin: 0,
         padding: 0,
-        overflowX: "hidden",
+        overflow: "hidden",
       }}
     >
-      {/* Fixed container for vertical positioning */}
+      {/* Fixed container for positioning */}
       <div
         ref={containerRef}
         className={`${
-          isInView ? "fixed left-0 right-0 z-20" : "absolute opacity-0 pointer-events-none"
-        } h-screen flex items-center justify-center overflow-hidden`}
+          isInView ? "fixed left-0 right-0 z-20" : "absolute"
+        } h-screen flex items-center justify-center`}
         style={{
-          top: topPosition,
-          willChange: "transform",
-          perspective: "1000px",
-          backfaceVisibility: "hidden",
+          top: titleInView ? (isMobile ? "80px" : "120px") : "0px",
+          visibility: isInView && !isFooterVisible ? "visible" : "hidden",
+          opacity: isInView && !isFooterVisible ? 1 : 0,
+          transition: "opacity 0.3s ease",
         }}
       >
-        {/* Container to center the cards */}
-        <div className="w-full max-w-[95vw] flex justify-center">
-          {/* Motion div handles both vertical and horizontal movement */}
-          <motion.div
-            className="flex flex-row items-center"
-            style={{
-              x: translateX,
-              y: translateY,
-              willChange: "transform",
-              translateZ: 0, // Force GPU acceleration
-            }}
-            transition={{
-              type: "spring",
-              damping: 30,
-              stiffness: 100,
-            }}
-          >
-            {/* Render items in chronological order (oldest first) */}
-            {orderedItems.map((item, index) => (
-              <div
+        {/* Container for current and next cards - added padding for the first card */}
+        <div className="relative w-full px-8 md:px-14 flex flex-col md:flex-row gap-6 justify-center items-center">
+          {/* Render items based on scroll position */}
+          {timelineItems.map((item, index) => {
+            // Calculate how far this item is from current scroll position
+            const distanceFromCurrent = Math.abs(index - scrollPosition)
+            
+            // Only show items close to current scroll position
+            if (distanceFromCurrent > 3) return null
+            
+            // Calculate visibility - fade out items that are further away
+            const opacity = 1 - (distanceFromCurrent * 0.3)
+            
+            // Calculate position for each card with added padding for the first card
+            const xPosition = isMobile
+              ? (index - scrollPosition) * 100 // Move 100vw for each item on mobile
+              : (index - scrollPosition) * 60  // Move 60vw for each item on desktop
+            
+            // If this is the last card and footer is visible, hide it
+            const isLastCard = index === timelineItems.length - 1
+            const cardOpacity = isLastCard && isFooterVisible ? 0 : opacity
+            
+            return (
+              <motion.div
                 key={index}
-                className="w-[85vw] md:w-[45vw] lg:w-[40vw] flex-shrink-0 mr-[5vw] flex items-center justify-center"
+                className="absolute top-0 left-0 flex items-center justify-center"
+                animate={{
+                  x: `${xPosition}vw`,
+                  opacity: cardOpacity,
+                  scale: 1 - (distanceFromCurrent * 0.1),
+                }}
+                initial={{
+                  x: `${xPosition}vw`,
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 20,
+                }}
                 style={{
-                  willChange: "transform",
-                  transform: "translateZ(0)", // Force GPU acceleration
+                  width: isMobile ? "85vw" : "45vw",
+                  marginLeft: index === 0 ? (isMobile ? "5vw" : "8vw") : 0, // Add margin for first card
+                  visibility: cardOpacity > 0.1 ? "visible" : "hidden",
                 }}
               >
                 {/* Card Content */}
-                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-8 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[300px]">
+                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-6 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[280px]">
                   {/* Date Badge */}
                   <div
-                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-3 md:mb-4 ${
+                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${
                       item.color || "bg-purple-600 bg-opacity-30 text-purple-300"
                     }`}
                   >
                     {item.date}
                   </div>
+                  
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2">{item.title}</h3>
+                  <h3 className="text-lg md:text-xl font-bold mb-1">{item.title}</h3>
+                  
                   {/* Company */}
-                  <p className="text-base md:text-lg text-gray-400 mb-3 md:mb-4">{item.company}</p>
+                  <p className="text-sm md:text-base text-gray-400 mb-3">{item.company}</p>
+                  
                   {/* Description */}
-                  <p className="text-sm md:text-base text-gray-300 leading-relaxed">{item.description}</p>
+                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-              </div>
+              </motion.div>
+            )
+          })}
+        </div>
+        
+        {/* Navigation indicator */}
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center">
+          <div className="flex gap-1">
+            {timelineItems.map((_, index) => (
+              <div 
+                key={index}
+                className="w-2 h-2 rounded-full transition-colors duration-300"
+                style={{
+                  backgroundColor: Math.abs(index - scrollPosition) < 0.5 
+                    ? "rgba(255,255,255,0.8)" 
+                    : "rgba(255,255,255,0.3)"
+                }}
+              />
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
+
+      {/* Footer sensor - Used to detect when the footer comes into view */}
+      <div 
+        ref={footerSensorRef} 
+        className="absolute bottom-0 left-0 w-full h-[30vh] pointer-events-none opacity-0"
+      />
     </section>
   )
 }
