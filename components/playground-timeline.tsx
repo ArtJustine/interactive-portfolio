@@ -26,46 +26,40 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
   const [isInView, setIsInView] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
   const [isFooterVisible, setIsFooterVisible] = useState(false)
-  const [sectionHeight, setSectionHeight] = useState("100vh")
 
-  // Keep all items in the original order from newest to oldest
   const timelineItems = [...items]
-
-  // Calculate total section height based on items
-  const itemHeight = 300 // pixels per item
+  const itemHeight = 300
   const totalHeight = itemHeight * timelineItems.length
+  const calculatedSectionHeight = typeof window !== "undefined"
+    ? `${totalHeight + (window.innerHeight * 0.3)}px`
+    : "100vh"
 
-  // Set section height after mount to avoid SSR window access
-  useEffect(() => {
-    const height = totalHeight + window.innerHeight * 0.3
-    setSectionHeight(`${height}px`)
-  }, [totalHeight])
-
-  // Track scroll progress
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   })
 
   useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange(value => {
-      const maxIndex = timelineItems.length - 1
-      const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
-      setScrollPosition(calculatedIndex)
+    let frameId: number
+    const unsubscribe = scrollYProgress.onChange((value) => {
+      cancelAnimationFrame(frameId)
+      frameId = requestAnimationFrame(() => {
+        const maxIndex = timelineItems.length - 1
+        const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
+        setScrollPosition(calculatedIndex)
+      })
     })
-
-    return () => unsubscribe()
+    return () => {
+      cancelAnimationFrame(frameId)
+      unsubscribe()
+    }
   }, [scrollYProgress, timelineItems.length])
 
   useEffect(() => {
     if (!sectionRef.current) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting && !!titleInView)
-      },
-      { threshold: 0.01 }
-    )
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsInView(entry.isIntersecting && !!titleInView)
+    }, { threshold: 0.01 })
 
     observer.observe(sectionRef.current)
     return () => observer.disconnect()
@@ -73,13 +67,9 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
 
   useEffect(() => {
     if (!footerSensorRef.current) return
-
-    const footerObserver = new IntersectionObserver(
-      ([entry]) => {
-        setIsFooterVisible(entry.isIntersecting)
-      },
-      { threshold: 0.1 }
-    )
+    const footerObserver = new IntersectionObserver(([entry]) => {
+      setIsFooterVisible(entry.isIntersecting)
+    }, { threshold: 0.1 })
 
     footerObserver.observe(footerSensorRef.current)
     return () => footerObserver.disconnect()
@@ -90,7 +80,7 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
       ref={sectionRef}
       className={`relative ${className || ""}`}
       style={{
-        height: sectionHeight,
+        height: calculatedSectionHeight,
         margin: 0,
         padding: 0,
         overflow: "hidden",
@@ -98,14 +88,12 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
     >
       <div
         ref={containerRef}
-        className={`${
-          isInView ? "fixed left-0 right-0 z-20" : "absolute"
-        } h-screen flex items-center justify-center`}
+        className={`${isInView ? "fixed left-0 right-0 z-20" : "absolute"} h-screen flex items-center justify-center`}
         style={{
           top: titleInView ? (isMobile ? "80px" : "120px") : "0px",
-          visibility: isInView && !isFooterVisible ? "visible" : "hidden",
           opacity: isInView && !isFooterVisible ? 1 : 0,
           transition: "opacity 0.3s ease",
+          willChange: "transform, opacity",
         }}
       >
         <div className="relative w-full px-8 md:px-14 flex flex-col md:flex-row gap-6 justify-center items-center">
@@ -113,7 +101,7 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
             const distanceFromCurrent = Math.abs(index - scrollPosition)
             if (distanceFromCurrent > 3) return null
 
-            const opacity = 1 - distanceFromCurrent * 0.3
+            const opacity = 1 - (distanceFromCurrent * 0.3)
             const xPosition = isMobile
               ? (index - scrollPosition) * 100
               : (index - scrollPosition) * 60
@@ -128,13 +116,9 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                 animate={{
                   x: `${xPosition}vw`,
                   opacity: cardOpacity,
-                  scale: 1 - distanceFromCurrent * 0.1,
+                  scale: 1 - (distanceFromCurrent * 0.1),
                 }}
-                initial={{
-                  x: `${xPosition}vw`,
-                  opacity: 0,
-                  scale: 0.9,
-                }}
+                initial={false}
                 transition={{
                   type: "spring",
                   stiffness: 100,
@@ -143,25 +127,18 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                 style={{
                   width: isMobile ? "85vw" : "45vw",
                   marginLeft: index === 0 ? (isMobile ? "5vw" : "8vw") : 0,
-                  visibility: cardOpacity > 0.1 ? "visible" : "hidden",
+                  willChange: "transform, opacity",
                 }}
               >
                 <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-6 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[280px]">
                   <div
-                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${
-                      item.color || "bg-purple-600 bg-opacity-30 text-purple-300"
-                    }`}
+                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${item.color || "bg-purple-600 bg-opacity-30 text-purple-300"}`}
                   >
                     {item.date}
                   </div>
-
                   <h3 className="text-lg md:text-xl font-bold mb-1">{item.title}</h3>
-
                   <p className="text-sm md:text-base text-gray-400 mb-3">{item.company}</p>
-
-                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
-                    {item.description}
-                  </p>
+                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">{item.description}</p>
                 </div>
               </motion.div>
             )
@@ -175,10 +152,9 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                 key={index}
                 className="w-2 h-2 rounded-full transition-colors duration-300"
                 style={{
-                  backgroundColor:
-                    Math.abs(index - scrollPosition) < 0.5
-                      ? "rgba(255,255,255,0.8)"
-                      : "rgba(255,255,255,0.3)",
+                  backgroundColor: Math.abs(index - scrollPosition) < 0.5
+                    ? "rgba(255,255,255,0.8)"
+                    : "rgba(255,255,255,0.3)",
                 }}
               />
             ))}
