@@ -1,7 +1,7 @@
 "use client"
 
-import { useRef, useState, useLayoutEffect, useEffect } from "react"
-import { motion, useScroll } from "framer-motion"
+import { useRef, useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 interface TimelineItem {
@@ -15,147 +15,84 @@ interface TimelineItem {
 interface PlaygroundTimelineProps {
   items: TimelineItem[]
   className?: string
-  titleInView?: boolean
 }
 
-export default function PlaygroundTimeline({ items, className, titleInView }: PlaygroundTimelineProps) {
-  const sectionRef = useRef<HTMLDivElement>(null)
+export default function PlaygroundTimeline({ items, className }: PlaygroundTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const footerSensorRef = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
-  const [isInView, setIsInView] = useState(false)
-  const [scrollPosition, setScrollPosition] = useState(0)
-  const [isFooterVisible, setIsFooterVisible] = useState(false)
-  const [calculatedSectionHeight, setCalculatedSectionHeight] = useState("100vh")
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const totalItems = items.length
 
-  const itemHeight = 300
-  const timelineItems = [...items]
-
-  // Set the section height once on mount
-  useLayoutEffect(() => {
-    const extraHeight = window.innerHeight * 0.3
-    const totalHeight = itemHeight * timelineItems.length + extraHeight
-    setCalculatedSectionHeight(`${totalHeight}px`)
-  }, [timelineItems.length])
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  })
-
+  // Swipe support
   useEffect(() => {
-    let animationFrameId: number
+    if (!containerRef.current || !isMobile) return
 
-    const updateScroll = (value: number) => {
-      const maxIndex = timelineItems.length - 1
-      const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
-      setScrollPosition(calculatedIndex)
+    const container = containerRef.current
+    let startX = 0
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX
     }
 
-    const unsubscribe = scrollYProgress.onChange((value) => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId)
-      animationFrameId = requestAnimationFrame(() => updateScroll(value))
-    })
+    const handleTouchEnd = (e: TouchEvent) => {
+      const endX = e.changedTouches[0].clientX
+      const delta = startX - endX
+
+      if (delta > 50 && currentIndex < totalItems - 1) {
+        setCurrentIndex((i) => i + 1)
+      } else if (delta < -50 && currentIndex > 0) {
+        setCurrentIndex((i) => i - 1)
+      }
+    }
+
+    container.addEventListener("touchstart", handleTouchStart)
+    container.addEventListener("touchend", handleTouchEnd)
 
     return () => {
-      unsubscribe()
-      cancelAnimationFrame(animationFrameId)
+      container.removeEventListener("touchstart", handleTouchStart)
+      container.removeEventListener("touchend", handleTouchEnd)
     }
-  }, [scrollYProgress, timelineItems.length])
+  }, [currentIndex, isMobile, totalItems])
 
-  useLayoutEffect(() => {
-    if (!sectionRef.current) return
+  const goToIndex = (index: number) => {
+    if (index >= 0 && index < totalItems) {
+      setCurrentIndex(index)
+    }
+  }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting && !!titleInView)
-      },
-      { threshold: 0.01 }
-    )
-
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [titleInView])
-
-  useEffect(() => {
-    if (!footerSensorRef.current) return
-
-    const footerObserver = new IntersectionObserver(
-      ([entry]) => {
-        setIsFooterVisible(entry.isIntersecting)
-      },
-      { threshold: 0.1 }
-    )
-
-    footerObserver.observe(footerSensorRef.current)
-    return () => footerObserver.disconnect()
-  }, [])
+  const prev = () => goToIndex(currentIndex - 1)
+  const next = () => goToIndex(currentIndex + 1)
 
   return (
     <section
-      ref={sectionRef}
-      className={`relative ${className || ""}`}
-      style={{
-        height: calculatedSectionHeight,
-        margin: 0,
-        padding: 0,
-        overflow: "hidden",
-        willChange: "transform",
-      }}
+      ref={containerRef}
+      className={`relative h-[100vh] flex flex-col items-center justify-center ${className || ""}`}
     >
-      <div
-        ref={containerRef}
-        className={`${
-          isInView ? "fixed left-0 right-0 z-20" : "absolute"
-        } h-screen flex items-center justify-center`}
-        style={{
-          top: titleInView ? (isMobile ? "80px" : "120px") : "0px",
-          visibility: isInView && !isFooterVisible ? "visible" : "hidden",
-          opacity: isInView && !isFooterVisible ? 1 : 0,
-          transition: "opacity 0.3s ease-in-out",
-        }}
-      >
-        <div className="relative w-full px-8 md:px-14 flex flex-col md:flex-row gap-6 justify-center items-center">
-          {timelineItems.map((item, index) => {
-            const distanceFromCurrent = Math.abs(index - scrollPosition)
-            if (distanceFromCurrent > 3) return null
+      <div className="relative w-full px-6 md:px-12 flex items-center justify-center">
+        {/* Left arrow */}
+        {currentIndex > 0 && (
+          <button
+            onClick={prev}
+            className="absolute left-0 z-10 text-white text-3xl bg-black bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 transition"
+          >
+            ‹
+          </button>
+        )}
 
-            const opacity = 1 - distanceFromCurrent * 0.3
-            const xPosition = isMobile
-              ? (index - scrollPosition) * 100
-              : (index - scrollPosition) * 60
-
-            const isLastCard = index === timelineItems.length - 1
-            const cardOpacity = isLastCard && isFooterVisible ? 0 : opacity
-
-            return (
-              <motion.div
+        {/* Slide container */}
+        <div className="relative overflow-hidden w-full max-w-5xl h-[75vh] flex items-center justify-center">
+          <motion.div
+            className="flex transition-transform ease-in-out duration-500 w-full"
+            animate={{ x: `-${currentIndex * 100}%` }}
+            style={{ display: "flex", width: `${totalItems * 100}%` }}
+          >
+            {items.map((item, index) => (
+              <div
                 key={index}
-                className="absolute top-0 left-0 flex items-center justify-center"
-                animate={{
-                  x: `${xPosition}vw`,
-                  opacity: cardOpacity,
-                  scale: 1 - distanceFromCurrent * 0.1,
-                }}
-                initial={{
-                  x: `${xPosition}vw`,
-                  opacity: 0,
-                  scale: 0.9,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 20,
-                }}
-                style={{
-                  width: isMobile ? "85vw" : "45vw",
-                  marginLeft: index === 0 ? (isMobile ? "5vw" : "8vw") : 0,
-                  visibility: cardOpacity > 0.1 ? "visible" : "hidden",
-                  willChange: "transform, opacity",
-                  backfaceVisibility: "hidden",
-                }}
+                className="w-full px-4 md:px-8 shrink-0 flex items-center justify-center"
+                style={{ width: "100%" }}
               >
-                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-6 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[280px]">
+                <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-6 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] max-w-2xl">
                   <div
                     className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${
                       item.color || "bg-purple-600 bg-opacity-30 text-purple-300"
@@ -163,39 +100,38 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                   >
                     {item.date}
                   </div>
-
                   <h3 className="text-lg md:text-xl font-bold mb-1">{item.title}</h3>
                   <p className="text-sm md:text-base text-gray-400 mb-3">{item.company}</p>
-                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
-                    {item.description}
-                  </p>
+                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">{item.description}</p>
                 </div>
-              </motion.div>
-            )
-          })}
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-          <div className="flex gap-1">
-            {timelineItems.map((_, index) => (
-              <div
-                key={index}
-                className="w-2 h-2 rounded-full transition-colors duration-300"
-                style={{
-                  backgroundColor: Math.abs(index - scrollPosition) < 0.5
-                    ? "rgba(255,255,255,0.8)"
-                    : "rgba(255,255,255,0.3)",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* Right arrow */}
+        {currentIndex < totalItems - 1 && (
+          <button
+            onClick={next}
+            className="absolute right-0 z-10 text-white text-3xl bg-black bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 transition"
+          >
+            ›
+          </button>
+        )}
       </div>
 
-      <div
-        ref={footerSensorRef}
-        className="absolute bottom-0 left-0 w-full h-[30vh] pointer-events-none opacity-0"
-      />
+      {/* Dots */}
+      <div className="mt-6 flex gap-2">
+        {items.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToIndex(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              currentIndex === index ? "bg-white" : "bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
     </section>
   )
 }
