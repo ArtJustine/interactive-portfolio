@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useLayoutEffect, useEffect } from "react"
 import { motion, useScroll } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
 
@@ -26,13 +26,17 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
   const [isInView, setIsInView] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
   const [isFooterVisible, setIsFooterVisible] = useState(false)
+  const [calculatedSectionHeight, setCalculatedSectionHeight] = useState("100vh")
 
-  const timelineItems = [...items]
   const itemHeight = 300
-  const totalHeight = itemHeight * timelineItems.length
-  const calculatedSectionHeight = typeof window !== "undefined"
-    ? `${totalHeight + (window.innerHeight * 0.3)}px`
-    : "100vh"
+  const timelineItems = [...items]
+
+  // Set the section height once on mount
+  useLayoutEffect(() => {
+    const extraHeight = window.innerHeight * 0.3
+    const totalHeight = itemHeight * timelineItems.length + extraHeight
+    setCalculatedSectionHeight(`${totalHeight}px`)
+  }, [timelineItems.length])
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -40,26 +44,34 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
   })
 
   useEffect(() => {
-    let frameId: number
+    let animationFrameId: number
+
+    const updateScroll = (value: number) => {
+      const maxIndex = timelineItems.length - 1
+      const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
+      setScrollPosition(calculatedIndex)
+    }
+
     const unsubscribe = scrollYProgress.onChange((value) => {
-      cancelAnimationFrame(frameId)
-      frameId = requestAnimationFrame(() => {
-        const maxIndex = timelineItems.length - 1
-        const calculatedIndex = Math.min(maxIndex, Math.max(0, Math.floor(value * (maxIndex + 2))))
-        setScrollPosition(calculatedIndex)
-      })
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(() => updateScroll(value))
     })
+
     return () => {
-      cancelAnimationFrame(frameId)
       unsubscribe()
+      cancelAnimationFrame(animationFrameId)
     }
   }, [scrollYProgress, timelineItems.length])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!sectionRef.current) return
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsInView(entry.isIntersecting && !!titleInView)
-    }, { threshold: 0.01 })
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting && !!titleInView)
+      },
+      { threshold: 0.01 }
+    )
 
     observer.observe(sectionRef.current)
     return () => observer.disconnect()
@@ -67,9 +79,13 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
 
   useEffect(() => {
     if (!footerSensorRef.current) return
-    const footerObserver = new IntersectionObserver(([entry]) => {
-      setIsFooterVisible(entry.isIntersecting)
-    }, { threshold: 0.1 })
+
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
 
     footerObserver.observe(footerSensorRef.current)
     return () => footerObserver.disconnect()
@@ -84,16 +100,19 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
         margin: 0,
         padding: 0,
         overflow: "hidden",
+        willChange: "transform",
       }}
     >
       <div
         ref={containerRef}
-        className={`${isInView ? "fixed left-0 right-0 z-20" : "absolute"} h-screen flex items-center justify-center`}
+        className={`${
+          isInView ? "fixed left-0 right-0 z-20" : "absolute"
+        } h-screen flex items-center justify-center`}
         style={{
           top: titleInView ? (isMobile ? "80px" : "120px") : "0px",
+          visibility: isInView && !isFooterVisible ? "visible" : "hidden",
           opacity: isInView && !isFooterVisible ? 1 : 0,
-          transition: "opacity 0.3s ease",
-          willChange: "transform, opacity",
+          transition: "opacity 0.3s ease-in-out",
         }}
       >
         <div className="relative w-full px-8 md:px-14 flex flex-col md:flex-row gap-6 justify-center items-center">
@@ -101,7 +120,7 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
             const distanceFromCurrent = Math.abs(index - scrollPosition)
             if (distanceFromCurrent > 3) return null
 
-            const opacity = 1 - (distanceFromCurrent * 0.3)
+            const opacity = 1 - distanceFromCurrent * 0.3
             const xPosition = isMobile
               ? (index - scrollPosition) * 100
               : (index - scrollPosition) * 60
@@ -116,9 +135,13 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                 animate={{
                   x: `${xPosition}vw`,
                   opacity: cardOpacity,
-                  scale: 1 - (distanceFromCurrent * 0.1),
+                  scale: 1 - distanceFromCurrent * 0.1,
                 }}
-                initial={false}
+                initial={{
+                  x: `${xPosition}vw`,
+                  opacity: 0,
+                  scale: 0.9,
+                }}
                 transition={{
                   type: "spring",
                   stiffness: 100,
@@ -127,18 +150,25 @@ export default function PlaygroundTimeline({ items, className, titleInView }: Pl
                 style={{
                   width: isMobile ? "85vw" : "45vw",
                   marginLeft: index === 0 ? (isMobile ? "5vw" : "8vw") : 0,
+                  visibility: cardOpacity > 0.1 ? "visible" : "hidden",
                   willChange: "transform, opacity",
+                  backfaceVisibility: "hidden",
                 }}
               >
                 <div className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-5 md:p-6 rounded-lg border border-gray-800 w-full shadow-xl min-h-[250px] md:min-h-[280px]">
                   <div
-                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${item.color || "bg-purple-600 bg-opacity-30 text-purple-300"}`}
+                    className={`inline-block text-xs md:text-sm font-semibold px-3 py-1 rounded-full mb-3 ${
+                      item.color || "bg-purple-600 bg-opacity-30 text-purple-300"
+                    }`}
                   >
                     {item.date}
                   </div>
+
                   <h3 className="text-lg md:text-xl font-bold mb-1">{item.title}</h3>
                   <p className="text-sm md:text-base text-gray-400 mb-3">{item.company}</p>
-                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">{item.description}</p>
+                  <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               </motion.div>
             )
