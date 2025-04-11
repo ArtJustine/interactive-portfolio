@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowDown, Send } from "lucide-react"
@@ -10,14 +10,13 @@ import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
 
-
-
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
   const timelineSectionRef = useRef<HTMLDivElement>(null)
   const timelineTitleRef = useRef<HTMLDivElement>(null)
   const [isTitleAtTop, setIsTitleAtTop] = useState(false)
   const [isInTimelineSection, setIsInTimelineSection] = useState(false)
+  const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
 
   // Check if the timeline title is at the top of the viewport and if we're in the timeline section
   useEffect(() => {
@@ -149,8 +148,6 @@ export default function Home() {
     },
   ]
 
-  
-
   const [email, setEmail] = useState("") // State to capture the input email
 
   const handleSendClick = () => {
@@ -161,6 +158,8 @@ export default function Home() {
       alert("Please enter an email address.")
     }
   }
+
+  const isExpertiseTitleInView = useInView(expertiseTitleRef, { once: true })
 
   return (
     <div ref={containerRef} className="relative min-h-[500vh] bg-black text-white overflow-hidden">
@@ -223,7 +222,9 @@ export default function Home() {
         }}
       >
         <div className="max-w-6xl mx-auto w-full">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16">MY EXPERTISE</h2>
+          <h2 ref={expertiseTitleRef} className="text-3xl md:text-5xl font-bold mb-16">
+            MY EXPERTISE
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {skills.map((skill, index) => (
               <Link href={skill.link} key={index} className="block">
@@ -245,14 +246,34 @@ export default function Home() {
         {/* Title that will stick to the top only when in the timeline section */}
         <div
           ref={timelineTitleRef}
-          className={`${isTitleAtTop ? "fixed top-0 left-0 right-0" : ""} pt-6 pb-4 bg-black z-30`}
+          className={`${
+            isTitleAtTop ? "fixed top-0 left-0 right-0 pt-4 pb-3 sm:pt-6 sm:pb-4" : "pt-6 pb-4"
+          } bg-black z-30 safe-area-inset-top`}
+          style={{
+            paddingTop: isTitleAtTop ? "max(env(safe-area-inset-top), 1rem)" : "1.5rem",
+            paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
+          }}
         >
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-5xl font-bold mb-2">MY JOURNEY</h2>
-            <p className="text-base sm:text-lg text-gray-300">
+            <motion.h2
+              className="text-3xl md:text-5xl font-bold mb-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{ opacity: isExpertiseTitleInView ? 1 : 0 }}
+            >
+              MY JOURNEY
+            </motion.h2>
+            <motion.p
+              className="text-base sm:text-lg text-gray-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ opacity: isExpertiseTitleInView ? 1 : 0 }}
+            >
               From junior designer to leading creative teams, my career has been defined by a passion for creating
               exceptional digital experiences that solve real problems.
-            </p>
+            </motion.p>
           </div>
         </div>
 
@@ -260,7 +281,7 @@ export default function Home() {
         {isTitleAtTop && <div className="h-[120px]"></div>}
 
         {/* Career highlights section with horizontal scrolling cards */}
-        <div className="sticky top-[120px] pt-6 pb-4 bg-black z-20">
+        <div className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-black z-20">
           <div className="max-w-4xl mx-auto px-6">
             <h3 className="text-2xl md:text-3xl font-bold mb-2">Career Highlights</h3>
             <p className="text-gray-300">
