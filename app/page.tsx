@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
+import { useIsMobile } from "@/hooks/useIsMobile" // Use the hook you provided
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -17,52 +18,90 @@ export default function Home() {
   const [isTitleAtTop, setIsTitleAtTop] = useState(false)
   const [isInTimelineSection, setIsInTimelineSection] = useState(false)
   const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
+  const [email, setEmail] = useState("")
+  const isMobile = useIsMobile()
+  
+  // Throttled scroll handler
+  const handleScroll = useCallback(() => {
+    if (!timelineTitleRef.current || !timelineSectionRef.current) return;
+    
+    const titleRect = timelineTitleRef.current.getBoundingClientRect()
+    const sectionRect = timelineSectionRef.current.getBoundingClientRect()
 
-  // Check if the timeline title is at the top of the viewport and if we're in the timeline section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (timelineTitleRef.current && timelineSectionRef.current) {
-        const titleRect = timelineTitleRef.current.getBoundingClientRect()
-        const sectionRect = timelineSectionRef.current.getBoundingClientRect()
-
-        // Check if we're in the timeline section
-        const inSection = sectionRect.top <= 0 && sectionRect.bottom >= 0
-        setIsInTimelineSection(inSection)
-
-        // Only set title at top if we're in the section and the title has reached the top
-        setIsTitleAtTop(inSection && titleRect.top <= 0)
-      }
+    // Check if we're in the timeline section
+    const inSection = sectionRect.top <= 0 && sectionRect.bottom >= 0
+    
+    // Only update state if there's a change to prevent unnecessary re-renders
+    if (isInTimelineSection !== inSection) {
+      setIsInTimelineSection(inSection)
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    // Only set title at top if we're in the section and the title has reached the top 
+    const shouldBeAtTop = inSection && titleRect.top <= 0
+    if (isTitleAtTop !== shouldBeAtTop) {
+      setIsTitleAtTop(shouldBeAtTop)
+    }
+  }, [isTitleAtTop, isInTimelineSection])
 
+  // Use RAF for smooth scrolling effects instead of direct event listener
+  useEffect(() => {
+    let rafId: number
+    let lastScrollY = window.scrollY
+    
+    const onScroll = () => {
+      // Skip if scrollY hasn't changed
+      if (lastScrollY === window.scrollY) {
+        rafId = requestAnimationFrame(onScroll)
+        return
+      }
+      
+      lastScrollY = window.scrollY
+      handleScroll()
+      rafId = requestAnimationFrame(onScroll)
+    }
+    
+    rafId = requestAnimationFrame(onScroll)
+    
+    return () => cancelAnimationFrame(rafId)
+  }, [handleScroll])
+
+  // Main scroll animations - simplified for mobile
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   })
 
+  // Use simpler springs with less stiffness for mobile
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 20,
-    stiffness: 100,
+    damping: isMobile ? 30 : 20, 
+    stiffness: isMobile ? 80 : 100,
+    restDelta: isMobile ? 0.01 : 0.001
   })
 
-  // Parallax effect for hero section
-  const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, -100])
-  const heroImageScale = useTransform(smoothProgress, [0, 0.2], [1, 1.1])
-
-  // Background grid opacity based on scroll
+  // Reduce animation complexity on mobile
+  const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, isMobile ? -50 : -100])
+  const heroImageScale = useTransform(smoothProgress, [0, 0.2], [1, isMobile ? 1.05 : 1.1])
   const gridOpacity = useTransform(smoothProgress, [0, 0.3, 0.6, 1], [0.3, 0.15, 0.1, 0.05])
-
-  // Skills section animation
-  const skillsY = useTransform(smoothProgress, [0.2, 0.4], [100, 0])
+  
+  // Skills section animation - simplified for mobile
+  const skillsY = useTransform(smoothProgress, [0.2, 0.4], [isMobile ? 50 : 100, 0])
   const skillsOpacity = useTransform(smoothProgress, [0.2, 0.3], [0, 1])
-
-  // Contact section animation
-  const contactY = useTransform(smoothProgress, [0.7, 0.9], [100, 0])
+  
+  // Contact section animation - simplified for mobile
+  const contactY = useTransform(smoothProgress, [0.7, 0.9], [isMobile ? 50 : 100, 0])
   const contactOpacity = useTransform(smoothProgress, [0.7, 0.8], [0, 1])
 
+  const handleSendClick = () => {
+    if (email) {
+      window.location.href = `mailto:${email}`
+    } else {
+      alert("Please enter an email address.")
+    }
+  }
+
+  const isExpertiseTitleInView = useInView(expertiseTitleRef, { once: true })
+
+  // Skills data
   const skills = [
     {
       title: "Front-end Development",
@@ -80,14 +119,14 @@ export default function Home() {
     },
   ]
 
-  // Career timeline data with detailed examples and more entries
+  // Career timeline data
   const timelineItems = [
     {
       date: "2024 - Present",
       title: "Creative Director & Lead Developer",
       company: "Digital Fusion Studios",
       description:
-        "Overseeing all creative and technical aspects of major digital projects for international clients. Leading a cross-functional team of 12 designers and developers to deliver cutting-edge web applications and digital experiences. Implemented AI-driven design systems that reduced production time by 50% while maintaining exceptional quality standards.",
+        "Overseeing all creative and technical aspects of major digital projects for international clients. Leading a cross-functional team of 12 designers and developers to deliver cutting-edge web applications and digital experiences.",
       color: "bg-blue-500 bg-opacity-20 text-blue-300",
     },
     {
@@ -95,7 +134,7 @@ export default function Home() {
       title: "Lead UI/UX Designer & Developer",
       company: "Pixel Perfect Studios",
       description:
-        "Led a team of 5 designers and developers to create cutting-edge digital experiences for Fortune 500 clients. Implemented design systems that reduced development time by 40% and increased client satisfaction scores by 35%. Specialized in creating accessible interfaces that meet WCAG 2.1 AA standards while maintaining visual appeal.",
+        "Led a team of 5 designers and developers to create cutting-edge digital experiences for Fortune 500 clients. Implemented design systems that reduced development time by 40% and increased client satisfaction scores by 35%.",
       color: "bg-purple-500 bg-opacity-20 text-purple-300",
     },
     {
@@ -103,7 +142,7 @@ export default function Home() {
       title: "Senior Frontend Developer",
       company: "TechVision Innovations",
       description:
-        "Architected and developed responsive web applications using React, Next.js, and TypeScript. Created a component library that was adopted company-wide, reducing inconsistencies and speeding up development cycles. Mentored junior developers and led the transition from legacy code to modern frameworks, resulting in a 60% performance improvement across all projects.",
+        "Architected and developed responsive web applications using React, Next.js, and TypeScript. Created a component library that was adopted company-wide, reducing inconsistencies and speeding up development cycles.",
       color: "bg-pink-500 bg-opacity-20 text-pink-300",
     },
     {
@@ -111,7 +150,7 @@ export default function Home() {
       title: "Frontend Developer & UX Specialist",
       company: "Innovative Web Solutions",
       description:
-        "Developed and optimized web applications with a focus on performance and user experience. Collaborated with UX researchers to implement data-driven design improvements that increased user engagement by 35%. Specialized in creating micro-interactions and animations that enhanced the overall user experience without compromising performance.",
+        "Developed and optimized web applications with a focus on performance and user experience. Collaborated with UX researchers to implement data-driven design improvements that increased user engagement by 35%.",
       color: "bg-red-500 bg-opacity-20 text-red-300",
     },
     {
@@ -119,7 +158,7 @@ export default function Home() {
       title: "UI/UX Designer",
       company: "Creative Digital Agency",
       description:
-        "Designed user interfaces for mobile apps and websites that reached over 2 million users. Conducted user research and usability testing to inform design decisions, resulting in a 45% increase in user engagement. Created motion design specifications that enhanced the perceived quality of digital products while maintaining performance standards.",
+        "Designed user interfaces for mobile apps and websites that reached over 2 million users. Conducted user research and usability testing to inform design decisions, resulting in a 45% increase in user engagement.",
       color: "bg-orange-500 bg-opacity-20 text-orange-300",
     },
     {
@@ -127,7 +166,7 @@ export default function Home() {
       title: "Interactive Designer",
       company: "Future Forward Media",
       description:
-        "Created interactive digital experiences for brands in the entertainment and technology sectors. Designed and prototyped innovative interfaces that pushed the boundaries of web technology while maintaining usability. Collaborated with marketing teams to ensure designs aligned with brand strategies and campaign objectives.",
+        "Created interactive digital experiences for brands in the entertainment and technology sectors. Designed and prototyped innovative interfaces that pushed the boundaries of web technology while maintaining usability.",
       color: "bg-amber-500 bg-opacity-20 text-amber-300",
     },
     {
@@ -135,7 +174,7 @@ export default function Home() {
       title: "Web Developer & Digital Designer",
       company: "Freelance",
       description:
-        "Worked with startups and small businesses to establish their digital presence. Designed and developed over 30 websites across various industries, from e-commerce to professional services. Specialized in creating brand identities that translated effectively to digital platforms, helping clients increase their online visibility and customer acquisition.",
+        "Worked with startups and small businesses to establish their digital presence. Designed and developed over 30 websites across various industries, from e-commerce to professional services.",
       color: "bg-cyan-500 bg-opacity-20 text-cyan-300",
     },
     {
@@ -143,35 +182,40 @@ export default function Home() {
       title: "Junior Web Designer",
       company: "Digital Marketing Solutions",
       description:
-        "Started my career creating website designs and marketing materials for local businesses. Learned the fundamentals of responsive design, user experience, and frontend development. Collaborated with marketing teams to create cohesive campaigns that drove measurable results for clients across multiple digital channels.",
+        "Started my career creating website designs and marketing materials for local businesses. Learned the fundamentals of responsive design, user experience, and frontend development.",
       color: "bg-emerald-500 bg-opacity-20 text-emerald-300",
     },
   ]
 
-  const [email, setEmail] = useState("") // State to capture the input email
-
-  const handleSendClick = () => {
-    if (email) {
-      const mailtoLink = `mailto:${email}`
-      window.location.href = mailtoLink // Open the email client with the user's email
-    } else {
-      alert("Please enter an email address.")
-    }
-  }
-
-  const isExpertiseTitleInView = useInView(expertiseTitleRef, { once: true })
-
   return (
-    <div ref={containerRef} className="relative min-h-[500vh] bg-black text-white overflow-hidden">
-      {/* Background grid */}
-      <motion.div className="fixed inset-0 w-full h-full z-0 pointer-events-none" style={{ opacity: gridOpacity }}>
+    <div 
+      ref={containerRef} 
+      className="relative min-h-[500vh] bg-black text-white overflow-hidden"
+      // Add performance optimizations for mobile
+      style={{ 
+        willChange: isMobile ? 'auto' : 'transform',
+        transform: 'translateZ(0)'
+      }}
+    >
+      {/* Background grid - simplified for mobile */}
+      <motion.div 
+        className="fixed inset-0 w-full h-full z-0 pointer-events-none" 
+        style={{ opacity: gridOpacity }}
+        // Reduce repaints on mobile
+        initial={false}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[length:40px_40px]"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(255,255,255,0.1)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[size:40px_40px]"></div>
       </motion.div>
 
-      {/* Hero Section */}
+      {/* Hero Section - optimized animations for mobile */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.div className="relative z-10 text-center px-6" style={{ y: heroTextY }}>
+        <motion.div 
+          className="relative z-10 text-center px-6" 
+          style={{ y: heroTextY }}
+          // Optimize for mobile
+          initial={false}
+        >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             BUILDING BRANDS
             <br />
@@ -206,13 +250,28 @@ export default function Home() {
           </a>
         </motion.div>
 
-        <motion.div className="absolute inset-0 z-0" style={{ scale: heroImageScale }}>
+        <motion.div 
+          className="absolute inset-0 z-0" 
+          style={{ scale: heroImageScale }}
+          // Optimize for mobile
+          initial={false}
+        >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-          <Image src="/images/heroimage.JPG" alt="Hero Background" fill className="object-cover opacity-40" priority />
+          <Image 
+            src="/images/heroimage.JPG" 
+            alt="Hero Background" 
+            fill 
+            className="object-cover opacity-40" 
+            priority
+            sizes="100vw"
+            // Add image optimization
+            loading="eager"
+            quality={isMobile ? 75 : 85}
+          />
         </motion.div>
       </section>
 
-      {/* Skills Section */}
+      {/* Skills Section - optimized for mobile */}
       <motion.section
         id="skills"
         className="relative min-h-screen flex flex-col justify-center px-6 py-20"
@@ -220,6 +279,8 @@ export default function Home() {
           y: skillsY,
           opacity: skillsOpacity,
         }}
+        // Optimize for mobile
+        initial={false}
       >
         <div className="max-w-6xl mx-auto w-full">
           <h2 ref={expertiseTitleRef} className="text-3xl md:text-5xl font-bold mb-16">
@@ -233,7 +294,7 @@ export default function Home() {
                   description={skill.description}
                   icon={skill.icon}
                   colorClass={skill.color}
-                  delay={index * 0.1}
+                  delay={isMobile ? 0 : index * 0.1} // No delay on mobile for better performance
                 />
               </Link>
             ))}
@@ -241,7 +302,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Timeline Section */}
+      {/* Timeline Section - optimized sticky behavior */}
       <section id="timeline" className="relative z-10" ref={timelineSectionRef}>
         {/* Title that will stick to the top only when in the timeline section */}
         <div
@@ -252,6 +313,10 @@ export default function Home() {
           style={{
             paddingTop: isTitleAtTop ? "max(env(safe-area-inset-top), 1rem)" : "1.5rem",
             paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
+            // Add hardware acceleration to prevent flickering when fixed
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            willChange: isTitleAtTop ? 'transform' : 'auto'
           }}
         >
           <div className="max-w-4xl mx-auto px-6">
@@ -281,7 +346,14 @@ export default function Home() {
         {isTitleAtTop && <div className="h-[120px]"></div>}
 
         {/* Career highlights section with horizontal scrolling cards */}
-        <div className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-black z-20">
+        <div 
+          className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-black z-20"
+          style={{
+            // Add hardware acceleration to prevent flickering
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
+        >
           <div className="max-w-4xl mx-auto px-6">
             <h3 className="text-2xl md:text-3xl font-bold mb-2">Career Highlights</h3>
             <p className="text-gray-300">
@@ -291,10 +363,14 @@ export default function Home() {
           </div>
         </div>
 
-        <PlaygroundTimeline items={timelineItems} titleInView={isTitleAtTop} />
+        {/* Optimized timeline component */}
+        <PlaygroundTimeline 
+          items={timelineItems} 
+          titleInView={isTitleAtTop} 
+        />
       </section>
 
-      {/* Contact Section */}
+      {/* Contact Section - optimized for mobile */}
       <motion.section
         id="contact"
         className="relative min-h-screen flex flex-col justify-center px-6 py-20 mt-[20vh]"
@@ -302,6 +378,8 @@ export default function Home() {
           y: contactY,
           opacity: contactOpacity,
         }}
+        // Optimize for mobile
+        initial={false}
       >
         <div className="max-w-6xl mx-auto w-full">
           <h2 className="text-3xl md:text-5xl font-bold mb-16">GET IN TOUCH</h2>
@@ -311,7 +389,7 @@ export default function Home() {
               <div className="space-y-4">
                 <p className="flex items-center">
                   <span className="w-24 text-gray-400">Email:</span>
-                  <a href="mailto:your.email@example.com" className="hover:text-white transition-colors">
+                  <a href="mailto:artjustine.gonzales@gmail.com" className="hover:text-white transition-colors">
                     artjustine.gonzales@gmail.com
                   </a>
                 </p>
@@ -321,7 +399,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="bg-gray-900 bg-opacity-50 p-6 rounded-lg backdrop-blur-sm">
+            <div 
+              className="bg-gray-900 bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"
+              style={{ transform: 'translateZ(0)' }} // Hardware acceleration
+            >
               <div className="flex mb-6">
                 <Input
                   type="email"
