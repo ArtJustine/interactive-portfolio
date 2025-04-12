@@ -123,67 +123,51 @@ export default function Home() {
   const timelineItems = [
     {
       date: "2024 - Present",
-      title: "Creative Director & Lead Developer",
-      company: "Digital Fusion Studios",
+      title: "Digital Marketer",
+      company: "Shore Marketing",
       description:
-        "Overseeing all creative and technical aspects of major digital projects for international clients. Leading a cross-functional team of 12 designers and developers to deliver cutting-edge web applications and digital experiences.",
+        "Conduct keyword research, perform on-page optimization, monitor SEO metrics and website performance using tools like Ahrefs, and create SEO-optimized content along with link-building strategies to improve search engine rankings and drive traffic",
       color: "bg-blue-500 bg-opacity-20 text-blue-300",
     },
     {
       date: "2023 - 2024",
-      title: "Lead UI/UX Designer & Developer",
-      company: "Pixel Perfect Studios",
+      title: "Copy Writer & Video Editor",
+      company: "Pawfect House",
       description:
-        "Led a team of 5 designers and developers to create cutting-edge digital experiences for Fortune 500 clients. Implemented design systems that reduced development time by 40% and increased client satisfaction scores by 35%.",
+        "Monitor and analyze website performance, sales data, and customer behavior using tools like Google Analytics, while crafting compelling product descriptions, website copy, and social media captions, and managing customer inquiries and feedback across email, chat, and social media platforms.",
       color: "bg-purple-500 bg-opacity-20 text-purple-300",
     },
     {
       date: "2022 - 2023",
-      title: "Senior Frontend Developer",
-      company: "TechVision Innovations",
+      title: "E-Commerce Specialist",
+      company: "JNO E-commerce US",
       description:
-        "Architected and developed responsive web applications using React, Next.js, and TypeScript. Created a component library that was adopted company-wide, reducing inconsistencies and speeding up development cycles.",
+        "Coordinate with the supply chain team to maintain product availability and timely restocking, while creating and optimizing product listings with compelling descriptions, high-quality images, and accurate pricing to drive sales.",
       color: "bg-pink-500 bg-opacity-20 text-pink-300",
     },
     {
       date: "2021 - 2022",
-      title: "Frontend Developer & UX Specialist",
-      company: "Innovative Web Solutions",
+      title: "UI Designer & Social Media Manager",
+      company: "Hilton Dental Austalia",
       description:
-        "Developed and optimized web applications with a focus on performance and user experience. Collaborated with UX researchers to implement data-driven design improvements that increased user engagement by 35%.",
+        "Create, edit, and schedule engaging social media content for Facebook, Instagram, TikTok, and YouTube, while analyzing performance metrics to optimize future campaigns.",
       color: "bg-red-500 bg-opacity-20 text-red-300",
     },
     {
       date: "2020 - 2021",
-      title: "UI/UX Designer",
-      company: "Creative Digital Agency",
+      title: "Graphic Designer",
+      company: "Lauren Digital Studio",
       description:
-        "Designed user interfaces for mobile apps and websites that reached over 2 million users. Conducted user research and usability testing to inform design decisions, resulting in a 45% increase in user engagement.",
+        "Manage the daily operations of Lauren Digital Studio by ensuring a smooth user experience, efficient delivery of design orders, and providing outstanding customer service to foster strong client relationships.",
       color: "bg-orange-500 bg-opacity-20 text-orange-300",
     },
     {
       date: "2019 - 2020",
-      title: "Interactive Designer",
-      company: "Future Forward Media",
+      title: "Web Developer",
+      company: "Bomstom",
       description:
-        "Created interactive digital experiences for brands in the entertainment and technology sectors. Designed and prototyped innovative interfaces that pushed the boundaries of web technology while maintaining usability.",
+        "Conduct market research to stay informed about web development trends, emerging technologies, competitor websites, and user behavior, and adapt development strategies to stay ahead and meet user needs.",
       color: "bg-amber-500 bg-opacity-20 text-amber-300",
-    },
-    {
-      date: "2018 - 2019",
-      title: "Web Developer & Digital Designer",
-      company: "Freelance",
-      description:
-        "Worked with startups and small businesses to establish their digital presence. Designed and developed over 30 websites across various industries, from e-commerce to professional services.",
-      color: "bg-cyan-500 bg-opacity-20 text-cyan-300",
-    },
-    {
-      date: "2017 - 2018",
-      title: "Junior Web Designer",
-      company: "Digital Marketing Solutions",
-      description:
-        "Started my career creating website designs and marketing materials for local businesses. Learned the fundamentals of responsive design, user experience, and frontend development.",
-      color: "bg-emerald-500 bg-opacity-20 text-emerald-300",
     },
   ]
 
