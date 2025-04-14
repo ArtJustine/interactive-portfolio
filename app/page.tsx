@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
+import BentoGrid from "@/components/bento-grid"
 import { useIsMobile } from "@/hooks/use-mobile" // Use the hook you provided
 
 export default function Home() {
@@ -20,23 +21,23 @@ export default function Home() {
   const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
   const [email, setEmail] = useState("")
   const isMobile = useIsMobile()
-  
+
   // Throttled scroll handler
   const handleScroll = useCallback(() => {
-    if (!timelineTitleRef.current || !timelineSectionRef.current) return;
-    
+    if (!timelineTitleRef.current || !timelineSectionRef.current) return
+
     const titleRect = timelineTitleRef.current.getBoundingClientRect()
     const sectionRect = timelineSectionRef.current.getBoundingClientRect()
 
     // Check if we're in the timeline section
     const inSection = sectionRect.top <= 0 && sectionRect.bottom >= 0
-    
+
     // Only update state if there's a change to prevent unnecessary re-renders
     if (isInTimelineSection !== inSection) {
       setIsInTimelineSection(inSection)
     }
 
-    // Only set title at top if we're in the section and the title has reached the top 
+    // Only set title at top if we're in the section and the title has reached the top
     const shouldBeAtTop = inSection && titleRect.top <= 0
     if (isTitleAtTop !== shouldBeAtTop) {
       setIsTitleAtTop(shouldBeAtTop)
@@ -47,21 +48,21 @@ export default function Home() {
   useEffect(() => {
     let rafId: number
     let lastScrollY = window.scrollY
-    
+
     const onScroll = () => {
       // Skip if scrollY hasn't changed
       if (lastScrollY === window.scrollY) {
         rafId = requestAnimationFrame(onScroll)
         return
       }
-      
+
       lastScrollY = window.scrollY
       handleScroll()
       rafId = requestAnimationFrame(onScroll)
     }
-    
+
     rafId = requestAnimationFrame(onScroll)
-    
+
     return () => cancelAnimationFrame(rafId)
   }, [handleScroll])
 
@@ -73,20 +74,20 @@ export default function Home() {
 
   // Use simpler springs with less stiffness for mobile
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: isMobile ? 30 : 20, 
+    damping: isMobile ? 30 : 20,
     stiffness: isMobile ? 80 : 100,
-    restDelta: isMobile ? 0.01 : 0.001
+    restDelta: isMobile ? 0.01 : 0.001,
   })
 
   // Reduce animation complexity on mobile
   const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, isMobile ? -50 : -100])
   const heroImageScale = useTransform(smoothProgress, [0, 0.2], [1, isMobile ? 1.05 : 1.1])
   const gridOpacity = useTransform(smoothProgress, [0, 0.3, 0.6, 1], [0.3, 0.15, 0.1, 0.05])
-  
+
   // Skills section animation - simplified for mobile
   const skillsY = useTransform(smoothProgress, [0.2, 0.4], [isMobile ? 50 : 100, 0])
   const skillsOpacity = useTransform(smoothProgress, [0.2, 0.3], [0, 1])
-  
+
   // Contact section animation - simplified for mobile
   const contactY = useTransform(smoothProgress, [0.7, 0.9], [isMobile ? 50 : 100, 0])
   const contactOpacity = useTransform(smoothProgress, [0.7, 0.8], [0, 1])
@@ -172,18 +173,18 @@ export default function Home() {
   ]
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="relative min-h-[500vh] bg-black text-white overflow-hidden"
       // Add performance optimizations for mobile
-      style={{ 
-        willChange: isMobile ? 'auto' : 'transform',
-        transform: 'translateZ(0)'
+      style={{
+        willChange: isMobile ? "auto" : "transform",
+        transform: "translateZ(0)",
       }}
     >
       {/* Background grid - simplified for mobile */}
-      <motion.div 
-        className="fixed inset-0 w-full h-full z-0 pointer-events-none" 
+      <motion.div
+        className="fixed inset-0 w-full h-full z-0 pointer-events-none"
         style={{ opacity: gridOpacity }}
         // Reduce repaints on mobile
         initial={false}
@@ -194,8 +195,8 @@ export default function Home() {
 
       {/* Hero Section - optimized animations for mobile */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.div 
-          className="relative z-10 text-center px-6" 
+        <motion.div
+          className="relative z-10 text-center px-6"
           style={{ y: heroTextY }}
           // Optimize for mobile
           initial={false}
@@ -234,18 +235,18 @@ export default function Home() {
           </a>
         </motion.div>
 
-        <motion.div 
-          className="absolute inset-0 z-0" 
+        <motion.div
+          className="absolute inset-0 z-0"
           style={{ scale: heroImageScale }}
           // Optimize for mobile
           initial={false}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-          <Image 
-            src="/images/heroimage.JPG" 
-            alt="Hero Background" 
-            fill 
-            className="object-cover opacity-40" 
+          <Image
+            src="/images/heroimage.JPG"
+            alt="Hero Background"
+            fill
+            className="object-cover opacity-40"
             priority
             sizes="100vw"
             // Add image optimization
@@ -298,9 +299,9 @@ export default function Home() {
             paddingTop: isTitleAtTop ? "max(env(safe-area-inset-top), 1rem)" : "1.5rem",
             paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
             // Add hardware acceleration to prevent flickering when fixed
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden',
-            willChange: isTitleAtTop ? 'transform' : 'auto'
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
+            willChange: isTitleAtTop ? "transform" : "auto",
           }}
         >
           <div className="max-w-4xl mx-auto px-6">
@@ -330,12 +331,12 @@ export default function Home() {
         {isTitleAtTop && <div className="h-[120px]"></div>}
 
         {/* Career highlights section with horizontal scrolling cards */}
-        <div 
+        <div
           className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-black z-20"
           style={{
             // Add hardware acceleration to prevent flickering
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
           }}
         >
           <div className="max-w-4xl mx-auto px-6">
@@ -348,16 +349,16 @@ export default function Home() {
         </div>
 
         {/* Optimized timeline component */}
-        <PlaygroundTimeline 
-          items={timelineItems} 
-          titleInView={isTitleAtTop} 
-        />
+        <PlaygroundTimeline items={timelineItems} titleInView={isTitleAtTop} />
       </section>
+
+      {/* Bento Grid Section - Added before contact section */}
+      <BentoGrid />
 
       {/* Contact Section - optimized for mobile */}
       <motion.section
         id="contact"
-        className="relative min-h-screen flex flex-col justify-center px-6 py-20 mt-[20vh]"
+        className="relative min-h-screen flex flex-col justify-center px-6 py-20"
         style={{
           y: contactY,
           opacity: contactOpacity,
@@ -383,9 +384,9 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div 
+            <div
               className="bg-gray-900 bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"
-              style={{ transform: 'translateZ(0)' }} // Hardware acceleration
+              style={{ transform: "translateZ(0)" }} // Hardware acceleration
             >
               <div className="flex mb-6">
                 <Input

@@ -47,6 +47,10 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Bento grid gradient colors */
+    --bento-gradient-from: 220 70% 50%;
+    --bento-gradient-via: 280 65% 60%;
+    --bento-gradient-to: 340 75% 55%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -81,6 +85,10 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Bento grid gradient colors */
+    --bento-gradient-from: 220 70% 50%;
+    --bento-gradient-via: 280 65% 60%;
+    --bento-gradient-to: 340 75% 55%;
   }
 }
 
@@ -91,4 +99,39 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Animation keyframes for bento grid */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 5s ease infinite;
+}
+
+@keyframes border-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border {
+  background-size: 300% 300%;
+  animation: border-animation 3s ease infinite;
 }
