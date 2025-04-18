@@ -4,13 +4,13 @@ import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowDown, Send } from "lucide-react"
+import { ArrowDown, Send, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
 import BentoGrid from "@/components/bento-grid"
-import { useIsMobile } from "@/hooks/use-mobile" // Use the hook you provided
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -182,6 +182,8 @@ export default function Home() {
         transform: "translateZ(0)",
       }}
     >
+      
+
       {/* Background grid - simplified for mobile */}
       <motion.div
         className="fixed inset-0 w-full h-full z-0 pointer-events-none"
@@ -294,14 +296,15 @@ export default function Home() {
           ref={timelineTitleRef}
           className={`${
             isTitleAtTop ? "fixed top-0 left-0 right-0 pt-4 pb-3 sm:pt-6 sm:pb-4" : "pt-6 pb-4"
-          } bg-black z-30 safe-area-inset-top`}
+          } bg-black z-30`}
           style={{
-            paddingTop: isTitleAtTop ? "max(env(safe-area-inset-top), 1rem)" : "1.5rem",
+            paddingTop: isTitleAtTop ? "max(1rem, 1rem)" : "1.5rem",
             paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
             // Add hardware acceleration to prevent flickering when fixed
             transform: "translateZ(0)",
             backfaceVisibility: "hidden",
             willChange: isTitleAtTop ? "transform" : "auto",
+            marginTop: isTitleAtTop ? "80px" : "0", // Add margin to prevent overlap with the navigation
           }}
         >
           <div className="max-w-4xl mx-auto px-6">
@@ -383,6 +386,25 @@ export default function Home() {
                   <span>Pampanga, Philippines</span>
                 </p>
               </div>
+              {/* Download CV Button with animation */}
+              <Button
+                variant="outline"
+                className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
+                transition-all transform hover:scale-105 group mt-4"
+                onClick={() => window.open("/cv.pdf", "_blank")}
+              >
+                <span className="relative z-10 flex items-center group-hover:text-white">
+                  Download CV{" "}
+                  <span className="ml-2 transition-transform duration-300 transform group-hover:translate-y-1">
+                    <Download className="h-4 w-4" />
+                  </span>
+                </span>
+                <span
+                  className="absolute inset-0 border-2 border-transparent rounded-full 
+                     bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+                     bg-clip-border animate-border opacity-0 group-hover:opacity-100"
+                ></span>
+              </Button>
             </div>
             <div
               className="bg-gray-900 bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"

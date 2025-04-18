@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Youtube, Github, Instagram, Dribbble } from "lucide-react"
+import { Menu, X, Youtube, Github, Instagram, Dribbble, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import CircularTextButton from "@/components/circular-text-button"
 
@@ -42,11 +42,12 @@ export default function MainNav() {
 
   const navItems = [
     { name: "Home", href: "/", className: "hidden md:block" },
+    { name: "Web Development", href: "/frontend" },
     { name: "UI/UX Design", href: "/design" },
-    { name: "Web Development", href: "/frontend" } /*
+    { name: "Digital Marketing", href: "/marketing" },
     { name: "Video Editing", href: "/video-editing" },
-    { name: "Digital Marketing", href: "/marketing" },*/,
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "/#contact", className: "mt-12" }, // Added mt-8 for extra spacing
+    { name: "Download CV", href: "#", isDownloadCV: true },
   ]
 
   const socialLinks = [
@@ -95,14 +96,27 @@ export default function MainNav() {
               <motion.nav className="flex flex-col space-y-8 py-8 md:py-0" variants={itemVariants}>
                 <ul className="space-y-6">
                   {navItems.map((item) => (
-                    <motion.li key={item.name} variants={itemVariants}>
-                      <Link
-                        href={item.href}
-                        className={`text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent ${item.className}`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
+                    <motion.li key={item.name} variants={itemVariants} className={item.className || ""}>
+                      {item.isDownloadCV ? (
+                        <a
+                          href="/path-to-your-cv.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent flex items-center"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.name}
+                          <Download className="ml-2 h-6 w-6" />
+                        </a>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent ${item.className ? "" : ""}`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
                     </motion.li>
                   ))}
                 </ul>

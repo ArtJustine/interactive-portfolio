@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import ProjectCard from "@/components/project-card"
+import VideoPlayer from "./video-player"
 
 export interface Project {
   id: number
