@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect, useCallback } from "react"
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
+import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowDown, Send, Download } from "lucide-react"
@@ -21,6 +21,19 @@ export default function Home() {
   const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
   const [email, setEmail] = useState("")
   const isMobile = useIsMobile()
+
+  // Word flip animation state
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const flipWords = ["BRAND", "IDENTITY", "BUSINESS", "MESSAGE", "FLAVOR", "PRESENCE"]
+
+  // Word flip animation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % flipWords.length)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   // Throttled scroll handler
   const handleScroll = useCallback(() => {
@@ -182,8 +195,6 @@ export default function Home() {
         transform: "translateZ(0)",
       }}
     >
-      
-
       {/* Background grid - simplified for mobile */}
       <motion.div
         className="fixed inset-0 w-full h-full z-0 pointer-events-none"
@@ -204,13 +215,27 @@ export default function Home() {
           initial={false}
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            BUILDING BRANDS
+            BUILDING{" "}
+            <span className="relative inline-block">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentWordIndex}
+                  className="absolute left-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient text-[1.15em] font-extrabold"
+                  initial={{ opacity: 0, rotateX: -90 }}
+                  animate={{ opacity: 1, rotateX: 0 }}
+                  exit={{ opacity: 0, rotateX: 90 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  style={{ transformOrigin: "50% 50%" }}
+                >
+                  {flipWords[currentWordIndex]}
+                </motion.span>
+              </AnimatePresence>
+              <span className="invisible bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient text-[1.15em] font-extrabold">
+                {flipWords[0]}
+              </span>
+            </span>
             <br />
-            ONE{" "}
-            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
-              PIXEL
-            </span>{" "}
-            AT A TIME
+            ONE <span>PIXEL</span> AT A TIME
           </h1>
           <p className="text-lg md:text-xl max-w-md mx-auto text-gray-300 mb-8">
             From marketing campaigns to sleek web interfaces, I design, develop, and create digital experiences that
