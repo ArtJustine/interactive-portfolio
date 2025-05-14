@@ -42,11 +42,11 @@ export default function FrontendPage() {
     },
     {
       id: 4,
-      title: "Business Landing Page",
+      title: "Social Media Scheduling Tool",
       description: "Progressive web app with offline capabilities and native-like experience",
-      image: "/images/businesslanding.png",
-      category: "PWA",
-      externalUrl: "https://smarterhomeph.vercel.app/",
+      image: "/images/socialscheduler.png",
+      category: "Next JS & Vercel",
+      externalUrl: "https://v0-social-media-scheduler-zeta-woad.vercel.app/",
     },/*
     {
       id: 5,
