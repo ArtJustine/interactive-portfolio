@@ -16,56 +16,42 @@ export default function MarketingPage() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
 
   const marketingProjects: Project[] = [
-    {
-      id: 1,
-      title: "Social Media Campaign",
-      description: "Integrated social media strategy that increased engagement by 200%",
-      image: "/images/marketing-project.jpg",
-      category: "Social Media",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/1",
-    },
-    {
-      id: 2,
-      title: "Email Marketing Series",
-      description: "Automated email sequence with 45% open rate and 12% conversion",
-      image: "/images/marketing-project2.jpg",
-      category: "Email Marketing",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/2",
-    },
-    {
-      id: 3,
-      title: "Content Marketing Strategy",
-      description: "Comprehensive content plan that doubled organic traffic in 6 months",
-      image: "/images/marketing-project3.jpg",
-      category: "Content Marketing",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/3",
-    },
-    {
-      id: 4,
-      title: "PPC Campaign",
-      description: "Google Ads campaign with 320% ROI and reduced cost per acquisition",
-      image: "/images/marketing-project4.jpg",
-      category: "Paid Advertising",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/4",
-    },/*
-    {
-      id: 5,
-      title: "SEO Optimization",
-      description: "Technical and content SEO that achieved 5 featured snippets and top rankings",
-      image: "/images/marketing-project5.jpg",
-      category: "SEO",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/5",
-    },
-    {
-      id: 6,
-      title: "Marketing Analytics Dashboard",
-      description: "Custom reporting solution that unified data from multiple marketing channels",
-      image: "/images/marketing-project6.jpg",
-      category: "Analytics",
-      externalUrl: "https://linkedin.com/in/yourusername/detail/project/6",
-    },*/
-  ]
-
+  {
+    id: 1,
+    title: "SEO Optimization",
+    description: "Technical and content SEO that achieved 5 featured snippets and top rankings in competitive niches.",
+    image: "/images/seo-project.jpg",
+    category: "SEO",
+  },
+  {
+    id: 2,
+    title: "Content Marketing Strategy",
+    description: "Comprehensive blog and video content strategy that doubled organic traffic in just 6 months.",
+    image: "/images/content-marketing-project.jpg",
+    category: "Content Marketing",
+  },
+  {
+    id: 3,
+    title: "Social Media Campaign",
+    description: "Strategic multi-platform campaign that increased brand engagement by 200% in 3 months.",
+    image: "/images/social-media-project.jpg",
+    category: "Social Media Marketing",
+  },
+  {
+    id: 4,
+    title: "PPC Campaign",
+    description: "Google Ads campaign with 320% ROI, reduced cost-per-click by 40%, and expanded reach.",
+    image: "/images/ppc-project.jpg",
+    category: "Paid Advertising",
+  },
+  {
+    id: 5,
+    title: "Affiliate & Influencer Marketing",
+    description: "Built a profitable affiliate program and partnered with niche influencers to drive brand trust and conversions.",
+    image: "/images/affiliate-influencer-project.jpg",
+    category: "Affiliate & Influencer Marketing",
+  },
+]
   return (
     <div ref={containerRef} className="relative min-h-screen bg-black text-white">
       <motion.div className="fixed inset-0 z-0 opacity-50 pointer-events-none" style={{ y: backgroundY }}>
