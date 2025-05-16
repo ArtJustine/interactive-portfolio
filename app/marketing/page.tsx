@@ -20,36 +20,36 @@ export default function MarketingPage() {
     id: 1,
     title: "SEO Optimization",
     description: "Technical and content SEO that achieved 5 featured snippets and top rankings in competitive niches.",
-    image: "/images/seo-project.jpg",
-    category: "SEO",
+    image: "/images/seo.png",
+
   },
   {
     id: 2,
     title: "Content Marketing Strategy",
     description: "Comprehensive blog and video content strategy that doubled organic traffic in just 6 months.",
-    image: "/images/content-marketing-project.jpg",
-    category: "Content Marketing",
+    image: "/images/creative.png",
+
   },
   {
     id: 3,
     title: "Social Media Campaign",
     description: "Strategic multi-platform campaign that increased brand engagement by 200% in 3 months.",
-    image: "/images/social-media-project.jpg",
-    category: "Social Media Marketing",
+    image: "/images/ssocial.png",
+
   },
   {
     id: 4,
     title: "PPC Campaign",
     description: "Google Ads campaign with 320% ROI, reduced cost-per-click by 40%, and expanded reach.",
-    image: "/images/ppc-project.jpg",
-    category: "Paid Advertising",
+    image: "/images/ad.png",
+
   },
   {
     id: 5,
     title: "Affiliate & Influencer Marketing",
     description: "Built a profitable affiliate program and partnered with niche influencers to drive brand trust and conversions.",
-    image: "/images/affiliate-influencer-project.jpg",
-    category: "Affiliate & Influencer Marketing",
+    image: "/images/affiliate.png",
+
   },
 ]
   return (
