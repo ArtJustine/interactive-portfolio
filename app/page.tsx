@@ -131,6 +131,13 @@ export default function Home() {
       color: "from-purple-500 to-pink-500",
       link: "/design",
     },
+    {
+      title: "Digital Marketing",
+      description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
+      icon: "🎨",
+      color: "from-purple-500 to-pink-500",
+      link: "/marketing",
+    }
   ]
 
   // Career timeline data
