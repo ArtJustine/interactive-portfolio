@@ -55,6 +55,17 @@ export default function MainNav() {
     { name: "Dribbble", href: "https://dribbble.com/artgonzales", icon: <Dribbble className="h-5 w-5" /> },
     { name: "GitHub", href: "https://github.com/ArtJustine", icon: <Github className="h-5 w-5" /> },
     { name: "Instagram", href: "https://www.instagram.com/letscodewithart/", icon: <Instagram className="h-5 w-5" /> },
+    { name: "TikTok", href: "https://www.tiktok.com/@codewithart2", icon: (
+      <Image
+        src="/images/tik-tok.png"
+        alt="TikTok"
+        width={20}
+        height={20}
+        className="h-5 w-5"
+        style={{ display: "inline-block" }}
+      />
+    )
+  },
   ]
 
   return (
