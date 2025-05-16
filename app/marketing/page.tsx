@@ -21,6 +21,8 @@ export default function MarketingPage() {
     title: "SEO Optimization",
     description: "Technical and content SEO that achieved 5 featured snippets and top rankings in competitive niches.",
     image: "/images/seo.png",
+    category: "SEO",
+    externalUrl: "https://pawfecthouse.com/",
 
   },
   {
@@ -28,13 +30,17 @@ export default function MarketingPage() {
     title: "Content Marketing Strategy",
     description: "Comprehensive blog and video content strategy that doubled organic traffic in just 6 months.",
     image: "/images/creative.png",
+    category: "Content Marketing",
+    externalUrl: "https://hiltondentalcq.com.au/",
 
   },
   {
     id: 3,
     title: "Social Media Campaign",
     description: "Strategic multi-platform campaign that increased brand engagement by 200% in 3 months.",
-    image: "/images/ssocial.png",
+    image: "/images/social.png",
+    category: "Social Media",
+    externalUrl: "https://www.shore360.com/",
 
   },
   {
@@ -42,6 +48,8 @@ export default function MarketingPage() {
     title: "PPC Campaign",
     description: "Google Ads campaign with 320% ROI, reduced cost-per-click by 40%, and expanded reach.",
     image: "/images/ad.png",
+    category: "PPC",
+    externalUrl: "https://www.junoecommerce.com/",  
 
   },
   {
@@ -49,6 +57,8 @@ export default function MarketingPage() {
     title: "Affiliate & Influencer Marketing",
     description: "Built a profitable affiliate program and partnered with niche influencers to drive brand trust and conversions.",
     image: "/images/affiliate.png",
+    category: "Affiliate Marketing",
+    externalUrl: "https://impact.com/", 
 
   },
 ]
