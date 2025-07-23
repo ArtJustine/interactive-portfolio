@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import PageHeader from "@/components/page-header"
 import ProjectsGrid from "@/components/projects-grid"
@@ -47,23 +48,7 @@ export default function FrontendPage() {
       image: "/images/socialscheduler.png",
       category: "Next JS & Vercel",
       externalUrl: "https://v0-social-media-scheduler-zeta-woad.vercel.app/",
-    },/*
-    {
-      id: 5,
-      title: "Interactive Landing Page",
-      description: "High-conversion landing page with engaging animations and micro-interactions",
-      image: "/images/web-project5.jpg",
-      category: "HTML, CSS & JavaScript",
-      externalUrl: "https://github.com/yourusername/interactive-landing",
     },
-    {
-      id: 6,
-      title: "3D Product Configurator",
-      description: "Interactive 3D product visualization tool with customization options",
-      image: "/images/web-project6.jpg",
-      category: "Three.js & React",
-      externalUrl: "https://github.com/yourusername/3d-product-configurator",
-    },*/
   ]
 
   return (
@@ -81,16 +66,50 @@ export default function FrontendPage() {
         />
         {/* Icon row */}
         <div className="flex flex-wrap items-center justify-center gap-6 py-8">
-          <img src="/images/icons8-nextjs.svg" alt="NextJS" className="h-10 w-10" />
-          <img src="/images/icons8-typescript.svg" alt="TypeScript" className="h-10 w-10" />
-          <img src="/images/icons8-tailwind-css.svg" alt="TailwingCSS" className="h-10 w-10" />
-          <img src="/images/icons8-javascript.svg" alt="JavaScript" className="h-10 w-10" />
-          <img src="/images/icons8-shopify.svg" alt="JavaScript" className="h-10 w-10" />
-          <img src="/images/icons8-wordpress.svg" alt="JavaScript" className="h-10 w-10" />
+          <Image 
+            src="/images/icons8-nextjs.svg" 
+            alt="NextJS" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-typescript.svg" 
+            alt="TypeScript" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-tailwind-css.svg" 
+            alt="Tailwind CSS" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-javascript.svg" 
+            alt="JavaScript" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-shopify.svg" 
+            alt="Shopify" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-wordpress.svg" 
+            alt="WordPress" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
         </div>
 
-
-        
         <ProjectsGrid projects={frontendProjects} />
       </div>
     </div>
