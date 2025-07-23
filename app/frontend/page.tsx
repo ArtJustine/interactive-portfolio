@@ -85,6 +85,8 @@ export default function FrontendPage() {
           <img src="/images/icons8-typescript.svg" alt="TypeScript" className="h-10 w-10" />
           <img src="/images/icons8-tailwind-css.svg" alt="TailwingCSS" className="h-10 w-10" />
           <img src="/images/icons8-javascript.svg" alt="JavaScript" className="h-10 w-10" />
+          <img src="/images/icons8-shopify.svg" alt="JavaScript" className="h-10 w-10" />
+          <img src="/images/icons8-wordpress.svg" alt="JavaScript" className="h-10 w-10" />
         </div>
 
 
