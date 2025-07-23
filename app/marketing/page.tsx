@@ -75,6 +75,12 @@ export default function MarketingPage() {
           title="Digital Marketing"
           subtitle="Develop marketing strategies that don’t just sell but create lasting relationships between brands and consumers."
         />
+                {/* Icon row */}
+        <div className="flex flex-wrap items-center justify-center gap-6 py-8">
+          <img src="/images/icons8-google-ads.svg" alt="NextJS" className="h-10 w-10" />
+          <img src="/images/icons8-meta.svg" alt="TypeScript" className="h-10 w-10" />
+
+        </div>
         <ProjectsGrid projects={marketingProjects} />
       </div>
     </div>
