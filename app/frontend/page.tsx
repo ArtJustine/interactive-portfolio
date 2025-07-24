@@ -47,7 +47,7 @@ export default function FrontendPage() {
       description: "Progressive web app with offline capabilities and native-like experience",
       image: "/images/socialscheduler.png",
       category: "Next JS & Vercel",
-      externalUrl: "https://v0-social-media-scheduler-zeta-woad.vercel.app/",
+      externalUrl: "https://scheduler-seven-ivory.vercel.app/",
     },
     {
       id: 5,
