@@ -81,7 +81,7 @@ export default function MarketingPage() {
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/icons8-meta (1).svg" 
+            src="/images/icons8-meta (2).svg" 
             alt="Meta/Facebook" 
             width={40} 
             height={40} 
@@ -95,7 +95,7 @@ export default function MarketingPage() {
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/klaviyo.svg" 
+            src="/images/Untitled design (1).svg" 
             alt="Klaviyo" 
             width={40} 
             height={40} 
