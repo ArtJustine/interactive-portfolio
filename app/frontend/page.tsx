@@ -95,15 +95,29 @@ export default function FrontendPage() {
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/icons8-shopify.svg" 
+            src="/images/icons8-shopify (1).svg" 
             alt="Shopify" 
             width={40} 
             height={40} 
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/icons8-wordpress.svg" 
+            src="/images/icons8-wordpress (1).svg" 
             alt="WordPress" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-webflow.svg" 
+            alt="Webflow" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-wix.svg" 
+            alt="Wix" 
             width={40} 
             height={40} 
             className="h-10 w-10" 
