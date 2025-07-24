@@ -11,6 +11,7 @@ export interface Project {
   image: string
   category: string
   externalUrl: string
+  videoSrc?: string // Optional video source for video projects
 }
 
 interface ProjectsGridProps {
