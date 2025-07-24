@@ -74,15 +74,29 @@ export default function MarketingPage() {
         {/* Icon row */}
         <div className="flex flex-wrap items-center justify-center gap-6 py-8">
           <Image 
-            src="/images/icons8-google-ads.svg" 
+            src="/images/icons8-google-ads (1).svg" 
             alt="Google Ads" 
             width={40} 
             height={40} 
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/icons8-meta.svg" 
+            src="/images/icons8-meta (1).svg" 
             alt="Meta/Facebook" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/icons8-canva.svg" 
+            alt="Canva" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10" 
+          />
+          <Image 
+            src="/images/klaviyo.svg" 
+            alt="Klaviyo" 
             width={40} 
             height={40} 
             className="h-10 w-10" 
