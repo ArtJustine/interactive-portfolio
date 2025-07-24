@@ -95,7 +95,7 @@ export default function MarketingPage() {
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/Untitled design (1).svg" 
+            src="/images/klaviyo1.svg" 
             alt="Klaviyo" 
             width={40} 
             height={40} 
