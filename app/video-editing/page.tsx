@@ -23,6 +23,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project.jpg",
       category: "Commercial",
       videoSrc: "/videos/brand-story.mp4", // Local video file
+      externalUrl: "#",
     },
     {
       id: 2,
@@ -31,6 +32,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project2.jpg",
       category: "Music Video",
       videoSrc: "/videos/music-video.mp4", // Local video file
+      externalUrl: "#",
     },
     {
       id: 3,
@@ -39,6 +41,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project3.jpg",
       category: "Documentary",
       videoSrc: "/videos/documentary.mp4", // Local video file
+      externalUrl: "#",
     },
     {
       id: 4,
@@ -47,6 +50,7 @@ export default function VideoEditingPage() {
       image: "/images/video-project4.jpg",
       category: "Commercial",
       videoSrc: "/videos/product-launch.mp4", // Local video file
+      externalUrl: "#",
     },
   ]
 
