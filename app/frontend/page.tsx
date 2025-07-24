@@ -49,6 +49,14 @@ export default function FrontendPage() {
       category: "Next JS & Vercel",
       externalUrl: "https://v0-social-media-scheduler-zeta-woad.vercel.app/",
     },
+    {
+      id: 5,
+      title: "E-Commerce",
+      description: "Pet e-commerce store with a native-app experience and smooth, responsive design",
+      image: "/images/ecommerce.png",
+      category: "Shopify & Liquid",
+      externalUrl: "https://petcareland.com/",
+    },
   ]
 
   return (
