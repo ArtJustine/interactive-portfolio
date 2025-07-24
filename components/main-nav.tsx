@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Youtube, Github, Instagram, Dribbble, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import CircularTextButton from "@/components/circular-text-button"
+import Image from "next/image"
 
 export default function MainNav() {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,9 +16,9 @@ export default function MainNav() {
   const menuVariants = {
     closed: {
       opacity: 0,
-      x: "100%",
+      x: 100,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 30,
       },
@@ -26,7 +27,7 @@ export default function MainNav() {
       opacity: 1,
       x: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 30,
         staggerChildren: 0.07,
@@ -73,7 +74,7 @@ export default function MainNav() {
       <header className="fixed top-0 left-0 right-0 z-50 p-3 md:p-6 flex justify-between items-center">
         <div className="z-50">
           <CircularTextButton
-            text="ART GONZALES • FREELANCER • DEVELOPER • DESIGNER • "
+            text="ART GONZALES • FREELANCER "
             imageSrc="/images/logo.png"
             imageAlt="Art Gonzales"
             href="/"
