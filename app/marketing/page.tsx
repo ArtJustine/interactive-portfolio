@@ -95,7 +95,7 @@ export default function MarketingPage() {
             className="h-10 w-10" 
           />
           <Image 
-            src="/images/klaviyo1.webp" 
+            src="/images/klaviyo.logo.png" 
             alt="Klaviyo" 
             width={40} 
             height={40} 
