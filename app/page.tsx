@@ -427,7 +427,7 @@ export default function Home() {
                 variant="outline"
                 className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
                 transition-all transform hover:scale-105 group mt-4"
-                onClick={() => window.open("/cv.pdf", "_blank")}
+                onClick={() => window.open("/cv_art.pdf", "_blank")}
               >
                 <span className="relative z-10 flex items-center group-hover:text-white">
                   Download CV{" "}
