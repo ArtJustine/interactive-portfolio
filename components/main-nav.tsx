@@ -111,7 +111,7 @@ export default function MainNav() {
                     <motion.li key={item.name} variants={itemVariants} className={item.className || ""}>
                       {item.isDownloadCV ? (
                         <a
-                          href="/cv.pdf"
+                          href="/cv_art.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent flex items-center"
