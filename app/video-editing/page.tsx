@@ -18,49 +18,43 @@ export default function VideoEditingPage() {
   const videoProjects: Project[] = [
     {
       id: 1,
-      title: "Cinematic Brand Story",
-      description: "Emotional storytelling through cinematic visuals for a luxury brand",
+      title: "Ecommerce Product Video",
+      description: "Professional product showcase designed to drive sales and engagement with high-conversion visuals.",
       image: "/images/video-project.jpg",
-      category: "Commercial",
-      videoSrc: "/videos/brand-story.mp4", // Local video file
-      externalUrl: "#",
+      category: "E-commerce",
+      externalUrl: "https://drive.google.com/file/d/1u-R51ZwLyhccnx6Syns9vDmIN7vMMqAQ/view?usp=sharing",
     },
     {
       id: 2,
-      title: "Music Video Production",
-      description: "Creative direction and editing for an indie artist's music video",
+      title: "Corporate Video",
+      description: "High-quality corporate storytelling and brand presentation for professional business narratives.",
       image: "/images/video-project2.jpg",
-      category: "Music Video",
-      videoSrc: "/videos/music-video.mp4", // Local video file
-      externalUrl: "#",
+      category: "Corporate",
+      externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view?usp=sharing",
     },
     {
       id: 3,
-      title: "Documentary Short",
-      description: "Compelling visual narrative exploring environmental conservation",
+      title: "AI Generated Ad",
+      description: "Innovative advertisement created using cutting-edge AI video generation tools and techniques.",
       image: "/images/video-project3.jpg",
-      category: "Documentary",
-      videoSrc: "/videos/documentary.mp4", // Local video file
-      externalUrl: "#",
+      category: "AI Production",
+      externalUrl: "https://drive.google.com/file/d/1VFyXGCsvcuaMEf4qhrKfKKUoV9zfuBop/view?usp=sharing",
     },
     {
       id: 4,
-      title: "Product Launch Video",
-      description: "Dynamic product showcase with motion graphics and visual effects",
+      title: "Social Media Vertical Video",
+      description: "Engaging vertical content optimized for TikTok, Reels, and Shorts to capture mobile audiences.",
       image: "/images/video-project4.jpg",
-      category: "Commercial",
-      videoSrc: "/videos/product-launch.mp4", // Local video file
-      externalUrl: "#",
+      category: "Social Media",
+      externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view?usp=sharing",
     },
   ]
 
   return (
     <div ref={containerRef} className="relative min-h-screen bg-black text-white">
       <motion.div className="fixed inset-0 z-0 opacity-50 pointer-events-none" style={{ y: backgroundY }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/100"></div>
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover opacity-30">
-          <source src="/videos/video-bg.mp4" type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(50,50,255,0.1),rgba(0,0,0,1))]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black/100"></div>
       </motion.div>
 
       <div className="relative z-10 pt-24">

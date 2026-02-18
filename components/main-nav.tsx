@@ -44,7 +44,7 @@ export default function MainNav() {
   const navItems = [
     { name: "Home", href: "/", className: "hidden md:block" },
     { name: "Web Development", href: "/frontend" },
-    { name: "UI/UX Design", href: "/design" }, 
+    { name: "UI/UX Design", href: "/design" },
     { name: "Digital Marketing", href: "/marketing" },
     { name: "Video Editing", href: "/video-editing" },
     { name: "Contact", href: "/#contact", className: "mt-12" }, // Added mt-8 for extra spacing
@@ -56,17 +56,18 @@ export default function MainNav() {
     { name: "Dribbble", href: "https://dribbble.com/artgonzales", icon: <Dribbble className="h-5 w-5" /> },
     { name: "GitHub", href: "https://github.com/ArtJustine", icon: <Github className="h-5 w-5" /> },
     { name: "Instagram", href: "https://www.instagram.com/letscodewithart/", icon: <Instagram className="h-5 w-5" /> },
-    { name: "TikTok", href: "https://www.tiktok.com/@codewithart2", icon: (
-      <Image
-        src="/images/tik-tok.png"
-        alt="TikTok"
-        width={20}
-        height={20}
-        className="h-5 w-5"
-        style={{ display: "inline-block" }}
-      />
-    )
-  },
+    {
+      name: "TikTok", href: "https://www.tiktok.com/@codewithart2", icon: (
+        <Image
+          src="/images/tik-tok.png"
+          alt="TikTok"
+          width={20}
+          height={20}
+          className="h-5 w-5"
+          style={{ display: "inline-block" }}
+        />
+      )
+    },
   ]
 
   return (
