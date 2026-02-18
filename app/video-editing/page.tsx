@@ -30,7 +30,7 @@ export default function VideoEditingPage() {
       description: "High-quality corporate storytelling and brand presentation for professional business narratives.",
       image: "/images/video-project2.jpg",
       category: "Corporate",
-      externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view?usp=sharing",
+      externalUrl: "https://drive.google.com/file/d/1-aPEj01A7YcaQ9yAPZErmChb7gd24AvS/view?usp=sharing",
     },
     {
       id: 3,
