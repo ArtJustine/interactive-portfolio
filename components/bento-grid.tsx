@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Lightbulb, Code, Pen, Film, BarChart3 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type React from "react"
@@ -16,6 +17,7 @@ interface BentoItemProps {
   iconColor?: string
   backgroundImage: string
   onHover: () => void
+  href?: string
 }
 
 // Adjusted BentoItem: Added onHover callback
@@ -29,20 +31,10 @@ const BentoItem = ({
   iconColor,
   backgroundImage,
   onHover,
+  href,
 }: BentoItemProps) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true, margin: "-100px" }}
-      className={cn(
-        "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col",
-        className,
-      )}
-      style={style}
-      onMouseEnter={onHover}
-    >
+  const content = (
+    <>
       <div className="absolute -inset-0.5 bg-gradient-to-r from-[hsl(var(--chart-1))] via-[hsl(var(--chart-4))] to-[hsl(var(--chart-5))] opacity-0 group-hover:opacity-50 transition-opacity duration-500 rounded-xl"></div>
 
       {/* Content part */}
@@ -58,6 +50,44 @@ const BentoItem = ({
       <div className="flex-grow">
         <p className="text-muted-foreground">{description}</p>
       </div>
+    </>
+  )
+
+  if (href) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay }}
+        viewport={{ once: true, margin: "-100px" }}
+        className={cn(
+          "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col cursor-pointer",
+          className,
+        )}
+        style={style}
+        onMouseEnter={onHover}
+      >
+        <Link href={href} className="flex flex-col h-full">
+          {content}
+        </Link>
+      </motion.div>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+      viewport={{ once: true, margin: "-100px" }}
+      className={cn(
+        "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col",
+        className,
+      )}
+      style={style}
+      onMouseEnter={onHover}
+    >
+      {content}
     </motion.div>
   )
 }
@@ -81,6 +111,7 @@ export default function BentoGrid() {
       icon: <Code className="h-5 w-5" />,
       iconColor: "#6366F1",
       backgroundImage: "/dev.jpg?height=1080&width=1920&text=Developer",
+      href: "/frontend",
     },
     {
       title: "Designer",
@@ -89,6 +120,7 @@ export default function BentoGrid() {
       icon: <Pen className="h-5 w-5" />,
       iconColor: "#8B5CF6",
       backgroundImage: "/design.jpg?height=1080&width=1920&text=Designer",
+      href: "/design",
     },
     {
       title: "Video Editor",
@@ -97,6 +129,7 @@ export default function BentoGrid() {
       icon: <Film className="h-5 w-5" />,
       iconColor: "#8B5CF6",
       backgroundImage: "/video.jpg?height=1080&width=1920&text=Video+Editor",
+      href: "/video-editing",
     },
     {
       title: "Content Strategist",
@@ -105,6 +138,7 @@ export default function BentoGrid() {
       icon: <BarChart3 className="h-5 w-5" />,
       iconColor: "#EC4899",
       backgroundImage: "/market.jpg?height=1080&width=1920&text=Content+Strategist",
+      href: "/marketing",
     },
   ]
 
@@ -166,6 +200,7 @@ export default function BentoGrid() {
               delay={index * 0.1}
               backgroundImage={item.backgroundImage}
               onHover={() => setActiveBackground(index)}
+              href={item.href}
             />
           ))}
         </div>
@@ -182,6 +217,7 @@ export default function BentoGrid() {
             className="md:row-span-2 h-full" // Spans rows & fills the calculated height
             backgroundImage={bentoItems[0].backgroundImage}
             onHover={() => setActiveBackground(0)}
+            href={bentoItems[0].href}
           />
 
           {/* Item 2: Middle Top (Taller) */}
@@ -195,6 +231,7 @@ export default function BentoGrid() {
             className={`md:col-start-2 md:row-start-1 ${middleTopMinHeight}`}
             backgroundImage={bentoItems[1].backgroundImage}
             onHover={() => setActiveBackground(1)}
+            href={bentoItems[1].href}
           />
 
           {/* Item 3: Middle Bottom (Shorter) */}
@@ -208,6 +245,7 @@ export default function BentoGrid() {
             className={`md:col-start-2 md:row-start-2 ${middleBottomMinHeight}`}
             backgroundImage={bentoItems[2].backgroundImage}
             onHover={() => setActiveBackground(2)}
+            href={bentoItems[2].href}
           />
 
           {/* Item 4: Right Top (Shorter) */}
@@ -221,6 +259,7 @@ export default function BentoGrid() {
             className={`md:col-start-3 md:row-start-1 ${rightTopMinHeight}`}
             backgroundImage={bentoItems[3].backgroundImage}
             onHover={() => setActiveBackground(3)}
+            href={bentoItems[3].href}
           />
 
           {/* Item 5: Right Bottom (Taller) */}
@@ -234,6 +273,7 @@ export default function BentoGrid() {
             className={`md:col-start-3 md:row-start-2 ${rightBottomMinHeight}`}
             backgroundImage={bentoItems[4].backgroundImage}
             onHover={() => setActiveBackground(4)}
+            href={bentoItems[4].href}
           />
         </div>
       </div>

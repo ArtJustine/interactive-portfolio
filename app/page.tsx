@@ -141,6 +141,13 @@ export default function Home() {
       icon: "🎨",
       color: "from-purple-500 to-pink-500",
       link: "/marketing",
+    },
+    {
+      title: "Video Editing",
+      description: "Creating engaging visual stories through professional editing, motion graphics, and sound design.",
+      icon: "🎬",
+      color: "from-orange-500 to-red-500",
+      link: "/video-editing",
     }
   ]
 
@@ -330,9 +337,8 @@ export default function Home() {
         {/* Title that will stick to the top only when in the timeline section */}
         <div
           ref={timelineTitleRef}
-          className={`${
-            isTitleAtTop ? "fixed top-0 left-0 right-0 pt-4 pb-3 sm:pt-6 sm:pb-4" : "pt-6 pb-4"
-          } bg-black z-30`}
+          className={`${isTitleAtTop ? "fixed top-0 left-0 right-0 pt-4 pb-3 sm:pt-6 sm:pb-4" : "pt-6 pb-4"
+            } bg-black z-30`}
           style={{
             paddingTop: isTitleAtTop ? "max(1rem, 1rem)" : "1.5rem",
             paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
