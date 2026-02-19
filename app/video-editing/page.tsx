@@ -48,6 +48,14 @@ export default function VideoEditingPage() {
       category: "Social Media",
       externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view?usp=sharing",
     },
+    {
+      id: 5,
+      title: "SaaS Product Explainer",
+      description: "High-impact explainer video designed to simplify complex software concepts and drive user sign-ups.",
+      image: "/explainer.png",
+      category: "Motion Graphics",
+      externalUrl: "https://drive.google.com/file/d/1xBouM0xNH83xzYGj1TuVz_-TR4RpIXve/view?usp=sharing",
+    },
   ]
 
   return (
