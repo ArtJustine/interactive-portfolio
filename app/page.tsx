@@ -129,18 +129,18 @@ export default function Home() {
       link: "/frontend",
     },
     {
-      title: "UI/UX Design",
-      description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
-      icon: "🎨",
-      color: "from-purple-500 to-pink-500",
-      link: "/design",
-    },
-    {
       title: "Digital Marketing",
       description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
-      icon: "🎨",
+      icon: "💼",
       color: "from-purple-500 to-pink-500",
       link: "/marketing",
+    },
+    {
+      title: "Copywriting",
+      description: "Crafting persuasive, high-conversion copy for VSLs, articles, and ecommerce that resonates with audiences.",
+      icon: "✍️",
+      color: "from-green-500 to-emerald-500",
+      link: "/copywriting",
     },
     {
       title: "Video Editing",
@@ -150,11 +150,11 @@ export default function Home() {
       link: "/video-editing",
     },
     {
-      title: "Copywriting",
-      description: "Crafting persuasive, high-conversion copy for VSLs, articles, and ecommerce that resonates with audiences.",
-      icon: "✍️",
-      color: "from-green-500 to-emerald-500",
-      link: "/copywriting",
+      title: "UI/UX Design",
+      description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
+      icon: "🎨",
+      color: "from-purple-500 to-pink-500",
+      link: "/design",
     }
   ]
 

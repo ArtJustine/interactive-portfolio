@@ -114,24 +114,6 @@ export default function BentoGrid() {
       href: "/frontend",
     },
     {
-      title: "Designer",
-      description:
-        "Design isn't just how it looks — it's how it works. I use Figma to craft thoughtful user journeys, wireframes, and prototypes that prioritize both beauty and usability.",
-      icon: <Pen className="h-5 w-5" />,
-      iconColor: "#8B5CF6",
-      backgroundImage: "/design.jpg?height=1080&width=1920&text=Designer",
-      href: "/design",
-    },
-    {
-      title: "Video Editor",
-      description:
-        "Stories told in frames. From snappy edits to smooth transitions and sound design, I use tools like Adobe Premiere Pro and CapCut to create engaging content for YouTube, social media, or brands.",
-      icon: <Film className="h-5 w-5" />,
-      iconColor: "#8B5CF6",
-      backgroundImage: "/video.jpg?height=1080&width=1920&text=Video+Editor",
-      href: "/video-editing",
-    },
-    {
       title: "Content Strategist",
       description:
         "Good content needs great strategy. I understand how to position brands, write SEO-optimized content, and craft campaigns that connect with the right audience at the right time.",
@@ -148,6 +130,24 @@ export default function BentoGrid() {
       iconColor: "#10B981",
       backgroundImage: "/market.jpg?height=1080&width=1920&text=Copywriter",
       href: "/copywriting",
+    },
+    {
+      title: "Video Editor",
+      description:
+        "Stories told in frames. From snappy edits to smooth transitions and sound design, I use tools like Adobe Premiere Pro and CapCut to create engaging content for YouTube, social media, or brands.",
+      icon: <Film className="h-5 w-5" />,
+      iconColor: "#8B5CF6",
+      backgroundImage: "/video.jpg?height=1080&width=1920&text=Video+Editor",
+      href: "/video-editing",
+    },
+    {
+      title: "Designer",
+      description:
+        "Design isn't just how it looks — it's how it works. I use Figma to craft thoughtful user journeys, wireframes, and prototypes that prioritize both beauty and usability.",
+      icon: <Pen className="h-5 w-5" />,
+      iconColor: "#8B5CF6",
+      backgroundImage: "/design.jpg?height=1080&width=1920&text=Designer",
+      href: "/design",
     },
   ]
 
@@ -231,67 +231,67 @@ export default function BentoGrid() {
 
           {/* Item 2: Col 1, Row 2 */}
           <BentoItem
-            title={bentoItems[5].title}
-            description={bentoItems[5].description}
-            icon={bentoItems[5].icon}
-            iconColor={bentoItems[5].iconColor}
-            delay={0.6}
-            className={`md:col-start-1 md:row-start-2 ${middleBottomMinHeight}`}
-            backgroundImage={bentoItems[5].backgroundImage}
-            onHover={() => setActiveBackground(5)}
-            href={bentoItems[5].href}
-          />
-
-          {/* Item 3: Col 2, Row 1 */}
-          <BentoItem
             title={bentoItems[1].title}
             description={bentoItems[1].description}
             icon={bentoItems[1].icon}
             iconColor={bentoItems[1].iconColor}
             delay={0.2}
-            className={`md:col-start-2 md:row-start-1 ${middleTopMinHeight}`}
+            className={`md:col-start-1 md:row-start-2 ${middleBottomMinHeight}`}
             backgroundImage={bentoItems[1].backgroundImage}
             onHover={() => setActiveBackground(1)}
             href={bentoItems[1].href}
           />
 
-          {/* Item 4: Col 2, Row 2 */}
+          {/* Item 3: Col 2, Row 1 */}
           <BentoItem
             title={bentoItems[2].title}
             description={bentoItems[2].description}
             icon={bentoItems[2].icon}
             iconColor={bentoItems[2].iconColor}
             delay={0.3}
-            className={`md:col-start-2 md:row-start-2 ${middleBottomMinHeight}`}
+            className={`md:col-start-2 md:row-start-1 ${middleTopMinHeight}`}
             backgroundImage={bentoItems[2].backgroundImage}
             onHover={() => setActiveBackground(2)}
             href={bentoItems[2].href}
           />
 
-          {/* Item 5: Col 3, Row 1 */}
+          {/* Item 4: Col 2, Row 2 */}
           <BentoItem
             title={bentoItems[3].title}
             description={bentoItems[3].description}
             icon={bentoItems[3].icon}
             iconColor={bentoItems[3].iconColor}
             delay={0.4}
-            className={`md:col-start-3 md:row-start-1 ${rightTopMinHeight}`}
+            className={`md:col-start-2 md:row-start-2 ${middleBottomMinHeight}`}
             backgroundImage={bentoItems[3].backgroundImage}
             onHover={() => setActiveBackground(3)}
             href={bentoItems[3].href}
           />
 
-          {/* Item 6: Col 3, Row 2 */}
+          {/* Item 5: Col 3, Row 1 */}
           <BentoItem
             title={bentoItems[4].title}
             description={bentoItems[4].description}
             icon={bentoItems[4].icon}
             iconColor={bentoItems[4].iconColor}
             delay={0.5}
-            className={`md:col-start-3 md:row-start-2 ${rightBottomMinHeight}`}
+            className={`md:col-start-3 md:row-start-1 ${rightTopMinHeight}`}
             backgroundImage={bentoItems[4].backgroundImage}
             onHover={() => setActiveBackground(4)}
             href={bentoItems[4].href}
+          />
+
+          {/* Item 6: Col 3, Row 2 */}
+          <BentoItem
+            title={bentoItems[5].title}
+            description={bentoItems[5].description}
+            icon={bentoItems[5].icon}
+            iconColor={bentoItems[5].iconColor}
+            delay={0.6}
+            className={`md:col-start-3 md:row-start-2 ${rightBottomMinHeight}`}
+            backgroundImage={bentoItems[5].backgroundImage}
+            onHover={() => setActiveBackground(5)}
+            href={bentoItems[5].href}
           />
         </div>
       </div>
