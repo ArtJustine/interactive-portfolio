@@ -119,7 +119,7 @@ export default function BentoGrid() {
         "Good content needs great strategy. I understand how to position brands, write SEO-optimized content, and craft campaigns that connect with the right audience at the right time.",
       icon: <BarChart3 className="h-5 w-5" />,
       iconColor: "#EC4899",
-      backgroundImage: "/market.jpg?height=1080&width=1920&text=Content+Strategist",
+      backgroundImage: "/saas.webp?height=1080&width=1920&text=Content+Strategist",
       href: "/marketing",
     },
     {
@@ -128,7 +128,7 @@ export default function BentoGrid() {
         "Words that sell. I craft persuasive copy for VSLs, articles, and e-commerce that speaks directly to your audience's needs and drives them to action.",
       icon: <Type className="h-5 w-5" />,
       iconColor: "#10B981",
-      backgroundImage: "/market.jpg?height=1080&width=1920&text=Copywriter",
+      backgroundImage: "/saas.webp?height=1080&width=1920&text=Copywriter",
       href: "/copywriting",
     },
     {
