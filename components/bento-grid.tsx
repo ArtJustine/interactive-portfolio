@@ -56,10 +56,10 @@ const BentoItem = ({
   if (href) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay }}
-        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.4, delay }}
+        viewport={{ once: true, margin: "-20px" }}
         className={cn(
           "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col cursor-pointer",
           className,
@@ -76,10 +76,10 @@ const BentoItem = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.4, delay }}
+      viewport={{ once: true, margin: "-20px" }}
       className={cn(
         "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col",
         className,

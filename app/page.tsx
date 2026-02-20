@@ -101,8 +101,8 @@ export default function Home() {
   const gridOpacity = useTransform(smoothProgress, [0, 0.3, 0.6, 1], [0.3, 0.15, 0.1, 0.05])
 
   // Skills section animation - simplified for mobile
-  const skillsY = useTransform(smoothProgress, [0.2, 0.4], [isMobile ? 50 : 100, 0])
-  const skillsOpacity = useTransform(smoothProgress, [0.2, 0.3], [0, 1])
+  const skillsY = useTransform(smoothProgress, [0.15, 0.25], [isMobile ? 20 : 30, 0])
+  const skillsOpacity = useTransform(smoothProgress, [0.15, 0.22], [0, 1])
 
   // Contact section animation - simplified for mobile
   const contactY = useTransform(smoothProgress, [0.7, 0.9], [isMobile ? 50 : 100, 0])

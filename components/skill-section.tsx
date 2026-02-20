@@ -13,15 +13,15 @@ interface SkillSectionProps {
 
 export default function SkillSection({ title, description, icon, colorClass, delay = 0 }: SkillSectionProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <motion.div
       ref={ref}
       className="relative p-6 rounded-lg border border-gray-800 overflow-hidden group"
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
+      transition={{ duration: 0.4, delay }}
     >
       <div
         className={`absolute -inset-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${colorClass}`}
