@@ -109,30 +109,48 @@ export default function MainNav() {
             <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center h-full">
               <motion.nav className="flex flex-col space-y-8 py-8 md:py-0" variants={itemVariants}>
                 <ul className="space-y-6">
-                  {navItems.map((item) => (
-                    <motion.li key={item.name} variants={itemVariants} className={item.className || ""}>
-                      {item.isDownloadCV ? (
-                        <a
-                          href="/cv_art.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent flex items-center"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {item.name}
-                          <Download className="ml-2 h-6 w-6" />
-                        </a>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className={`text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent ${item.className ? "" : ""}`}
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      )}
-                    </motion.li>
-                  ))}
+                  {navItems.map((item, index) => {
+                    const isHome = item.name === "Home";
+                    const isContact = item.name === "Contact";
+                    const isWebDev = item.name === "Web Development";
+
+                    return (
+                      <div key={item.name || index}>
+                        {isWebDev && (
+                          <motion.li variants={itemVariants} className="mb-6 opacity-30">
+                            <div className="h-[1px] w-24 bg-gradient-to-r from-white to-transparent" />
+                          </motion.li>
+                        )}
+                        {isContact && (
+                          <motion.li variants={itemVariants} className="mb-6 opacity-30">
+                            <div className="h-[1px] w-24 bg-gradient-to-r from-white to-transparent" />
+                          </motion.li>
+                        )}
+                        <motion.li variants={itemVariants} className={item.className || ""}>
+                          {item.isDownloadCV ? (
+                            <a
+                              href="/cv_art.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent flex items-center"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {item.name}
+                              <Download className="ml-2 h-6 w-6" />
+                            </a>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              className={`text-3xl md:text-4xl font-bold text-white transition-transform duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-400 hover:via-pink-500 hover:to-red-500 hover:bg-clip-text hover:text-transparent ${item.className ? "" : ""}`}
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          )}
+                        </motion.li>
+                      </div>
+                    )
+                  })}
                 </ul>
               </motion.nav>
 
