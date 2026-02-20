@@ -148,6 +148,13 @@ export default function Home() {
       icon: "🎬",
       color: "from-orange-500 to-red-500",
       link: "/video-editing",
+    },
+    {
+      title: "Copywriting",
+      description: "Crafting persuasive, high-conversion copy for VSLs, articles, and ecommerce that resonates with audiences.",
+      icon: "✍️",
+      color: "from-green-500 to-emerald-500",
+      link: "/copywriting",
     }
   ]
 

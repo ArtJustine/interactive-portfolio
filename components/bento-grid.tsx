@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Lightbulb, Code, Pen, Film, BarChart3 } from "lucide-react"
+import { Lightbulb, Code, Pen, Film, BarChart3, Type } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type React from "react"
 import { useState } from "react"
@@ -140,6 +140,15 @@ export default function BentoGrid() {
       backgroundImage: "/market.jpg?height=1080&width=1920&text=Content+Strategist",
       href: "/marketing",
     },
+    {
+      title: "Copywriter",
+      description:
+        "Words that sell. I craft persuasive copy for VSLs, articles, and e-commerce that speaks directly to your audience's needs and drives them to action.",
+      icon: <Type className="h-5 w-5" />,
+      iconColor: "#10B981",
+      backgroundImage: "/market.jpg?height=1080&width=1920&text=Copywriter",
+      href: "/copywriting",
+    },
   ]
 
   // Get current date information
@@ -207,69 +216,78 @@ export default function BentoGrid() {
 
         {/* --- Desktop layout: No fixed height, uses grid and min-heights --- */}
         <div className="hidden md:grid md:grid-cols-3 md:grid-rows-2 gap-4">
-          {/* Item 1: Spans 2 rows, fills height determined by auto rows */}
+          {/* Item 1: Col 1, Row 1 */}
           <BentoItem
             title={bentoItems[0].title}
             description={bentoItems[0].description}
             icon={bentoItems[0].icon}
             iconColor={bentoItems[0].iconColor}
             delay={0.1}
-            className="md:row-span-2 h-full" // Spans rows & fills the calculated height
+            className={`md:col-start-1 md:row-start-1 ${middleTopMinHeight}`}
             backgroundImage={bentoItems[0].backgroundImage}
             onHover={() => setActiveBackground(0)}
             href={bentoItems[0].href}
           />
 
-          {/* Item 2: Middle Top (Taller) */}
+          {/* Item 2: Col 1, Row 2 */}
+          <BentoItem
+            title={bentoItems[5].title}
+            description={bentoItems[5].description}
+            icon={bentoItems[5].icon}
+            iconColor={bentoItems[5].iconColor}
+            delay={0.6}
+            className={`md:col-start-1 md:row-start-2 ${middleBottomMinHeight}`}
+            backgroundImage={bentoItems[5].backgroundImage}
+            onHover={() => setActiveBackground(5)}
+            href={bentoItems[5].href}
+          />
+
+          {/* Item 3: Col 2, Row 1 */}
           <BentoItem
             title={bentoItems[1].title}
             description={bentoItems[1].description}
             icon={bentoItems[1].icon}
             iconColor={bentoItems[1].iconColor}
             delay={0.2}
-            // Placed in Col 2, Row 1. Applies larger min-height.
             className={`md:col-start-2 md:row-start-1 ${middleTopMinHeight}`}
             backgroundImage={bentoItems[1].backgroundImage}
             onHover={() => setActiveBackground(1)}
             href={bentoItems[1].href}
           />
 
-          {/* Item 3: Middle Bottom (Shorter) */}
+          {/* Item 4: Col 2, Row 2 */}
           <BentoItem
             title={bentoItems[2].title}
             description={bentoItems[2].description}
             icon={bentoItems[2].icon}
             iconColor={bentoItems[2].iconColor}
             delay={0.3}
-            // Placed in Col 2, Row 2. Applies smaller min-height.
             className={`md:col-start-2 md:row-start-2 ${middleBottomMinHeight}`}
             backgroundImage={bentoItems[2].backgroundImage}
             onHover={() => setActiveBackground(2)}
             href={bentoItems[2].href}
           />
 
-          {/* Item 4: Right Top (Shorter) */}
+          {/* Item 5: Col 3, Row 1 */}
           <BentoItem
             title={bentoItems[3].title}
             description={bentoItems[3].description}
             icon={bentoItems[3].icon}
             iconColor={bentoItems[3].iconColor}
             delay={0.4}
-            // Placed in Col 3, Row 1. Applies smaller min-height.
             className={`md:col-start-3 md:row-start-1 ${rightTopMinHeight}`}
             backgroundImage={bentoItems[3].backgroundImage}
             onHover={() => setActiveBackground(3)}
             href={bentoItems[3].href}
           />
 
-          {/* Item 5: Right Bottom (Taller) */}
+          {/* Item 6: Col 3, Row 2 */}
           <BentoItem
             title={bentoItems[4].title}
             description={bentoItems[4].description}
             icon={bentoItems[4].icon}
             iconColor={bentoItems[4].iconColor}
             delay={0.5}
-            // Placed in Col 3, Row 2. Applies larger min-height.
             className={`md:col-start-3 md:row-start-2 ${rightBottomMinHeight}`}
             backgroundImage={bentoItems[4].backgroundImage}
             onHover={() => setActiveBackground(4)}

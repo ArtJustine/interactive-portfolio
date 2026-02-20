@@ -47,6 +47,7 @@ export default function MainNav() {
     { name: "UI/UX Design", href: "/design" },
     { name: "Digital Marketing", href: "/marketing" },
     { name: "Video Editing", href: "/video-editing" },
+    { name: "Copywriting", href: "/copywriting" },
     { name: "Contact", href: "/#contact", className: "mt-12" }, // Added mt-8 for extra spacing
     { name: "Download CV", href: "#", isDownloadCV: true },
   ]
