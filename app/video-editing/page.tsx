@@ -42,11 +42,11 @@ export default function VideoEditingPage() {
     },
     {
       id: 4,
-      title: "Social Media Vertical Video",
-      description: "Engaging vertical content optimized for TikTok, Reels, and Shorts to capture mobile audiences.",
+      title: "Social Media Video",
+      description: "Engaging content optimized for YouTuve to capture mobile audiences.",
       image: "/social.png",
       category: "Social Media",
-      externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view?usp=sharing",
+      externalUrl: "https://drive.google.com/file/d/1_-vpKvV0oY1hZIkLRRJZRCwOqtTX7N-V/view?usp=sharing",
     },
     {
       id: 5,
