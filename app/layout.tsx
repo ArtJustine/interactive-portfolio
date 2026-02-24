@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Art Gonzales",
   description:
     "A creative portfolio showcasing video editing, front-end development, UI/UX design, digital marketing, and copywriting skills",
+  icons: {
+    icon: "/icon.png",
+  },
 }
 
 export default function RootLayout({
