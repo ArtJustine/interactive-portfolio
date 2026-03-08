@@ -46,7 +46,7 @@ export default function VideoEditingPage() {
       description: "Engaging content optimized for YouTuve to capture mobile audiences.",
       image: "/social.png",
       category: "Social Media",
-      externalUrl: "https://drive.google.com/file/d/1_-vpKvV0oY1hZIkLRRJZRCwOqtTX7N-V/view?usp=sharing",
+      externalUrl: "https://drive.google.com/file/d/1HzlVvgFdFHLGVvYilp5vhr-BBiCUy2ea/view",
     },
     {
       id: 5,
