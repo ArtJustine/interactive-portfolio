@@ -18,7 +18,7 @@ export default function SkillSection({ title, description, icon, colorClass, del
   return (
     <motion.div
       ref={ref}
-      className="relative p-6 rounded-lg border border-gray-800 overflow-hidden group"
+      className="relative p-6 rounded-lg border border-gray-800/50 overflow-hidden group bg-black/10 backdrop-blur-md"
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay }}
@@ -30,9 +30,10 @@ export default function SkillSection({ title, description, icon, colorClass, del
 
       <div className="relative z-10">
         <div className="text-4xl mb-4">{icon}</div>
-        <h3 className="text-xl font-bold mb-3">{title}</h3>
-        <p className="text-gray-400">{description}</p>
+        <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
+        <p className="text-gray-300 leading-relaxed">{description}</p>
       </div>
+
 
       <motion.div
         className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${colorClass}`}

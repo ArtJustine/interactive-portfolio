@@ -13,6 +13,8 @@ import SkillSection from "@/components/skill-section"
 import PlaygroundTimeline from "@/components/playground-timeline"
 import BentoGrid from "@/components/bento-grid"
 import { useIsMobile } from "@/hooks/use-mobile"
+import ScrollVideoAnimation from "@/components/scroll-video-animation"
+
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -21,7 +23,9 @@ export default function Home() {
   const [isTitleAtTop, setIsTitleAtTop] = useState(false)
   const [isInTimelineSection, setIsInTimelineSection] = useState(false)
   const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
+  const heroSectionRef = useRef<HTMLDivElement>(null)
   const [email, setEmail] = useState("")
+
   const [emailError, setEmailError] = useState("")
   const isMobile = useIsMobile()
 
@@ -98,15 +102,26 @@ export default function Home() {
   // Reduce animation complexity on mobile
   const heroTextY = useTransform(smoothProgress, [0, 0.2], [0, isMobile ? -50 : -100])
   const heroImageScale = useTransform(smoothProgress, [0, 0.2], [1, isMobile ? 1.05 : 1.1])
+  const heroOpacity = useTransform(smoothProgress, [0, 0.12], [1, 0])
+
   const gridOpacity = useTransform(smoothProgress, [0, 0.3, 0.6, 1], [0.3, 0.15, 0.1, 0.05])
 
   // Skills section animation - simplified for mobile
-  const skillsY = useTransform(smoothProgress, [0.15, 0.25], [isMobile ? 20 : 30, 0])
-  const skillsOpacity = useTransform(smoothProgress, [0.15, 0.22], [0, 1])
+  const skillsY = useTransform(smoothProgress, [0.08, 0.18], [isMobile ? 20 : 30, 0])
+  const skillsOpacity = useTransform(smoothProgress, [0.08, 0.15], [0, 1])
+
+
 
   // Contact section animation - simplified for mobile
   const contactY = useTransform(smoothProgress, [0.7, 0.9], [isMobile ? 50 : 100, 0])
   const contactOpacity = useTransform(smoothProgress, [0.7, 0.8], [0, 1])
+  
+  // Map the main scroll progress to a normalized range for the animation
+  // Starts immediately at hero, spans across the expertise section
+  const animationProgress = useTransform(scrollYProgress, [0, 0.4], [0, 1])
+
+
+
 
   const handleSendClick = () => {
     if (email) {
@@ -214,12 +229,8 @@ export default function Home() {
     <div
       ref={containerRef}
       className="relative min-h-[500vh] bg-black text-white overflow-hidden"
-      // Add performance optimizations for mobile
-      style={{
-        willChange: isMobile ? "auto" : "transform",
-        transform: "translateZ(0)",
-      }}
     >
+
       {/* Background grid - simplified for mobile */}
       <motion.div
         className="fixed inset-0 w-full h-full z-0 pointer-events-none"
@@ -231,8 +242,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgba(255,255,255,0.1)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[size:40px_40px]"></div>
       </motion.div>
 
+      {/* Scroll Driven Image Sequence Animation */}
+      <ScrollVideoAnimation frameCount={40} baseUrl="/animation" progress={animationProgress} />
+
       {/* Hero Section - optimized animations for mobile */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+
         <motion.div
           className="relative z-10 text-center px-6"
           style={{ y: heroTextY }}
@@ -289,22 +304,24 @@ export default function Home() {
 
         <motion.div
           className="absolute inset-0 z-0"
-          style={{ scale: heroImageScale }}
+          style={{ scale: heroImageScale, opacity: heroOpacity }}
           // Optimize for mobile
           initial={false}
         >
+
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
           <Image
-            src="/images/heroimage.JPG"
+            src="/animation/ezgif-frame-001.jpg"
             alt="Hero Background"
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-30"
+
             priority
             sizes="100vw"
-            // Add image optimization
             loading="eager"
-            quality={isMobile ? 75 : 85}
+            quality={isMobile ? 75 : 80}
           />
+
         </motion.div>
       </section>
 
