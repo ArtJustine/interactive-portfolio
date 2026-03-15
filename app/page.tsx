@@ -247,8 +247,9 @@ export default function Home() {
           <a href="#skills">
             <Button
               variant="outline"
+              size="lg"
               className="relative rounded-full border-2 border-white text-white hover:text-white hover:bg-transparent 
-              transition-all transform hover:scale-105 group"
+              transition-all transform hover:scale-110 group px-10 py-7 text-lg"
             >
               <span className="relative z-10 flex items-center group-hover:text-white">
                 Explore My Work{" "}
@@ -319,11 +320,11 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Timeline Section - simplified with CSS sticky */}
-      <section id="timeline" className="relative z-10">
+      <section id="timeline" className="relative z-10 bg-[#0a0a0a]">
         <div
           ref={timelineHeaderRef}
-          className="sticky top-0 sm:top-[80px] pt-6 pb-4 bg-black z-30 w-full"
+          className="sticky top-0 sm:top-[80px] pt-6 pb-4 bg-[#0a0a0a] z-30 w-full"
+
           style={{
             // Add hardware acceleration to prevent flickering when sticky
             transform: "translateZ(0)",
@@ -355,7 +356,8 @@ export default function Home() {
 
         {/* Career highlights section with horizontal scrolling cards */}
         <div
-          className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-black z-20"
+          className="sticky top-[120px] sm:top-[140px] pt-4 pb-3 sm:pt-6 sm:pb-4 bg-[#0a0a0a] z-20"
+
           style={{
             // Add hardware acceleration to prevent flickering
             transform: "translateZ(0)",
