@@ -18,10 +18,10 @@ import ScrollVideoAnimation from "@/components/scroll-video-animation"
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const timelineSectionRef = useRef<HTMLDivElement>(null)
-  const timelineTitleRef = useRef<HTMLDivElement>(null)
-  const [isTitleAtTop, setIsTitleAtTop] = useState(false)
-  const [isInTimelineSection, setIsInTimelineSection] = useState(false)
+  const timelineHeaderRef = useRef<HTMLDivElement>(null)
+  const isTimelineHeaderInView = useInView(timelineHeaderRef, { once: true, margin: "-100px" })
+
+
   const expertiseTitleRef = useRef<HTMLHeadingElement>(null)
   const heroSectionRef = useRef<HTMLDivElement>(null)
   const [email, setEmail] = useState("")
@@ -42,49 +42,11 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  // Throttled scroll handler
-  const handleScroll = useCallback(() => {
-    if (!timelineTitleRef.current || !timelineSectionRef.current) return
+  // No longer needed: manual scroll handling for sticky behavior replaced by CSS sticky
 
-    const titleRect = timelineTitleRef.current.getBoundingClientRect()
-    const sectionRect = timelineSectionRef.current.getBoundingClientRect()
 
-    // Check if we're in the timeline section
-    const inSection = sectionRect.top <= 0 && sectionRect.bottom >= 0
+  // Scroll handler removed as CSS sticky is now used for headers
 
-    // Only update state if there's a change to prevent unnecessary re-renders
-    if (isInTimelineSection !== inSection) {
-      setIsInTimelineSection(inSection)
-    }
-
-    // Only set title at top if we're in the section and the title has reached the top
-    const shouldBeAtTop = inSection && titleRect.top <= 0
-    if (isTitleAtTop !== shouldBeAtTop) {
-      setIsTitleAtTop(shouldBeAtTop)
-    }
-  }, [isTitleAtTop, isInTimelineSection])
-
-  // Use RAF for smooth scrolling effects instead of direct event listener
-  useEffect(() => {
-    let rafId: number
-    let lastScrollY = window.scrollY
-
-    const onScroll = () => {
-      // Skip if scrollY hasn't changed
-      if (lastScrollY === window.scrollY) {
-        rafId = requestAnimationFrame(onScroll)
-        return
-      }
-
-      lastScrollY = window.scrollY
-      handleScroll()
-      rafId = requestAnimationFrame(onScroll)
-    }
-
-    rafId = requestAnimationFrame(onScroll)
-
-    return () => cancelAnimationFrame(rafId)
-  }, [handleScroll])
 
   // Main scroll animations - simplified for mobile
   const { scrollYProgress } = useScroll({
@@ -228,8 +190,9 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-[500vh] bg-black text-white overflow-hidden"
+      className="relative min-h-[500vh] bg-black text-white overflow-clip"
     >
+
 
       {/* Background grid - simplified for mobile */}
       <motion.div
@@ -356,39 +319,32 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Timeline Section - optimized sticky behavior */}
-      <section id="timeline" className="relative z-10" ref={timelineSectionRef}>
-        {/* Title that will stick to the top only when in the timeline section */}
+      {/* Timeline Section - simplified with CSS sticky */}
+      <section id="timeline" className="relative z-10">
         <div
-          ref={timelineTitleRef}
-          className={`${isTitleAtTop ? "fixed top-0 left-0 right-0 pt-4 pb-3 sm:pt-6 sm:pb-4" : "pt-6 pb-4"
-            } bg-black z-30`}
+          ref={timelineHeaderRef}
+          className="sticky top-0 sm:top-[80px] pt-6 pb-4 bg-black z-30 w-full"
           style={{
-            paddingTop: isTitleAtTop ? "max(1rem, 1rem)" : "1.5rem",
-            paddingBottom: isTitleAtTop ? "0.75rem" : "1rem",
-            // Add hardware acceleration to prevent flickering when fixed
+            // Add hardware acceleration to prevent flickering when sticky
             transform: "translateZ(0)",
             backfaceVisibility: "hidden",
-            willChange: isTitleAtTop ? "transform" : "auto",
-            marginTop: isTitleAtTop ? "80px" : "0", // Add margin to prevent overlap with the navigation
+            willChange: "transform",
           }}
         >
           <div className="max-w-4xl mx-auto px-6">
             <motion.h2
               className="text-3xl md:text-5xl font-bold mb-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isTimelineHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8 }}
-              style={{ opacity: isExpertiseTitleInView ? 1 : 0 }}
             >
               MY JOURNEY
             </motion.h2>
             <motion.p
               className="text-base sm:text-lg text-gray-300"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isTimelineHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              style={{ opacity: isExpertiseTitleInView ? 1 : 0 }}
             >
               From junior designer to leading creative teams, my career has been defined by a passion for creating
               exceptional digital experiences that solve real problems.
@@ -396,8 +352,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Spacer to prevent content jump when title becomes fixed */}
-        {isTitleAtTop && <div className="h-[120px]"></div>}
 
         {/* Career highlights section with horizontal scrolling cards */}
         <div
@@ -418,8 +372,9 @@ export default function Home() {
         </div>
 
         {/* Optimized timeline component */}
-        <PlaygroundTimeline items={timelineItems} titleInView={isTitleAtTop} />
+        <PlaygroundTimeline items={timelineItems} />
       </section>
+
 
       {/* Bento Grid Section - Added before contact section */}
       <BentoGrid />

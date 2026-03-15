@@ -12,10 +12,10 @@ interface TimelineItem {
 interface PlaygroundTimelineProps {
   items: TimelineItem[]
   className?: string
-  titleInView?: boolean // Added prop for optimization
 }
 
-export default function PlaygroundTimeline({ items, className, titleInView }: PlaygroundTimelineProps) {
+export default function PlaygroundTimeline({ items, className }: PlaygroundTimelineProps) {
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
