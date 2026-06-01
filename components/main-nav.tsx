@@ -44,6 +44,7 @@ export default function MainNav() {
   const navItems = [
     { name: "Home", href: "/", className: "hidden md:block" },
     { name: "Web Development", href: "/frontend" },
+    { name: "E-Commerce", href: "/e-commerce" },
     { name: "Digital Marketing", href: "/marketing" },
     { name: "Copywriting", href: "/copywriting" },
     { name: "Video Editing", href: "/video-editing" },

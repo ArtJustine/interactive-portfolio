@@ -106,6 +106,13 @@ export default function Home() {
       link: "/frontend",
     },
     {
+      title: "E-Commerce Storefronts",
+      description: "Building, optimizing, and scaling high-converting online stores using Shopify, WordPress, and custom platforms.",
+      icon: "🛒",
+      color: "from-amber-500 to-orange-500",
+      link: "/e-commerce",
+    },
+    {
       title: "Digital Marketing",
       description: "Crafting intuitive user experiences and visually stunning interfaces that engage and delight.",
       icon: "💼",
