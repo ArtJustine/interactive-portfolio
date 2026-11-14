@@ -16,6 +16,14 @@ export default function MarketingPage() {
   
   const marketingProjects: Project[] = [
     {
+      id: 6,
+      title: "Local SEO for Taylor Plumbing Wellington",
+      description: "",
+      image: "/images/taylor-plumbing-wellington.jpg",
+      category: "Local SEO",
+      externalUrl: "https://taylorplumbingwellington.co.nz",
+    },
+    {
       id: 1,
       title: "SEO Optimization",
       description: "Technical and content SEO that achieved 5 featured snippets and top rankings in competitive niches.",
@@ -54,14 +62,6 @@ export default function MarketingPage() {
       image: "/images/affiliate.png",
       category: "Affiliate Marketing",
       externalUrl: "https://impact.com/",
-    },
-    {
-      id: 6,
-      title: "Local SEO for Taylor Plumbing Wellington",
-      description: "",
-      image: "/images/taylor-plumbing-wellington.jpg",
-      category: "Local SEO",
-      externalUrl: "https://taylorplumbingwellington.co.nz",
     },
   ]
 

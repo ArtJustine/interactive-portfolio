@@ -18,6 +18,14 @@ export default function FrontendPage() {
 
   const frontendProjects: Project[] = [
     {
+      id: 6,
+      title: "Smarter Home PH",
+      description: "",
+      image: "/images/smarterhomeph.jpg",
+      category: "Next.js & Vercel",
+      externalUrl: "https://smarterhomeph.vercel.app",
+    },
+    {
       id: 1,
       title: "Tech News Website",
       description: "Fully responsive online store with cart functionality and payment integration",
@@ -56,14 +64,6 @@ export default function FrontendPage() {
       image: "/images/ecommerce.png",
       category: "Shopify & Liquid",
       externalUrl: "https://petcareland.com/",
-    },
-    {
-      id: 6,
-      title: "Smarter Home PH",
-      description: "",
-      image: "/images/smarterhomeph.jpg",
-      category: "Next.js & Vercel",
-      externalUrl: "https://smarterhomeph.vercel.app",
     },
   ]
 

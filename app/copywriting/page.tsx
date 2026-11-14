@@ -17,6 +17,14 @@ export default function CopywritingPage() {
 
     const copywritingProjects: Project[] = [
         {
+            id: 5,
+            title: "Few Macs Latr - Apple News & Guides",
+            description: "",
+            image: "/images/fewmacslatr.jpg",
+            category: "Blog & News Writing",
+            externalUrl: "https://fewmacslatr.com",
+        },
+        {
             id: 1,
             title: "High-Conversion VSL",
             description: "A persuasive Video Sales Letter script crafted to hook audiences and drive direct-response sales.",
@@ -47,14 +55,6 @@ export default function CopywritingPage() {
             image: "/petcare.webp",
             category: "E-commerce",
             externalUrl: "https://petcareland.com/",
-        },
-        {
-            id: 5,
-            title: "Few Macs Latr - Apple News & Guides",
-            description: "",
-            image: "/images/fewmacslatr.jpg",
-            category: "Blog & News Writing",
-            externalUrl: "https://fewmacslatr.com",
         },
     ]
 

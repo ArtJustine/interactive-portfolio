@@ -17,6 +17,14 @@ export default function DesignPage() {
 
   const designProjects: Project[] = [
     {
+      id: 4,
+      title: "Aspire Express",
+      description: "",
+      image: "/images/aspire-express.jpg",
+      category: "Web Design",
+      externalUrl: "https://aspire-express.vercel.app",
+    },
+    {
       id: 1,
       title: "Mobile App UI Design",
       description: "Complete user interface design for a fitness tracking mobile application",
@@ -39,14 +47,6 @@ export default function DesignPage() {
       image: "/images/schoollandingpage.png",
       category: "Branding",
       externalUrl: "https://dribbble.com/shots/25847576-Clark-Air-Base-School",
-    },
-    {
-      id: 4,
-      title: "Aspire Express",
-      description: "",
-      image: "/images/aspire-express.jpg",
-      category: "Web Design",
-      externalUrl: "https://aspire-express.vercel.app",
     },/*
     {
       id: 4,

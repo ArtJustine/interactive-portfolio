@@ -17,6 +17,14 @@ export default function EcommercePage() {
 
   const ecommerceExperiences: Project[] = [
     {
+      id: 7,
+      title: "Let's Go Cornhole",
+      description: "",
+      image: "/images/lets-go-cornhole.jpg",
+      category: "Shopify Store",
+      externalUrl: "https://g6najf-1t.myshopify.com",
+    },
+    {
       id: 1,
       title: "MaisonPets NL",
       description: "Shopify Developer: Build and maintain Shopify stores for NL and DE marketplaces. Ensure site is SEO/GEO ready, and update collections and product pages for seasonal EU changes.",
