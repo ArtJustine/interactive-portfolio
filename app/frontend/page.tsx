@@ -57,6 +57,14 @@ export default function FrontendPage() {
       category: "Shopify & Liquid",
       externalUrl: "https://petcareland.com/",
     },
+    {
+      id: 6,
+      title: "Smarter Home PH",
+      description: "Local business website for a smart home installer serving Pampanga, Tarlac and Bulacan, with an interactive house demo and quote requests",
+      image: "/images/smarterhomeph.jpg",
+      category: "Next.js & Vercel",
+      externalUrl: "https://smarterhomeph.vercel.app",
+    },
   ]
 
   return (
