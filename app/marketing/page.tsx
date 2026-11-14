@@ -58,7 +58,7 @@ export default function MarketingPage() {
     {
       id: 6,
       title: "Local SEO for Taylor Plumbing Wellington",
-      description: "Ongoing SEO for a Wellington plumbing, gasfitting and drainlaying business covering Greater Wellington.",
+      description: "",
       image: "/images/taylor-plumbing-wellington.jpg",
       category: "Local SEO",
       externalUrl: "https://taylorplumbingwellington.co.nz",

@@ -84,7 +84,7 @@ export default function DesignPage() {
           <img src="/images/icons8-figma (2).svg" alt="Figma" className="h-10 w-10" />
           <img src="/images/icons8-photoshop.svg" alt="Adobe Photoshop" className="h-10 w-10" />
           <img src="/images/icons8-illustrator.svg" alt="Adobe Illustrator" className="h-10 w-10" />
-          <img src="/images/icons8-behance.svg" alt="Dribbble" className="h-10 w-10" />
+          <img src="/images/icons8-behance.svg" alt="Behance" className="h-10 w-10" />
         </div>
 
         <ProjectsGrid projects={designProjects} />

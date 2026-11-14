@@ -51,7 +51,7 @@ export default function CopywritingPage() {
         {
             id: 5,
             title: "Few Macs Latr - Apple News & Guides",
-            description: "Clear, search-friendly Apple news, update explainers and how-to articles written for everyday readers.",
+            description: "",
             image: "/images/fewmacslatr.jpg",
             category: "Blog & News Writing",
             externalUrl: "https://fewmacslatr.com",

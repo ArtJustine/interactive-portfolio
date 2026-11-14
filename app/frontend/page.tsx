@@ -60,7 +60,7 @@ export default function FrontendPage() {
     {
       id: 6,
       title: "Smarter Home PH",
-      description: "Local business website for a smart home installer serving Pampanga, Tarlac and Bulacan, with an interactive house demo and quote requests",
+      description: "",
       image: "/images/smarterhomeph.jpg",
       category: "Next.js & Vercel",
       externalUrl: "https://smarterhomeph.vercel.app",
