@@ -47,7 +47,7 @@ export default function FrontendPage() {
       description: "Progressive web app with offline capabilities and native-like experience",
       image: "/images/socialscheduler.png",
       category: "Next JS & Vercel",
-      externalUrl: "https://scheduler-seven-ivory.vercel.app/",
+      externalUrl: "https://chiyusocial.com",
     },
     {
       id: 5,
