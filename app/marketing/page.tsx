@@ -16,6 +16,14 @@ export default function MarketingPage() {
   
   const marketingProjects: Project[] = [
     {
+      id: 7,
+      title: "SEO for DeWalls Acoustic Specialties",
+      description: "",
+      image: "/images/dewalls.jpg",
+      category: "SEO",
+      externalUrl: "https://www.de-walls.com",
+    },
+    {
       id: 6,
       title: "Local SEO for Taylor Plumbing Wellington",
       description: "",
