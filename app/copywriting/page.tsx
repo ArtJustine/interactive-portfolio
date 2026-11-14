@@ -18,10 +18,10 @@ export default function CopywritingPage() {
     const copywritingProjects: Project[] = [
         {
             id: 5,
-            title: "Few Macs Latr - Apple News & Guides",
+            title: "Few Macs Latr",
             description: "",
             image: "/images/fewmacslatr.jpg",
-            category: "Blog & News Writing",
+            category: "Blog & News Writer",
             externalUrl: "https://fewmacslatr.com",
         },
         {
@@ -34,26 +34,26 @@ export default function CopywritingPage() {
         },
         {
             id: 2,
-            title: "Founder FAQs - Startup Articles",
+            title: "Founder FAQs",
             description: "In-depth, strategic content aimed at empowering startup founders with actionable insights and growth tactics.",
             image: "/saas.webp",
-            category: "Article Writing",
+            category: "Article Writer",
             externalUrl: "https://founderfaqs.com/",
         },
         {
             id: 3,
-            title: "Growth Lab Inc - LinkedIn Articles",
+            title: "Growth Lab Inc",
             description: "Thought leadership pieces and professional articles designed to build brand authority on LinkedIn.",
             image: "/linkedin.webp",
-            category: "LinkedIn Content",
+            category: "LinkedIn Content Writer",
             externalUrl: "https://www.linkedin.com/company/growth-lab-inc/posts/?feedView=articles",
         },
         {
             id: 4,
-            title: "PetCareLand - Ecommerce Copy",
+            title: "PetCareLand",
             description: "Sales-driven product descriptions and website copy for a leading pet care e-commerce platform.",
             image: "/petcare.webp",
-            category: "E-commerce",
+            category: "E-commerce Copywriter",
             externalUrl: "https://petcareland.com/",
         },
     ]

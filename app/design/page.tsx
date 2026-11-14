@@ -21,7 +21,7 @@ export default function DesignPage() {
       title: "Aspire Express",
       description: "",
       image: "/images/aspire-express.jpg",
-      category: "Web Design",
+      category: "Web Designer",
       externalUrl: "https://aspire-express.vercel.app",
     },
     {

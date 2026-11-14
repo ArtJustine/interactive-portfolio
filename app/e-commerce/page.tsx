@@ -21,7 +21,7 @@ export default function EcommercePage() {
       title: "Let's Go Cornhole",
       description: "",
       image: "/images/lets-go-cornhole.jpg",
-      category: "Shopify Store",
+      category: "Shopify Developer",
       externalUrl: "https://g6najf-1t.myshopify.com",
     },
     {
