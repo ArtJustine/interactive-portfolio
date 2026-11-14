@@ -53,7 +53,15 @@ export default function MarketingPage() {
       description: "Built a profitable affiliate program and partnered with niche influencers to drive brand trust and conversions.",
       image: "/images/affiliate.png",
       category: "Affiliate Marketing",
-      externalUrl: "https://impact.com/", 
+      externalUrl: "https://impact.com/",
+    },
+    {
+      id: 6,
+      title: "Local SEO for Taylor Plumbing Wellington",
+      description: "Ongoing SEO for a Wellington plumbing, gasfitting and drainlaying business covering Greater Wellington.",
+      image: "/images/taylor-plumbing-wellington.jpg",
+      category: "Local SEO",
+      externalUrl: "https://taylorplumbingwellington.co.nz",
     },
   ]
 

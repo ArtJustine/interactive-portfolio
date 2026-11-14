@@ -48,6 +48,14 @@ export default function CopywritingPage() {
             category: "E-commerce",
             externalUrl: "https://petcareland.com/",
         },
+        {
+            id: 5,
+            title: "Few Macs Latr - Apple News & Guides",
+            description: "Clear, search-friendly Apple news, update explainers and how-to articles written for everyday readers.",
+            image: "/images/fewmacslatr.jpg",
+            category: "Blog & News Writing",
+            externalUrl: "https://fewmacslatr.com",
+        },
     ]
 
     return (
