@@ -112,15 +112,15 @@ export default function ProjectCard({ title, description, image, category, index
             {category}
           </motion.span>
           <motion.h3
-            className="text-xl font-bold mb-1 flex items-center gap-2"
+            className="text-xl font-bold mb-1 min-h-[3.5rem] leading-7 flex items-start gap-2"
             animate={{ y: isHovered ? -5 : 0 }}
             transition={{ duration: 0.3 }}
           >
             {title}
-            {isHovered && <ExternalLink className="h-4 w-4" />}
+            {isHovered && <ExternalLink className="h-4 w-4 mt-1.5 shrink-0" />}
           </motion.h3>
           <motion.p
-            className="text-sm text-gray-300"
+            className="text-sm leading-5 text-gray-300 h-[3.75rem] overflow-hidden line-clamp-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: isHovered ? 1 : 0,
