@@ -34,11 +34,11 @@ export default function CopywritingPage() {
         },
         {
             id: 2,
-            title: "Founder FAQs",
-            description: "In-depth, strategic content aimed at empowering startup founders with actionable insights and growth tactics.",
+            title: "Flavour Blaster",
+            description: "",
             image: "/saas.webp",
-            category: "Article Writer",
-            externalUrl: "https://founderfaqs.com/",
+            category: "E-commerce Copywriter",
+            externalUrl: "https://flavourblaster.com/",
         },
         {
             id: 3,
