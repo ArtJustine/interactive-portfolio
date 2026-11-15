@@ -61,7 +61,7 @@ const BentoItem = ({
         transition={{ duration: 0.4, delay }}
         viewport={{ once: true, margin: "-20px" }}
         className={cn(
-          "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col cursor-pointer",
+          "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-colors duration-300 shadow-sm flex flex-col transform-gpu [backface-visibility:hidden] cursor-pointer",
           className,
         )}
         style={style}
@@ -81,7 +81,7 @@ const BentoItem = ({
       transition={{ duration: 0.4, delay }}
       viewport={{ once: true, margin: "-20px" }}
       className={cn(
-        "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-all duration-300 shadow-sm flex flex-col",
+        "group relative overflow-hidden rounded-xl p-6 bg-card border border-border hover:border-primary/20 transition-colors duration-300 shadow-sm flex flex-col transform-gpu [backface-visibility:hidden]",
         className,
       )}
       style={style}
@@ -171,7 +171,7 @@ export default function BentoGrid() {
         {bentoItems.map((item, index) => (
           <div
             key={`bg-${index}`}
-            className="absolute inset-0 w-full h-full transition-opacity duration-700 bg-cover bg-center"
+            className="absolute inset-0 w-full h-full transition-opacity duration-700 bg-cover bg-center transform-gpu will-change-[opacity]"
             style={{
               backgroundImage: `url(${item.backgroundImage})`,
               opacity: activeBackground === index ? 0.3 : 0,
